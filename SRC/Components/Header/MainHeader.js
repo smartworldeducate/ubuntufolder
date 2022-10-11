@@ -1,0 +1,178 @@
+import React from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useNavigation } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
+
+import colors from '../../Styles/colors';
+import fontFamily from "../../Styles/fontFamily"
+
+const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, campName, className, stuImage, stuStatus }) => {
+
+    const navigation = useNavigation();
+
+    const handleNavigate = (routeName, clearStack, params) => {
+        navigation.navigate(routeName, params);
+        if (clearStack) {
+            console.log("Clear")
+        }
+    }
+
+    return (
+        <View>
+            <View style={styles.mainView}>
+                <LinearGradient
+                    colors={['#296cb1', '#2760a7', '#203d88']}
+                    style={styles.linearGradient}>
+                    <View style={styles.leftView}>
+                        <TouchableOpacity onPress={onPressRightImg} style={styles.leftTouchable}>
+                            <Image
+                                source={{ uri: topLeftImg }}
+                                style={styles.imageStyle}
+                                resizeMode={"contain"}
+                            />
+                        </TouchableOpacity>
+                        <View style={styles.rightView}>
+                            <Text style={styles.textStyle}>{text}</Text>
+                        </View>
+                    </View>
+                </LinearGradient>
+            </View>
+            <View style={styles.infoMainView}>
+
+                <View style={styles.infoDetailsView}>
+                    <View>
+                        <Text style={styles.titleMain}>{stuName}</Text>
+                    </View>
+                    <View style={styles.sepratorView}>
+                    </View>
+
+                    <View>
+                        <Text style={styles.textDetails}>{stuNumber}</Text>
+                        <Text style={styles.textDetails}>{campName}</Text>
+                        <Text style={styles.textDetails}>{className}</Text>
+                    </View>
+                </View>
+
+                <View style={styles.imageMainView}>
+                    <View style={styles.imageView}>
+                        <Image
+                            source={{ uri: stuImage }}
+                            style={styles.mainImageStyle}
+                            resizeMode={"contain"}
+                        />
+                    </View>
+
+                    <View style={styles.textView}>
+                        <Text style={styles.textStatus}>
+                            <Text style={styles.statusSymbol}>{"🟢  "}</Text>
+                            {stuStatus}
+                        </Text>
+                    </View>
+
+                </View>
+            </View>
+        </View>
+
+    );
+}
+
+const styles = StyleSheet.create({
+    mainView: {
+        height: hp("18")
+    },
+    linearGradient: {
+        flex: 1
+    },
+    leftView: {
+        flexDirection: "row",
+        paddingTop: hp('2.5')
+    },
+    leftTouchable: {
+        flex: 0.2, alignItems: "center"
+    },
+    imageStyle: {
+        height: hp('3'),
+        width: wp("6")
+    },
+    rightView: {
+        flex: 0.8
+    },
+    textStyle: {
+        fontSize: hp('1.85'),
+        fontFamily: fontFamily.regularAlatsi,
+        color: colors.white
+    },
+    infoMainView: {
+        marginTop: hp('-10'),
+        height: hp("16"),
+        flexDirection: 'row',
+        marginHorizontal: wp('6'),
+        borderRadius: wp('4'), borderColor: colors.white, borderWidth: wp('0.15'),
+        backgroundColor: "white",
+        elevation: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.5,
+    },
+    infoDetailsView: {
+        flex: 0.65,
+        flexDirection: 'column',
+        padding: hp('2')
+    },
+    titleMain: {
+        fontSize: hp('2'),
+        fontFamily: fontFamily.regular,
+        color: "#296cb1"
+    },
+    titleText: {
+        color: colors.fbColor,
+        fontSize: hp('1.8'),
+        fontFamily: fontFamily.regular
+    },
+    sepratorView: {
+        height: hp('0.25'),
+        width: wp('15'),
+        backgroundColor: colors.lightOrange,
+        marginVertical: hp('1')
+    },
+    textDetails: {
+        color: colors.grey,
+        fontSize: hp('1.5'),
+        fontFamily: fontFamily.regularAlatsi,
+        lineHeight: hp('2')
+    },
+    imageMainView: {
+        flex: 0.35,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    imageView: {
+        height: hp('10'),
+        width: hp('10'),
+        marginVertical: hp('1'),
+        borderRadius: wp('3'),
+        borderColor: colors.lightOrange,
+        borderWidth: wp('0.5'),
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    mainImageStyle: {
+        height: hp('9'),
+        width: hp('18')
+    },
+    statusSymbol: {
+        fontSize: hp('1')
+    },
+    textView: {
+        justifyContent: 'center',
+        alignItems: "center"
+    },
+    textStatus: {
+        color: colors.fbColor,
+        fontSize: hp('1.25'),
+        fontFamily: fontFamily.regular
+    }
+});
+export default MainHeader;
