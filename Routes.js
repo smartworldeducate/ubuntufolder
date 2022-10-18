@@ -17,6 +17,7 @@ import Challans from './SRC/Screens/Challans';
 
 import ViewAllNotifications from './SRC/Screens/ViewAllNotifications';
 import AllPolicies from './SRC/Screens/Policies/AllPolicies';
+import ContactUs from './SRC/Screens/ContactUs';
 
 const Stack = createNativeStackNavigator();
 // const Drawer = createDrawerNavigator();
@@ -41,6 +42,7 @@ const Routes = () => {
                 <Stack.Screen name="Challans" component={Challans} />
                 <Stack.Screen name="ViewAllNotifications" component={ViewAllNotifications} />
                 <Stack.Screen name="AllPolicies" component={AllPolicies} />
+                <Stack.Screen name="ContactUs" component={ContactUs} />
             </Stack.Navigator>
         </NavigationContainer>
     );

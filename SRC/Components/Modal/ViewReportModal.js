@@ -10,7 +10,7 @@ const ViewReportModal = ({ modalVisible, onPressModal, text1, text2 }) => {
 
     return (
         <Modal
-            animationType="slide"
+            animationType="fade"
             transparent={true}
             visible={modalVisible}
             onRequestClose={null}
@@ -68,15 +68,12 @@ const styles = StyleSheet.create({
         borderRadius: wp('3'),
         borderColor: colors.white,
         borderWidth: wp('0.15'),
-        elevation: 20,
-        shadowColor: '#000',
-        // shadowOffset: { width: wp('0.5'), height: hp('0.5') },
-        // shadowOpacity: 3,
 
-        // shadowColor: '#171717',
-        shadowOffset: { width: -2, height: 4 },
-        shadowOpacity: hp('15'),
-        shadowRadius: 10,
+        elevation: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: -2, height: 1 },
+        // shadowOpacity: 0.25,
+        
     },
     modalCentralUpper: {
         flex: 0.85

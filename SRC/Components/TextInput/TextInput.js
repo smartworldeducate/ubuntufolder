@@ -4,7 +4,7 @@ import { StyleSheet, TextInput } from 'react-native';
 const TextInputCustom = ({
     style, onChange, onChangeText, placeholder,
     Value, placeholderColor, maxLength,
-    keyboardType, onPressIn, autoFocus,
+    keyboardType, multiline, onPressIn, autoFocus,
     onFocus, editable, secureTextEntry, returnKeyType
 }) => {
     return (
@@ -17,6 +17,7 @@ const TextInputCustom = ({
             placeholderTextColor={placeholderColor}
             maxLength={maxLength}
             keyboardType={keyboardType}
+            multiline={multiline}
             onPressIn={onPressIn}
             autoFocus={autoFocus}
             onFocus={onFocus}

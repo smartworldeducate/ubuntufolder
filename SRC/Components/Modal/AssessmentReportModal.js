@@ -11,7 +11,7 @@ const AssessmentReportModal = ({ modalVisible, onPressModal, reportQuatar, asses
 
     return (
         <Modal
-            animationType="slide"
+            animationType="fade"
             transparent={true}
             visible={modalVisible}
             onRequestClose={null}

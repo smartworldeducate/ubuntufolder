@@ -112,7 +112,7 @@ const OTPEnter = ({ route }) => {
             style={{ flex: 1 }}
             resizeMode={"stretch"}>
 
-            <View style={{ flex: 4 }}>
+            <View style={{ flex: 3.5 }}>
                 {/* <View style={{ backgroundColor: 'pink', alignItems: 'flex-end' }}>
                     <Text style={{}}>
                         Enter your registered mobile number
@@ -128,9 +128,9 @@ const OTPEnter = ({ route }) => {
 
             </View>
 
-            <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'white', marginBottom: hp('1'), marginHorizontal: wp('5'), borderRadius: wp('5') }}>
+            <View style={{ height: hp('20'), flexDirection: 'column', backgroundColor: 'white', marginHorizontal: wp('5'), borderRadius: wp('5') }}>
 
-                <View style={{ paddingHorizontal: wp('2'), height: hp('7'), justifyContent: 'center', paddingTop: hp('2'), paddingHorizontal: wp('5') }}>
+                <View style={{ paddingTop: wp('2'), height: hp('7'), justifyContent: 'flex-end', paddingTop: hp('2'), paddingHorizontal: wp('5')}}>
 
                     {/* <View style={{ flexDirection: "row", justifyContent: "space-evenly", justifyContent: 'center', marginHorizontal: wp('5') }}>
                         <View style={{ flex: 0.2, borderBottomColor: colors.grey, borderBottomWidth: wp('0.5'), }}>
@@ -213,9 +213,10 @@ const OTPEnter = ({ route }) => {
                     /> */}
                 </View>
 
-                <View style={{ flex: 1, justifyContent: "flex-end", marginHorizontal: wp('5'), marginBottom: hp('1.5') }}>
+                <View style={{ height: hp('8'), justifyContent: "flex-end", marginHorizontal: wp('5')}}>
 
-                    <Button onPress={() => handleNavigate("HomeScreen")}
+                    <Button
+                        onPress={() => handleNavigate("HomeScreen")}
                         height={hp('4.5')} borderRadius={wp('1.5')}
                         text="Submit Code"
                         bgColor={colors.appColor}
@@ -226,7 +227,7 @@ const OTPEnter = ({ route }) => {
                 </View>
             </View>
 
-            <View style={{ flex: 0.5, marginBottom: hp('3'), marginHorizontal: wp('5') }}>
+            <View style={{ flex: 0.5, marginVertical: hp('3'), marginHorizontal: wp('5') }}>
 
                 <Text style={{ color: colors.white, fontFamily: fontFamily.regular, fontSize: hp('1.5') }}>
                     Didn't receive the code? Tap here to <Text style={{ fontSize: hp('1.55'), fontWeight: 'bold', textDecorationLine: "underline" }}>Resend</Text>. {"\n"}Having trouble with the authentication? {"\n"}
