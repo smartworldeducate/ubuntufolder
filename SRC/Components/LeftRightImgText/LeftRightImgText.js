@@ -5,10 +5,10 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import colors from '../../Styles/colors';
 import fontFamily from "../../Styles/fontFamily";
 
-const LeftRightImgText = ({ leftText, onPressRight, rightText, img }) => {
+const LeftRightImgText = ({marginHorizontal, leftText, onPressRight, rightText, img }) => {
 
     return (
-        <View style={styles.mainView}>
+        <View style={{ flexDirection: 'row', marginHorizontal: marginHorizontal }}>
             <View style={styles.leftView}>
                 <Text style={styles.leftText}>{leftText}</Text>
             </View>

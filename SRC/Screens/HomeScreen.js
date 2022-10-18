@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, RefreshControl, View, Text, Image, TouchableOpacity } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 
@@ -18,6 +18,7 @@ import ListEmptyComponent from '../Components/FlatList/ListemptyComponent';
 const HomeScreen = () => {
 
     const navigation = useNavigation();
+    const [refreshing, setRefreshing] = React.useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [date, setDate] = useState();
     const [text, setText] = useState();
@@ -124,10 +125,37 @@ const HomeScreen = () => {
         onPressModal();
     }
 
+    const onRefresh = () => {
+        setRefreshing(true);
+        // initialCall();
+        console.log("add", 2 + 2);
+        setRefreshing(false);
+        // console.log("calling again", initialCall());
+    }
+
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#606060" }}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white }}>
-                <StatusBar barStyle={'light-content'} backgroundColor={"#606060"} />
+        <SafeAreaView style={{ flex: 1, backgroundColor: colors.lightBlack }}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        // we can implement multiple colors in the form of array 
+                        colors={[colors.fbColor, colors.paratGreen, colors.red]}
+                        // background color of the refresh indicator
+                        progressBackgroundColor={colors.silverGrey}
+                        tintColor={colors.white}
+
+                        // title={"loading"}
+                        // titleColor={colors.white}
+
+                    // size between 0 to 1
+                    // size={"large"}
+                    />
+                }
+
+            >
+                <StatusBar barStyle={'light-content'} backgroundColor={colors.lightBlack} />
 
                 <MainHeader
                     topLeftImg={"menu"}
@@ -143,7 +171,7 @@ const HomeScreen = () => {
                 <View style={styles.mainCentral}>
                     <View style={styles.centralView}>
                         <HomeCentralView
-                            onPress={() => handleNavigate("Attendance")}
+                            onPress={() => handleNavigate("AllPolicies")}
                             img={"attendence"}
                             text={"Attendance"}
                         />
@@ -171,6 +199,7 @@ const HomeScreen = () => {
                     leftText={"Notifications"}
                     rightText={"View All"}
                     img={"rightarrow"}
+                    marginHorizontal={wp('8')}
                 />
 
                 <LineSeprator
@@ -189,7 +218,7 @@ const HomeScreen = () => {
                             text={"Right Now there is no notification"}
                         />
                     }
-                    initialNumToRender={5}
+                    initialNumToRender={8}
                     ItemSeparatorComponent={<LineSeprator style={styles.listSeprator} />}
                 />
 
@@ -199,13 +228,16 @@ const HomeScreen = () => {
                 <ModalNotification
                     modalVisible={modalVisible}
                     onPressModal={onPressModal}
-                    to={to} details={details}
+                    modalUpperFlex={0.4}
+                    modalLowerFlex={0.6}
+                    to={to}
+                    details={details}
                     sentBy={sentBy}
                 />
 
 
             </ScrollView>
-        </SafeAreaView>
+        </SafeAreaView >
     );
 }
 

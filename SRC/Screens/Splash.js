@@ -33,7 +33,7 @@ const Splash = () => {
         <ImageBackground
             source={{ uri: "mainsplash" }}
             style={{ flex: 1 }}
-            resizeMode={"cover"}>
+            resizeMode={"stretch"}>
 
         </ImageBackground>
 

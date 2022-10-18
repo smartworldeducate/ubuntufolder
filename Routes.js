@@ -1,5 +1,5 @@
 
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -16,6 +16,7 @@ import Assessment from './SRC/Screens/Assessment';
 import Challans from './SRC/Screens/Challans';
 
 import ViewAllNotifications from './SRC/Screens/ViewAllNotifications';
+import AllPolicies from './SRC/Screens/Policies/AllPolicies';
 
 const Stack = createNativeStackNavigator();
 // const Drawer = createDrawerNavigator();
@@ -24,9 +25,9 @@ const Stack = createNativeStackNavigator();
 const Routes = () => {
 
     return (
-        
+
         <NavigationContainer>
-            <Stack.Navigator initialRouteName={"HomeScreen"}
+            <Stack.Navigator initialRouteName={"Splash"}
                 screenOptions={{
                     headerShown: false
                 }}
@@ -39,6 +40,7 @@ const Routes = () => {
                 <Stack.Screen name="Assessment" component={Assessment} />
                 <Stack.Screen name="Challans" component={Challans} />
                 <Stack.Screen name="ViewAllNotifications" component={ViewAllNotifications} />
+                <Stack.Screen name="AllPolicies" component={AllPolicies} />
             </Stack.Navigator>
         </NavigationContainer>
     );

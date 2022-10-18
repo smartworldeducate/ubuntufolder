@@ -93,6 +93,7 @@ const ViewAllNotifications = ({ route }) => {
                 <View style={styles.notificationView}>
                     <LeftRightImgText
                         leftText={"Notifications"}
+                        marginHorizontal={wp('8')}
                     />
                 </View>
 
@@ -112,6 +113,8 @@ const ViewAllNotifications = ({ route }) => {
                 <ModalNotification
                     modalVisible={modalVisible}
                     onPressModal={onPressModal}
+                    modalUpperFlex={0.4}
+                    modalLowerFlex={0.6}
                     to={to}
                     details={details}
                     sentBy={sentBy}

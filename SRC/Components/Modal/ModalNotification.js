@@ -6,7 +6,7 @@ import colors from '../../Styles/colors';
 import fontFamily from "../../Styles/fontFamily";
 import NotificationHeader from '../Header/NotificationHeader';
 
-const ModalNotification = ({ modalVisible, onPressModal, to, details, sentBy }) => {
+const ModalNotification = ({ modalVisible, onPressModal, modalUpperFlex, modalLowerFlex, to, details, sentBy }) => {
 
     return (
         <Modal
@@ -19,11 +19,11 @@ const ModalNotification = ({ modalVisible, onPressModal, to, details, sentBy }) 
 
                 <TouchableOpacity
                     onPress={onPressModal}
-                    style={styles.modalUpperView}>
+                    style={{ flex: modalUpperFlex }}>
 
                 </TouchableOpacity>
 
-                <View style={styles.modalLowerView}>
+                <View style={{ flex: modalLowerFlex, backgroundColor: colors.white }}>
                     <NotificationHeader
                         text={"Notification Details"}
                         rightImg={"crosscircle"}

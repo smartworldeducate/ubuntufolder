@@ -110,7 +110,7 @@ const OTPEnter = ({ route }) => {
         <ImageBackground
             source={{ uri: "mainsplash" }}
             style={{ flex: 1 }}
-            resizeMode={"cover"}>
+            resizeMode={"stretch"}>
 
             <View style={{ flex: 4 }}>
                 {/* <View style={{ backgroundColor: 'pink', alignItems: 'flex-end' }}>

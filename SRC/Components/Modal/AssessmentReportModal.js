@@ -7,7 +7,7 @@ import fontFamily from "../../Styles/fontFamily";
 import FlatListItem from '../FlatList/FlatList';
 import MainHeader from '../Header/MainHeader';
 
-const AssessmentReportModal = ({ modalVisible, onPressModal, reportQuatar, assessmentYear, stdClass, campus, termAttendence, stdSubjectsResults, renderSubjectsItem }) => {
+const AssessmentReportModal = ({ modalVisible, onPressModal, reportQuatar, assessmentYear, stdClass, campus, termAttendence, stdSubjectsResults, renderSubjectsItem, text1, text2, text3, text4 }) => {
 
     return (
         <Modal
@@ -23,7 +23,7 @@ const AssessmentReportModal = ({ modalVisible, onPressModal, reportQuatar, asses
 
                         <MainHeader
                             onPressRightImg={onPressModal}
-                            topLeftImg={"close"}
+                            topLeftImg={"backarrow"}
                             text={reportQuatar}
                             stuName={"Azaan Ali"}
                             stuNumber={"170838"}
@@ -63,6 +63,20 @@ const AssessmentReportModal = ({ modalVisible, onPressModal, reportQuatar, asses
                                 />
                             </View>
 
+                        </View>
+
+                        <View style={styles.remarksSection}>
+                            <Text style={styles.remarksHeadsText}>School Head remarks</Text>
+                            <Text style={styles.remarksDetailsText}>{text1}</Text>
+
+                            <Text style={styles.remarksHeadsText}>Class Teacher remarks</Text>
+                            <Text style={styles.remarksDetailsText}>{text2}</Text>
+
+                            <Text style={styles.remarksHeadsText}>Achievements</Text>
+                            <Text style={styles.remarksDetailsText}>{text3}</Text>
+
+                            <Text style={styles.remarksHeadsText}>Self Assessment</Text>
+                            <Text style={styles.remarksDetailsText}>{text4}</Text>
                         </View>
 
                     </View>
@@ -112,7 +126,27 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontFamily: fontFamily.semiBold,
         fontSize: hp('1.65')
-
+    },
+    remarksSection: {
+        marginHorizontal: wp('7'),
+        marginVertical: hp('3'),
+        borderRadius: hp('2'),
+        borderColor: colors.appColor,
+        borderWidth: wp('0.15'),
+        paddingHorizontal: hp('2'),
+        paddingVertical: hp('1')
+    },
+    remarksHeadsText: {
+        color: colors.appColor,
+        fontSize: hp('1.6'),
+        fontFamily: fontFamily.semiBold,
+        lineHeight: hp('2.5')
+    },
+    remarksDetailsText: {
+        color: colors.lightBlack,
+        fontSize: hp('1.4'),
+        fontFamily: fontFamily.regular,
+        lineHeight: hp('2.5')
     }
 
 });
