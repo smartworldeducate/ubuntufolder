@@ -25,5 +25,5 @@ const FlatListItem = ({
   );
 };
 
-const styles = StyleSheet.create({});
+const style = StyleSheet.create({});
 export default FlatListItem;
