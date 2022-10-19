@@ -173,7 +173,7 @@ const HomeScreen = () => {
                 <View style={styles.mainCentral}>
                     <View style={styles.centralView}>
                         <HomeCentralView
-                            onPress={() => handleNavigate("AllPolicies")}
+                            onPress={() => handleNavigate("WithdrawlRequest")}
                             img={"attendence"}
                             text={"Attendance"}
                         />
@@ -237,7 +237,7 @@ const HomeScreen = () => {
                     sentBy={sentBy}
                 />
 
-                <View style={{marginBottom:hp('5')}}></View>
+                <View style={{ marginBottom: hp('5') }}></View>
 
 
             </ScrollView>

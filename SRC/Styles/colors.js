@@ -15,7 +15,8 @@ const colors = {
   transparentBlack: "rgba(0,0,0,0.8)",
   silverGrey: "#F8F8F8",
   lightOrange: "#fbdd4b",
-  appColor:"#2969ae"
+  appColor: "#2969ae",
+  appDarkColor: "#224892"
 };
 
 export default colors;

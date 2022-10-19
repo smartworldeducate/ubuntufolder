@@ -19,6 +19,8 @@ import ViewAllNotifications from './SRC/Screens/ViewAllNotifications';
 import AllPolicies from './SRC/Screens/Policies/AllPolicies';
 import ContactUs from './SRC/Screens/ContactUs';
 
+import WithdrawlRequest from './SRC/Screens/WithdrawlRequest/WithdrawlRequest';
+
 const Stack = createNativeStackNavigator();
 // const Drawer = createDrawerNavigator();
 
@@ -28,7 +30,7 @@ const Routes = () => {
     return (
 
         <NavigationContainer>
-            <Stack.Navigator initialRouteName={"Splash"}
+            <Stack.Navigator initialRouteName={"HomeScreen"}
                 screenOptions={{
                     headerShown: false
                 }}
@@ -43,6 +45,7 @@ const Routes = () => {
                 <Stack.Screen name="ViewAllNotifications" component={ViewAllNotifications} />
                 <Stack.Screen name="AllPolicies" component={AllPolicies} />
                 <Stack.Screen name="ContactUs" component={ContactUs} />
+                <Stack.Screen name="WithdrawlRequest" component={WithdrawlRequest} />
             </Stack.Navigator>
         </NavigationContainer>
     );

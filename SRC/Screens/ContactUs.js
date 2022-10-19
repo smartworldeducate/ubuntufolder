@@ -15,13 +15,28 @@ const ContactUs = () => {
 
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
+    const [innerModalVisible, setInnerModalVisible] = useState(false);
+
     const [inputContactState, setInputContactState] = useState('');
     const [selectedRec, setSelectedRec] = useState('');
+
+    const [selectedCompl, setSelectedCompl] = useState('');
 
     const [recommendations, setRecommendations] = useState([
         { id: 1, recName: "Suggestion", byDefault: true },
         { id: 2, recName: "Complaint", byDefault: false },
     ]);
+
+    const [allComplaints, setAllComplaints] = useState([
+        { id: 1, complainTitle: "Fee Challan Issue", byDefaultValue: true },
+        { id: 2, complainTitle: "School Adminstration", byDefaultValue: false },
+        { id: 3, complainTitle: "Teaching Staff", byDefaultValue: false },
+        { id: 4, complainTitle: "Student Well Being", byDefaultValue: false },
+        { id: 5, complainTitle: "Others", byDefaultValue: false },
+    ]);
+
+    const [suggestion, setSuggestion] = useState(true);
+    const [Complaint, setComplaint] = useState(false);
 
     const handleNavigate = (routeName, clearStack, params) => {
         navigation.navigate(routeName, params);
@@ -38,25 +53,52 @@ const ContactUs = () => {
         setModalVisible(!modalVisible);
     }
 
+    const onPressLowerModal = () => {
+        setInnerModalVisible(!innerModalVisible);
+    }
+
     const onChangeContact = (val) => {
         setInputContactState(val);
     }
 
-    const onPressSelected = (val) => {
-        setSelectedRec(val.recName);
+    const onPressSelected = ({ item }) => {
+        // console.log("realVal", item.byDefault);
+        // console.log("changeVal", item.byDefault = true ? true : false);
+        setSelectedRec(item.recName);
         setModalVisible(!modalVisible);
+        // console.log("recommendations", recommendations);
+
+
+        if (item.id == 1) {
+            setSuggestion(true);
+            setComplaint(false);
+        } else {
+            setSuggestion(false);
+            setComplaint(true);
+        }
+
+        // console.log("suggestion", suggestion);
+        // console.log("Complaint", Complaint);
+
+        // setRecommendations(recommendations.byDefault = item.byDefault = true ? true : false)
+
+    }
+
+    const onPressSelectedComplain = ({ item }) => {
+        setSelectedCompl(item.complainTitle);
+        setInnerModalVisible(!innerModalVisible);
     }
 
     const renderItem = ({ item }) => {
         return (
             <View>
-                <TouchableOpacity onPress={() => onPressSelected(item)} style={{ flexDirection: 'row', marginHorizontal: wp('3') }}>
+                <TouchableOpacity onPress={() => onPressSelected({ item })} style={{ flexDirection: 'row', marginHorizontal: wp('3') }}>
                     <View style={{ flex: 0.85, justifyContent: 'center' }}>
                         <Text style={styles.modalText}>{item.recName}</Text>
                     </View>
                     <View style={{ flex: 0.15, justifyContent: 'center', alignItems: 'flex-end', marginVertical: hp('2') }}>
                         <Image
-                            source={{ uri: "addlocation" }}
+                            source={{ uri: "circleselect" }}
                             style={{ height: hp('2'), width: wp('4') }}
                             resizeMode={"contain"}
                         />
@@ -65,6 +107,28 @@ const ContactUs = () => {
 
                 <LineSeprator style={styles.lineSeprator} />
             </View>
+        );
+    }
+
+    const renderItemComplaints = ({ item }) => {
+        console.log("itemComplaints", item);
+        return (
+            <View style={{}}>
+                <TouchableOpacity onPress={() => onPressSelectedComplain({ item })} style={{ flexDirection: 'row', marginHorizontal: wp('3') }}>
+                    <View style={{ flex: 0.85, justifyContent: 'center' }}>
+                        <Text style={styles.modalText}>{item.complainTitle}</Text>
+                    </View>
+                    <View style={{ flex: 0.15, justifyContent: 'center', alignItems: 'flex-end', marginVertical: hp('2') }}>
+                        <Image
+                            source={{ uri: "circleselect" }}
+                            style={{ height: hp('2'), width: wp('4') }}
+                            resizeMode={"contain"}
+                        />
+                    </View>
+                </TouchableOpacity>
+
+                <LineSeprator style={styles.lineSeprator} />
+            </View >
         );
     }
 
@@ -126,6 +190,73 @@ const ContactUs = () => {
                     </View>
 
                 </TouchableOpacity>
+
+
+
+                {/* below */}
+
+
+                {
+                    Complaint ?
+
+                        <TouchableOpacity onPress={onPressLowerModal} style={{ flexDirection: 'row', height: hp('6'), marginHorizontal: wp('6'), borderColor: colors.grey, borderWidth: wp('0.15'), borderRadius: wp('3'), marginTop: hp('3') }}>
+
+                            <View style={{ flex: 0.85, justifyContent: 'center' }}>
+                                <Text style={{ marginLeft: hp('2'), fontSize: hp('1.75'), fontFamily: fontFamily.regularAlatsi, color: colors.appColor }}>{selectedCompl.length > 0 ? selectedCompl : 'Others'}</Text>
+                            </View>
+
+                            <Modal
+                                animationType="fade"
+                                transparent={true}
+                                visible={innerModalVisible}
+                                onRequestClose={() => {
+                                    Alert.alert("Modal has been closed.");
+                                    setInnerModalVisible(!innerModalVisible);
+                                }}
+                            >
+
+                                <View style={styles.modalMainView}>
+                                    <TouchableOpacity onPress={onPressLowerModal} style={{ flex: 0.4 }}></TouchableOpacity>
+                                    <View style={styles.lowerModalView}>
+                                        <FlatListItem
+                                            data={allComplaints}
+                                            renderItem={renderItemComplaints}
+                                        />
+
+                                    </View>
+                                    <TouchableOpacity onPress={onPressLowerModal} style={{ flex: 0.45 }}></TouchableOpacity>
+                                </View>
+
+                            </Modal>
+
+                            <View style={{ flex: 0.15, justifyContent: 'center', alignItems: 'center' }}>
+                                <Image
+                                    source={{ uri: "arrowdown" }}
+                                    style={{ height: hp('2'), width: wp('4') }}
+                                    resizeMode={"contain"}
+                                />
+                            </View>
+
+                        </TouchableOpacity>
+
+                        :
+                        <></>
+
+                }
+
+
+
+
+
+                {/* below */}
+
+
+
+
+
+
+
+
 
                 <View style={{ height: hp('20'), marginHorizontal: wp('6'), borderColor: colors.grey, borderWidth: wp('0.15'), borderRadius: wp('3'), marginTop: hp('3') }}>
                     <TextInputCustom
@@ -203,6 +334,20 @@ const styles = StyleSheet.create({
         backgroundColor: colors.grey,
         marginLeft: wp('5'),
 
+    },
+    lowerModalView: {
+        justifyContent: "center",
+
+        backgroundColor: "white",
+        padding: hp('1'),
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 10,
     },
 });
 export default ContactUs;
