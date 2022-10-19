@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, View, Text, Image, TouchableOpacity, Alert } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, View, Text, Image, TouchableOpacity, Platform, RefreshControl } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 import FlatListItem from '../Components/FlatList/FlatList';
@@ -17,6 +17,7 @@ import ViewReportModal from '../Components/Modal/ViewReportModal';
 const Assessment = () => {
 
     const navigation = useNavigation();
+    const [refreshing, setRefreshing] = React.useState(false);
 
     const [dateFrom, setDateFrom] = useState();
     const [dateTo, setDateTo] = useState();
@@ -91,6 +92,14 @@ const Assessment = () => {
         { id: 6, subName: 'Music', obtainMarks: 46, totalMarks: 50, remarks: "Very good improvements" },
         { id: 7, subName: 'Visual Arts', obtainMarks: 17, totalMarks: 50, remarks: "Need highly improvements" },
     ])
+
+    const onRefresh = () => {
+        setRefreshing(true);
+        // initialCall();
+        console.log("add", 2 + 2);
+        setRefreshing(false);
+        // console.log("calling again", initialCall());
+    }
 
     const onPressModal = () => {
         setModalVisible(!modalVisible)
@@ -229,21 +238,42 @@ const Assessment = () => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#606060" }}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white }}>
-                <StatusBar barStyle={'light-content'} backgroundColor={"#606060"} />
+        <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.lightBlack }}>
+            <StatusBar barStyle={'light-content'} backgroundColor={"#606060"} />
 
-                <MainHeader
-                    onPressRightImg={() => navigation.goBack()}
-                    topLeftImg={"backarrow"}
-                    text={"Assessment"}
-                    stuName={"Azaan Ali"}
-                    stuNumber={"170838"}
-                    campName={"Canal side Campus"}
-                    className={"Class 3 - Red"}
-                    stuImage={"student"}
-                    stuStatus={"On-Roll"}
-                />
+            <MainHeader
+                onPressRightImg={() => navigation.goBack()}
+                topLeftImg={"backarrow"}
+                text={"Assessment"}
+                stuName={"Azaan Ali"}
+                stuNumber={"170838"}
+                campName={"Canal side Campus"}
+                className={"Class 3 - Red"}
+                stuImage={"student"}
+                stuStatus={"On-Roll"}
+            />
+
+            <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white, marginVertical: hp(2) }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        // we can implement multiple colors in the form of array 
+                        colors={[colors.fbColor, colors.paratGreen, colors.red]}
+                        // background color of the refresh indicator
+                        progressBackgroundColor={colors.silverGrey}
+                        tintColor={colors.white}
+
+                    // title={"loading"}
+                    // titleColor={colors.white}
+
+                    // size between 0 to 1
+                    // size={"large"}
+                    />
+                }
+
+            >
+
 
                 <View style={{ marginHorizontal: wp('8'), marginVertical: hp('2') }}>
                     <FlatListItem

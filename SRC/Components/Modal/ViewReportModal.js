@@ -10,7 +10,7 @@ const ViewReportModal = ({ modalVisible, onPressModal, text1, text2 }) => {
 
     return (
         <Modal
-            animationType="fade"
+            animationType="none"
             transparent={true}
             visible={modalVisible}
             onRequestClose={null}

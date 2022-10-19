@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, View, Text, Image, TouchableOpacity, Modal } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, View, Text, Image, TouchableOpacity, Modal, Platform } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 import fontFamily from '../Styles/fontFamily';
@@ -69,25 +69,25 @@ const ContactUs = () => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: colors.lightBlack }}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white }} >
-                <StatusBar barStyle={'light-content'} backgroundColor={colors.lightBlack} />
+        <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.lightBlack }}>
 
-                <MainHeader
-                    onPressRightImg={() => navigation.goBack()}
-                    topLeftImg={"menu"}
-                    text={"Contact Us"}
-                    stuName={"Azaan Ali"}
-                    stuNumber={"170838"}
-                    campName={"Canal side Campus"}
-                    className={"Class 3 - Red"}
-                    stuImage={"student"}
-                    stuStatus={"On-Roll"}
-                />
+            <StatusBar barStyle={'light-content'} backgroundColor={colors.lightBlack} />
 
+            <MainHeader
+                onPressRightImg={() => navigation.goBack()}
+                topLeftImg={"menu"}
+                text={"Contact Us"}
+                stuName={"Azaan Ali"}
+                stuNumber={"170838"}
+                campName={"Canal side Campus"}
+                className={"Class 3 - Red"}
+                stuImage={"student"}
+                stuStatus={"On-Roll"}
+            />
+
+            <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white, marginVertical: hp(2) }} >
 
                 <TouchableOpacity onPress={onPressDropDown} style={{ flexDirection: 'row', height: hp('6'), marginHorizontal: wp('6'), borderColor: colors.grey, borderWidth: wp('0.15'), borderRadius: wp('3'), marginTop: hp('7') }}>
-
 
                     <View style={{ flex: 0.85, justifyContent: 'center' }}>
                         <Text style={{ marginLeft: hp('2'), fontSize: hp('1.75'), fontFamily: fontFamily.regularAlatsi, color: colors.appColor }}>{selectedRec.length > 0 ? selectedRec : 'Suggestion'}</Text>
@@ -184,7 +184,8 @@ const styles = StyleSheet.create({
         elevation: 10
     },
     textInputCustomStyle: {
-        margin: wp('3'),
+        paddingLeft: wp('4'),
+        paddingVertical: hp('1'),
         fontSize: hp('1.65'),
         fontFamily: fontFamily.regular,
         color: colors.appColor,

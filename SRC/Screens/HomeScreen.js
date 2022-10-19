@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, RefreshControl, View, Text, Image, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, RefreshControl, View, Text, Image, TouchableOpacity, Platform } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 
@@ -134,8 +134,21 @@ const HomeScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: colors.lightBlack }}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white }}
+        <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.lightBlack }}>
+
+            <StatusBar barStyle={'light-content'} backgroundColor={colors.lightBlack} />
+
+            <MainHeader
+                topLeftImg={"menu"}
+                text={"Student Profile"}
+                stuName={"Azaan Ali"}
+                stuNumber={"170838"}
+                campName={"Canal side Campus"}
+                className={"Class 3 - Red"}
+                stuImage={"student"}
+                stuStatus={"On-Roll"}
+            />
+            <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white, marginVertical: hp(2) }}
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}
@@ -146,8 +159,8 @@ const HomeScreen = () => {
                         progressBackgroundColor={colors.silverGrey}
                         tintColor={colors.white}
 
-                        // title={"loading"}
-                        // titleColor={colors.white}
+                    // title={"loading"}
+                    // titleColor={colors.white}
 
                     // size between 0 to 1
                     // size={"large"}
@@ -155,18 +168,7 @@ const HomeScreen = () => {
                 }
 
             >
-                <StatusBar barStyle={'light-content'} backgroundColor={colors.lightBlack} />
 
-                <MainHeader
-                    topLeftImg={"menu"}
-                    text={"Student Profile"}
-                    stuName={"Azaan Ali"}
-                    stuNumber={"170838"}
-                    campName={"Canal side Campus"}
-                    className={"Class 3 - Red"}
-                    stuImage={"student"}
-                    stuStatus={"On-Roll"}
-                />
 
                 <View style={styles.mainCentral}>
                     <View style={styles.centralView}>
@@ -234,6 +236,8 @@ const HomeScreen = () => {
                     details={details}
                     sentBy={sentBy}
                 />
+
+                <View style={{marginBottom:hp('5')}}></View>
 
 
             </ScrollView>

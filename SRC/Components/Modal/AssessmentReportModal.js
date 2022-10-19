@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, StatusBar, Modal } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, StatusBar, Modal, Platform } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import colors from '../../Styles/colors';
@@ -16,22 +16,28 @@ const AssessmentReportModal = ({ modalVisible, onPressModal, reportQuatar, asses
             visible={modalVisible}
             onRequestClose={null}
         >
-            <SafeAreaView style={{ flex: 1, backgroundColor: "#606060" }}>
-                <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white }}>
-                    <StatusBar barStyle={'light-content'} backgroundColor={"#606060"} />
+            <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.lightBlack }}>
+
+                <StatusBar barStyle={'light-content'} backgroundColor={"#606060"} />
+
+                <MainHeader
+                    onPressRightImg={onPressModal}
+                    topLeftImg={"backarrow"}
+                    text={reportQuatar}
+                    stuName={"Azaan Ali"}
+                    stuNumber={"170838"}
+                    campName={"Canal side Campus"}
+                    className={"Class 3 - Red"}
+                    stuImage={"student"}
+                    stuStatus={"On-Roll"}
+                />
+
+                <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white, marginVertical: hp(2) }}>
+
+
                     <View style={{ flex: 1 }}>
 
-                        <MainHeader
-                            onPressRightImg={onPressModal}
-                            topLeftImg={"backarrow"}
-                            text={reportQuatar}
-                            stuName={"Azaan Ali"}
-                            stuNumber={"170838"}
-                            campName={"Canal side Campus"}
-                            className={"Class 3 - Red"}
-                            stuImage={"student"}
-                            stuStatus={"On-Roll"}
-                        />
+
 
                         <View style={styles.detailsView}>
                             <Text style={styles.assessmentYearText}>{assessmentYear}</Text>

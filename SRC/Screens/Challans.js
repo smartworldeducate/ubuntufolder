@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, View, Text, Image, TouchableOpacity, Platform, RefreshControl } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 
@@ -14,6 +14,7 @@ import fontFamily from '../Styles/fontFamily';
 const Challans = () => {
 
     const navigation = useNavigation();
+    const [refreshing, setRefreshing] = React.useState(false);
 
     const handleNavigate = (routeName, clearStack, params) => {
         navigation.navigate(routeName, params);
@@ -32,6 +33,14 @@ const Challans = () => {
         { id: 2, challnaDate: 'Mar 2022 - Mar 2022', amount: '8500', challnaDate: 'Mar 2022 - Mar 2022', paidDate: '20-Mar' },
         { id: 3, challnaDate: 'Feb 2022 - Feb 2022', amount: '8000', challnaDate: 'Feb 2022 - Feb 2022', paidDate: '20-Feb' }
     ])
+
+    const onRefresh = () => {
+        setRefreshing(true);
+        // initialCall();
+        console.log("add", 2 + 2);
+        setRefreshing(false);
+        // console.log("calling again", initialCall());
+    }
 
     const renderItem = ({ item, index }) => {
 
@@ -108,21 +117,42 @@ const Challans = () => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#606060" }}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white }}>
-                <StatusBar barStyle={'light-content'} backgroundColor={"#606060"} />
+        <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.lightBlack }}>
 
-                <MainHeader
-                    onPressRightImg={() => navigation.goBack()}
-                    topLeftImg={"backarrow"}
-                    text={"Challans"}
-                    stuName={"Azaan Ali"}
-                    stuNumber={"170838"}
-                    campName={"Canal side Campus"}
-                    className={"Class 3 - Red"}
-                    stuImage={"student"}
-                    stuStatus={"On-Roll"}
-                />
+            <StatusBar barStyle={'light-content'} backgroundColor={"#606060"} />
+
+            <MainHeader
+                onPressRightImg={() => navigation.goBack()}
+                topLeftImg={"backarrow"}
+                text={"Challans"}
+                stuName={"Azaan Ali"}
+                stuNumber={"170838"}
+                campName={"Canal side Campus"}
+                className={"Class 3 - Red"}
+                stuImage={"student"}
+                stuStatus={"On-Roll"}
+            />
+
+            <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white, marginVertical: hp(2) }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        // we can implement multiple colors in the form of array 
+                        colors={[colors.fbColor, colors.paratGreen, colors.red]}
+                        // background color of the refresh indicator
+                        progressBackgroundColor={colors.silverGrey}
+                        tintColor={colors.white}
+
+                    // title={"loading"}
+                    // titleColor={colors.white}
+
+                    // size between 0 to 1
+                    // size={"large"}
+                    />
+                }
+            >
+
 
                 <View style={{ marginTop: hp('5') }}>
                     <FlatListItem
@@ -159,6 +189,10 @@ const Challans = () => {
                         renderItem={renderItemPastChallan}
                         keyExtractor={(item, index) => index.toString()}
                     />
+
+                </View>
+
+                <View style={{ marginBottom: hp('2') }}>
 
                 </View>
 
