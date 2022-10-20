@@ -56,9 +56,10 @@ const styles = StyleSheet.create({
     },
 
     textStyle: {
-        fontSize: hp('1.65'),
-        fontFamily: fontFamily.regularAlatsi,
+        fontSize: hp('1.85'),
+        fontFamily: fontFamily.semiBold,
         color: colors.white,
+        fontWeight:"bold"
     },
 });
 export default NotificationHeader;

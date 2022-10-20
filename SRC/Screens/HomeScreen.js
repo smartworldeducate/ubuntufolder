@@ -303,8 +303,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start'
     },
     listRightImg: {
-        height: hp('1.25'),
-        width: wp('2')
+        height: hp('1.5'),
+        width: wp('3')
     },
     styleImg: {
         height: hp('15'),

@@ -6,6 +6,8 @@ import colors from '../../Styles/colors';
 import MainHeader from '../../Components/Header/MainHeader';
 import WithdrawlCentral from '../../Components/Withdrawl/WithdrawlCentral';
 import Step1 from './Step1';
+import Step2 from './Step2';
+import Step3 from './Step3';
 
 
 const WithdrawlRequest = () => {
@@ -22,6 +24,28 @@ const WithdrawlRequest = () => {
         if (clearStack) {
             console.log("Clear")
         }
+    }
+
+    const onPressStep1Btn = () => {
+        setStep2(true);
+        setStep1(false);
+    }
+
+    const onPressStep2Back = () => {
+        setStep2(false);
+        setStep1(true);
+    }
+
+    const onPressStep2Next = () => {
+        setStep3(true);
+        setStep1(false);
+        setStep2(false);
+    }
+
+    const onPressStep3Back = () => {
+        setStep3(false);
+        setStep1(false);
+        setStep2(true);
     }
 
     return (
@@ -56,7 +80,7 @@ const WithdrawlRequest = () => {
 
                     <View style={styles.mainInnerView}>
                         <WithdrawlCentral
-                            backgroundColor={colors.grey}
+                            backgroundColor={step2 ? colors.appDarkColor : colors.grey}
                             text1={2}
                             text2={"Step 2"}
                         />
@@ -66,7 +90,7 @@ const WithdrawlRequest = () => {
 
                     <View style={styles.mainInnerView}>
                         <WithdrawlCentral
-                            backgroundColor={colors.grey}
+                            backgroundColor={step3 ? colors.appDarkColor : colors.grey}
                             text1={3}
                             text2={"Step 3"}
                         />
@@ -86,8 +110,24 @@ const WithdrawlRequest = () => {
 
                 {
                     step1 &&
-                    <Step1 
+                    <Step1
+                        onPressStep1Btn={onPressStep1Btn}
                         step1Text={"Use the online image color picker above to select a color and get the HTML Color Code of this pixel. Also you get the HEX color code value, RGB value and HSV value. Under 'Use Your Image' You can upload your own image (for example an screenshot of your desktop), paste an image from clipboard, put a picture url in the textbox below. Or use an website url, you will see a thumbnail on the left side."}
+                    />
+                }
+
+                {
+                    step2 &&
+                    <Step2
+                        onPressBack={onPressStep2Back}
+                        onPressNext={onPressStep2Next}
+                    />
+                }
+
+                {
+                    step3 &&
+                    <Step3
+                    onPressBack={onPressStep3Back}
                     />
                 }
 

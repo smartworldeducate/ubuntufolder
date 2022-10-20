@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Button from '../../Components/Button/Button';
 import LeftRightImgText from '../../Components/LeftRightImgText/LeftRightImgText';
@@ -8,7 +8,7 @@ import colors from '../../Styles/colors';
 import fontFamily from '../../Styles/fontFamily';
 
 
-const Step1 = ({ step1Text }) => {
+const Step1 = ({ step1Text, onPressStep1Btn }) => {
 
     return (
         <View style={{}}>
@@ -27,7 +27,7 @@ const Step1 = ({ step1Text }) => {
 
             <View style={{ marginVertical: hp('3'), marginHorizontal: wp('5') }}>
                 <Button
-                    // onPress={() => handleNavigate("OTPEnter", false, { contactNumberParam: inputContactState })}
+                    onPress={onPressStep1Btn}
                     height={hp('4.5')}
                     borderRadius={wp('1.5')}
                     text="Next"
