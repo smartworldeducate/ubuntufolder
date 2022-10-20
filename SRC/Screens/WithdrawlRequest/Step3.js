@@ -40,11 +40,18 @@ const Step3 = ({ onPressBack, onPressNext }) => {
         setWithdrawReasonModal(!withdrawReasonModal);
     }
 
+    const onPressSelectedWithdrawlReasonModal = ({ item }) => {
+        console.log("itemReason", item);
+        setSelectReason(item.reason);
+        setWithdrawReasonModal(!withdrawReasonModal);
+    }
+
     const renderItemWithdrawlReasons = ({ item, index }) => {
         console.log("withdrawlReasons", item);
+        
 
         return (
-            <View style={styles.renderMainView}>
+            <TouchableOpacity onPress={() => onPressSelectedWithdrawlReasonModal({ item })} style={styles.renderMainView}>
                 <View style={{ flex: 0.85, justifyContent: "center" }}>
                     <Text style={{ fontSize: hp('2.15'), textAlign: "left", fontFamily: fontFamily.regular, color: colors.lightBlack, lineHeight: hp('3') }}>{item.reason}</Text>
                 </View>
@@ -56,7 +63,7 @@ const Step3 = ({ onPressBack, onPressNext }) => {
                         resizeMode={"contain"}
                     />
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 
@@ -109,9 +116,11 @@ const Step3 = ({ onPressBack, onPressNext }) => {
                         height={hp('4.5')}
                         borderRadius={wp('1.5')}
                         text="Next"
-                        bgColor={colors.appColor}
+                       
                         textColor={colors.white}
                         textSize={hp('1.75')}
+                        disabled={selectReason.length > 0 ? false : true}
+                        bgColor={selectReason.length > 0 ? colors.appColor : colors.grey}
                     />
                 </View>
 

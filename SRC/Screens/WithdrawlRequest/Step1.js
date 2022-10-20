@@ -25,7 +25,7 @@ const Step1 = ({ step1Text, onPressStep1Btn }) => {
 
             <Text style={styles.text1Style}>{step1Text}</Text>
 
-            <View style={{ marginVertical: hp('3'), marginHorizontal: wp('5') }}>
+            <View style={styles.btnView}>
                 <Button
                     onPress={onPressStep1Btn}
                     height={hp('4.5')}
@@ -55,6 +55,10 @@ const styles = StyleSheet.create({
         lineHeight: hp('2.5'),
         color: colors.lightBlack,
         textAlign: "justify",
+        marginHorizontal: wp('5')
+    },
+    btnView: {
+        marginVertical: hp('3'),
         marginHorizontal: wp('5')
     }
 });

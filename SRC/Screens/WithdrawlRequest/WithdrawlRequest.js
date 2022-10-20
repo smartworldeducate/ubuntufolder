@@ -8,6 +8,7 @@ import WithdrawlCentral from '../../Components/Withdrawl/WithdrawlCentral';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
+import Step4 from './Step4';
 
 
 const WithdrawlRequest = () => {
@@ -46,6 +47,20 @@ const WithdrawlRequest = () => {
         setStep3(false);
         setStep1(false);
         setStep2(true);
+    }
+
+    const onPressStep3Next = () => {
+        setStep4(true);
+        setStep3(false);
+        setStep2(false);
+        setStep1(false);
+    }
+
+    const onPressStep4Back = () => {
+        setStep3(true);
+        setStep4(false);
+        setStep2(false);
+        setStep1(false);
     }
 
     return (
@@ -100,7 +115,7 @@ const WithdrawlRequest = () => {
 
                     <View style={styles.mainInnerView}>
                         <WithdrawlCentral
-                            backgroundColor={colors.grey}
+                            backgroundColor={step4 ? colors.appDarkColor : colors.grey}
                             text1={4}
                             text2={"Step 4"}
                         />
@@ -127,7 +142,16 @@ const WithdrawlRequest = () => {
                 {
                     step3 &&
                     <Step3
-                    onPressBack={onPressStep3Back}
+                        onPressBack={onPressStep3Back}
+                        onPressNext={onPressStep3Next}
+                    />
+                }
+
+                {
+                    step4 &&
+                    <Step4
+                        onPressBack={onPressStep4Back}
+                    // onPressNext={onPressStep4Submit}
                     />
                 }
 

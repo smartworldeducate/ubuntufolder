@@ -9,7 +9,7 @@ import FlatListItem from '../../Components/FlatList/FlatList';
 import LineSeprator from '../../Components/LineSeprator/LineSeprator';
 
 
-const Step2 = ({ onPressBack, onPressNext }) => {
+const Step2 = ({ onPressBack, onPressNext, disabled }) => {
 
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
@@ -63,10 +63,10 @@ const Step2 = ({ onPressBack, onPressNext }) => {
     return (
         <View style={{}}>
 
-            <TouchableOpacity onPress={onPressModal} style={{ flexDirection: 'row', height: hp('6'), marginHorizontal: wp('6'), borderColor: colors.grey, borderWidth: wp('0.15'), borderRadius: wp('3'), marginTop: hp('0') }}>
+            <TouchableOpacity onPress={onPressModal} style={styles.mainView}>
 
-                <View style={{ flex: 0.85, justifyContent: 'center' }}>
-                    <Text style={{ marginLeft: hp('2'), fontSize: hp('1.75'), fontFamily: fontFamily.regularAlatsi, color: colors.appColor }}>{selectRelation.length > 0 ? selectRelation : 'Select'}</Text>
+                <View style={styles.selectValueLeftView}>
+                    <Text style={styles.selectValueText}>{'Relationship with student'}</Text>
                 </View>
 
                 <Modal
@@ -94,7 +94,11 @@ const Step2 = ({ onPressBack, onPressNext }) => {
 
                 </Modal>
 
-                <View style={{ flex: 0.15, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{ flex: 0.25, justifyContent: "center"}}>
+                    <Text style={{ textAlign: "center", color:colors.appColor }}>{selectRelation.length > 0 ? selectRelation : 'Select'}</Text>
+                </View>
+
+                <View style={styles.selectValueRightView}>
                     <Image
                         source={{ uri: "arrowdown" }}
                         style={{ height: hp('2'), width: wp('4') }}
@@ -105,7 +109,7 @@ const Step2 = ({ onPressBack, onPressNext }) => {
             </TouchableOpacity>
 
 
-            <View style={{ flexDirection: "row", marginVertical: hp('3'), marginHorizontal: wp('5') }}>
+            <View style={styles.btnMainView}>
                 <View style={{ flex: 0.47 }}>
                     <Button
                         onPress={onPressBack}
@@ -115,6 +119,7 @@ const Step2 = ({ onPressBack, onPressNext }) => {
                         bgColor={colors.appColor}
                         textColor={colors.white}
                         textSize={hp('1.75')}
+
                     />
                 </View>
                 <View style={{ flex: 0.04 }}></View>
@@ -124,9 +129,11 @@ const Step2 = ({ onPressBack, onPressNext }) => {
                         height={hp('4.5')}
                         borderRadius={wp('1.5')}
                         text="Next"
-                        bgColor={colors.appColor}
                         textColor={colors.white}
                         textSize={hp('1.75')}
+                        disabled={selectRelation.length > 0 ? false : true}
+                        // bgColor={selectRelation.length > 0 ? colors.appColor : colors.grey}
+                        bgColor={selectRelation.length > 0 ? colors.appColor : colors.grey}
                     />
                 </View>
 
@@ -137,6 +144,38 @@ const Step2 = ({ onPressBack, onPressNext }) => {
 }
 
 const styles = StyleSheet.create({
+    mainView: {
+        flexDirection: 'row',
+        height: hp('6'),
+        marginHorizontal: wp('6'),
+        borderColor: colors.grey,
+        borderWidth: wp('0.15'),
+        borderRadius: wp('3'),
+        marginTop: hp('0')
+    },
+
+    selectValueLeftView: {
+        flex: 0.6,
+        justifyContent: 'center'
+    },
+    selectValueText: {
+        marginLeft: hp('2'),
+        fontSize: hp('1.75'),
+        fontFamily: fontFamily.regularAlatsi,
+        color: colors.appColor
+    },
+
+    selectValueRightView: {
+        flex: 0.15,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    btnMainView: {
+        flexDirection: "row",
+        marginVertical: hp('3'),
+        marginHorizontal: wp('5')
+    },
+
     lineSeprator: {
         height: hp('0.1'),
         backgroundColor: colors.grey,
