@@ -65,8 +65,7 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
 
                     <View style={styles.textView}>
                         <Text style={styles.textStatus}>
-                            <Text style={styles.statusSymbol}>{"🟢  "}</Text>
-                            {stuStatus}
+                            <Text style={styles.statusSymbol}>{`🟢 ${stuStatus}  `}</Text>
                         </Text>
                     </View>
 

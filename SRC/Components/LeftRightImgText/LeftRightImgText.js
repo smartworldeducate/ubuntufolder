@@ -5,7 +5,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import colors from '../../Styles/colors';
 import fontFamily from "../../Styles/fontFamily";
 
-const LeftRightImgText = ({marginHorizontal, leftText, onPressRight, rightText, img }) => {
+const LeftRightImgText = ({marginHorizontal, leftText, onPressRight, rightText, img, fontWeight }) => {
 
     return (
         <View style={{ flexDirection: 'row', marginHorizontal: marginHorizontal }}>
@@ -42,9 +42,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     leftText: {
-        fontSize: hp('1.65'),
-        fontFamily: fontFamily.regularAlatsi,
-        color: colors.appColor
+        fontSize: hp('1.75'),
+        fontFamily: fontFamily.regular,
+        color: colors.appColor,
+        fontWeight:"bold"
     },
     rightMainView: {
         flex: 0.35,

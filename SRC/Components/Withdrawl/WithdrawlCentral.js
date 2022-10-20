@@ -5,15 +5,15 @@ import colors from '../../Styles/colors';
 import fontFamily from '../../Styles/fontFamily';
 
 
-const WithdrawlCentral = ({ text1, text2 }) => {
+const WithdrawlCentral = ({ backgroundColor, text1, text2 }) => {
 
     return (
         <View style={{}}>
-            <View style={{ height: hp('6'), width: wp('12'), justifyContent: 'center', alignItems: 'center', backgroundColor: colors.appDarkColor, borderRadius: wp('1.5') }}>
-                <Text style={{ color: colors.white, fontFamily: fontFamily.regular, fontSize: hp('1.5') }}>{text1}</Text>
+            <View style={{ height: hp('6'), width: wp('12'), justifyContent: 'center', alignItems: 'center', backgroundColor: backgroundColor, borderRadius: wp('1.5') }}>
+                <Text style={styles.text1style}>{text1}</Text>
             </View>
-            <View style={{ marginVertical: hp('1.5'), justifyContent: 'center', alignItems: "center" }}>
-                <Text style={{ color: colors.appDarkColor, fontFamily: fontFamily.semiBold, fontSize: hp('1.85') }}>{text2}</Text>
+            <View style={styles.text2ViewStyle}>
+                <Text style={styles.text2Stle}>{text2}</Text>
             </View>
         </View>
 
@@ -21,6 +21,20 @@ const WithdrawlCentral = ({ text1, text2 }) => {
 }
 
 const styles = StyleSheet.create({
-
+    text1style: {
+        color: colors.white,
+        fontFamily: fontFamily.regular,
+        fontSize: hp('1.5')
+    },
+    text2ViewStyle: {
+        marginVertical: hp('1.5'),
+        justifyContent: 'center',
+        alignItems: "center"
+    },
+    text2Stle: {
+        color: colors.appDarkColor,
+        fontFamily: fontFamily.semiBold,
+        fontSize: hp('1.85')
+    }
 });
 export default WithdrawlCentral;

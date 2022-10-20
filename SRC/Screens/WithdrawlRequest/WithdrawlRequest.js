@@ -5,12 +5,17 @@ import { useNavigation } from '@react-navigation/native';
 import colors from '../../Styles/colors';
 import MainHeader from '../../Components/Header/MainHeader';
 import WithdrawlCentral from '../../Components/Withdrawl/WithdrawlCentral';
+import Step1 from './Step1';
 
 
 const WithdrawlRequest = () => {
 
 
     const navigation = useNavigation();
+    const [step1, setStep1] = useState(true);
+    const [step2, setStep2] = useState(false);
+    const [step3, setStep3] = useState(false);
+    const [step4, setStep4] = useState(false);
 
     const handleNavigate = (routeName, clearStack, params) => {
         navigation.navigate(routeName, params);
@@ -38,39 +43,53 @@ const WithdrawlRequest = () => {
 
             <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white, marginVertical: hp(2) }}>
 
-                <View style={{ flexDirection: 'row', marginVertical: hp('3'), justifyContent: "space-around" }}>
-                    <View style={{}}>
+                <View style={styles.mainView}>
+                    <View style={styles.mainInnerView}>
                         <WithdrawlCentral
+                            backgroundColor={step1 ? colors.appDarkColor : colors.grey}
                             text1={1}
                             text2={"Step 1"}
                         />
                     </View>
 
-                    {/* <View style={{ height: hp('0.25'), backgroundColor: "red" }}>
-                        <Text>kkkkk</Text>
-                    </View> */}
+                    <View style={styles.centralStarightLine}></View>
 
-                    <View style={{}}>
+                    <View style={styles.mainInnerView}>
                         <WithdrawlCentral
+                            backgroundColor={colors.grey}
                             text1={2}
                             text2={"Step 2"}
                         />
                     </View>
 
-                    <View style={{}}>
+                    <View style={styles.centralStarightLine}></View>
+
+                    <View style={styles.mainInnerView}>
                         <WithdrawlCentral
+                            backgroundColor={colors.grey}
                             text1={3}
                             text2={"Step 3"}
                         />
                     </View>
 
-                    <View style={{}}>
+                    <View style={styles.centralStarightLine}></View>
+
+                    <View style={styles.mainInnerView}>
                         <WithdrawlCentral
+                            backgroundColor={colors.grey}
                             text1={4}
                             text2={"Step 4"}
                         />
                     </View>
+
                 </View>
+
+                {
+                    step1 &&
+                    <Step1 
+                        step1Text={"Use the online image color picker above to select a color and get the HTML Color Code of this pixel. Also you get the HEX color code value, RGB value and HSV value. Under 'Use Your Image' You can upload your own image (for example an screenshot of your desktop), paste an image from clipboard, put a picture url in the textbox below. Or use an website url, you will see a thumbnail on the left side."}
+                    />
+                }
 
             </ScrollView>
         </SafeAreaView>
@@ -78,6 +97,22 @@ const WithdrawlRequest = () => {
 }
 
 const styles = StyleSheet.create({
+    mainView: {
+        flexDirection: 'row',
+        margin: hp('3')
+    },
+    mainInnerView: {
+        flex: 0.2,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    centralStarightLine: {
+        flex: 0.25,
+        height: hp('0.25'),
+        marginTop: hp('3'),
+        justifyContent: 'center',
+        backgroundColor: colors.grey
+    }
 
 });
 export default WithdrawlRequest;
