@@ -151,7 +151,7 @@ const WithdrawlRequest = () => {
                     step4 &&
                     <Step4
                         onPressBack={onPressStep4Back}
-                    // onPressNext={onPressStep4Submit}
+                        onPressNext={()=>navigation.navigate("HomeScreen")}
                     />
                 }
 

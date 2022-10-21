@@ -42,12 +42,6 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
             </View>
 
 
-
-
-
-
-
-
             <View style={styles.infoMainView}>
 
                 <Swiper style={styles.wrapper} showsButtons={false}

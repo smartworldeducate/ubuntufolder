@@ -6,6 +6,7 @@ import Button from '../../Components/Button/Button';
 import colors from '../../Styles/colors';
 import fontFamily from '../../Styles/fontFamily';
 import WithDrawlReasonsModal from '../../Components/Modal/WithDrawlReasonsModal';
+import TextInputCustom from '../../Components/TextInput/TextInput';
 
 
 const Step3 = ({ onPressBack, onPressNext }) => {
@@ -29,6 +30,8 @@ const Step3 = ({ onPressBack, onPressNext }) => {
         { id: 12, reason: "I am moving to my child to an Islamic School" },
     ]);
 
+    const [inputFeedback, setInputFeedback] = useState('');
+
     const handleNavigate = (routeName, clearStack, params) => {
         navigation.navigate(routeName, params);
         if (clearStack) {
@@ -46,9 +49,13 @@ const Step3 = ({ onPressBack, onPressNext }) => {
         setWithdrawReasonModal(!withdrawReasonModal);
     }
 
+    const onChangeFeedback = (val) => {
+        setInputFeedback(val);
+    }
+
     const renderItemWithdrawlReasons = ({ item, index }) => {
         console.log("withdrawlReasons", item);
-        
+
 
         return (
             <TouchableOpacity onPress={() => onPressSelectedWithdrawlReasonModal({ item })} style={styles.renderMainView}>
@@ -88,7 +95,7 @@ const Step3 = ({ onPressBack, onPressNext }) => {
 
                 <View style={{ flex: 0.15, justifyContent: 'center', alignItems: 'center' }}>
                     <Image
-                        source={{ uri: "arrowdown" }}
+                        source={{ uri: "forwardarrow" }}
                         style={{ height: hp('2'), width: wp('4') }}
                         resizeMode={"contain"}
                     />
@@ -96,6 +103,25 @@ const Step3 = ({ onPressBack, onPressNext }) => {
 
             </TouchableOpacity>
 
+            {
+                selectReason.length > 0 &&
+
+                <View style={{ height: hp('20'), marginHorizontal: wp('6'), borderColor: colors.grey, borderWidth: wp('0.15'), borderRadius: wp('3'), marginTop: hp('3') }}>
+                    <TextInputCustom
+                        value={inputFeedback}
+                        onChangeText={onChangeFeedback}
+                        keyboardType={"default"}
+                        placeholder={"Is there any feedback you would like to share about your experience?"}
+                        placeholderColor={colors.appColor}
+                        textColor={colors.appColor}
+                        multiline={true}
+                        returnKeyType={"go"}
+                        style={styles.textInputCustomStyle}
+                    />
+
+                </View>
+
+            }
 
             <View style={{ flexDirection: "row", marginVertical: hp('3'), marginHorizontal: wp('5') }}>
                 <View style={{ flex: 0.47 }}>
@@ -116,7 +142,7 @@ const Step3 = ({ onPressBack, onPressNext }) => {
                         height={hp('4.5')}
                         borderRadius={wp('1.5')}
                         text="Next"
-                       
+
                         textColor={colors.white}
                         textSize={hp('1.75')}
                         disabled={selectReason.length > 0 ? false : true}
@@ -163,6 +189,14 @@ const styles = StyleSheet.create({
     listRightImg: {
         height: hp('2'),
         width: wp('4')
+    },
+
+    textInputCustomStyle: {
+        paddingLeft: wp('4'),
+        paddingVertical: hp('1'),
+        fontSize: hp('1.75'),
+        fontFamily: fontFamily.regular,
+        color: colors.appColor,
     },
 
 });

@@ -15,9 +15,15 @@ const Step2 = ({ onPressBack, onPressNext, disabled }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectRelation, setSelectRelation] = useState('');
     const [relations, setRelations] = useState([
-        { id: 1, relationName: "Father", byDefault: true },
-        { id: 2, relationName: "Mother", byDefault: false },
+        { id: 1, relationName: "Father", byDefault: false, parentName: "Qasim Ali Khan", CNIC: "35401-1234567-1", email: "QasimAliKhan@gmail.com", contact: "0300-1234567", correspondanceAdress: "Gulberg 3 gurumangat road lahore" },
+        { id: 2, relationName: "Mother", byDefault: false, parentName: "Ayesha khan", CNIC: "35401-1234567-2", email: "Ayeshakhan@gmail.com", contact: "0301-1234567", correspondanceAdress: "Gulberg 3 gurumangat road lahore" },
     ]);
+
+    const [parentName, setParentName] = useState('');
+    const [CNIC, setCNIC] = useState('');
+    const [email, setEmail] = useState('');
+    const [contact, setContact] = useState('');
+    const [address, setAddress] = useState('');
 
     const handleNavigate = (routeName, clearStack, params) => {
         navigation.navigate(routeName, params);
@@ -31,11 +37,13 @@ const Step2 = ({ onPressBack, onPressNext, disabled }) => {
     }
 
     const onPressSelected = ({ item }) => {
-
-        console.log("itemRelation", item);
         setSelectRelation(item.relationName);
+        setParentName(item.parentName);
+        setCNIC(item.CNIC);
+        setEmail(item.email);
+        setContact(item.contact);
+        setAddress(item.correspondanceAdress);
         setModalVisible(!modalVisible);
-        console.log("selectRelation", selectRelation);
     }
 
     const renderItem = ({ item }) => {
@@ -94,8 +102,8 @@ const Step2 = ({ onPressBack, onPressNext, disabled }) => {
 
                 </Modal>
 
-                <View style={{ flex: 0.25, justifyContent: "center"}}>
-                    <Text style={{ textAlign: "center", color:colors.appColor }}>{selectRelation.length > 0 ? selectRelation : 'Select'}</Text>
+                <View style={styles.selectRelationImgView}>
+                    <Text style={styles.selectRelationText}>{selectRelation.length > 0 ? selectRelation : 'Select'}</Text>
                 </View>
 
                 <View style={styles.selectValueRightView}>
@@ -107,6 +115,24 @@ const Step2 = ({ onPressBack, onPressNext, disabled }) => {
                 </View>
 
             </TouchableOpacity>
+
+            {
+                selectRelation.length > 0 &&
+
+                <View style={styles.parentDetailsView}>
+                    <View style={styles.selectedRelationUpperView}>
+                        <Text style={styles.selectedRelationHeaderText}>{parentName}</Text>
+                    </View>
+
+                    <View style={styles.selectedRelationLowerView}>
+                        <Text style={styles.selectedRelatioDetailsText}>CNIC: <Text style={{ fontWeight: "normal" }}>{CNIC}</Text></Text>
+                        <Text style={styles.selectedRelatioDetailsText}>Email: <Text style={{ fontWeight: "normal" }}>{email}</Text></Text>
+                        <Text style={styles.selectedRelatioDetailsText}>Contact Number: <Text style={{ fontWeight: "normal" }}>{contact}</Text></Text>
+                        <Text style={styles.selectedRelatioDetailsText}>Correspondance Address: <Text style={{ fontWeight: "normal" }}>{address}</Text></Text>
+                    </View>
+
+                </View>
+            }
 
 
             <View style={styles.btnMainView}>
@@ -151,7 +177,6 @@ const styles = StyleSheet.create({
         borderColor: colors.grey,
         borderWidth: wp('0.15'),
         borderRadius: wp('3'),
-        marginTop: hp('0')
     },
 
     selectValueLeftView: {
@@ -172,7 +197,8 @@ const styles = StyleSheet.create({
     },
     btnMainView: {
         flexDirection: "row",
-        marginVertical: hp('3'),
+        marginTop: hp('4'),
+        marginBottom: hp('2'),
         marginHorizontal: wp('5')
     },
 
@@ -189,6 +215,14 @@ const styles = StyleSheet.create({
         margin: hp('5'),
         justifyContent: "center",
 
+    },
+    selectRelationImgView: {
+        flex: 0.25,
+        justifyContent: "center"
+    },
+    selectRelationText: {
+        textAlign: "center",
+        color: colors.appColor
     },
     modalView: {
         flex: 0.2,
@@ -211,5 +245,41 @@ const styles = StyleSheet.create({
         fontSize: hp('1.8')
 
     },
+    parentDetailsView: {
+        flexDirection: "column",
+        marginHorizontal: wp('6'),
+        marginVertical: hp('2'),
+        backgroundColor: colors.white,
+
+        elevation: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.5,
+        borderRadius: wp('2')
+    },
+    selectedRelationUpperView: {
+        paddingVertical: hp('2'),
+        paddingHorizontal: wp('3'),
+        backgroundColor: colors.grey,
+        borderTopLeftRadius: wp('1'),
+        borderTopRightRadius: wp('1')
+    },
+    selectedRelationHeaderText: {
+        fontSize: hp('2'),
+        fontFamily: fontFamily.regular,
+        color: colors.silverGrey
+    },
+    selectedRelationLowerView: {
+        marginTop: hp('1.5'),
+        marginHorizontal: wp('3'),
+        paddingBottom: hp('2')
+    },
+    selectedRelatioDetailsText: {
+        fontSize: hp('2'),
+        fontFamily: fontFamily.regular,
+        color: colors.grey,
+        fontWeight: "bold",
+        lineHeight: hp('3.5')
+    }
 });
 export default Step2;
