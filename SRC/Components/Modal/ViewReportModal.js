@@ -69,11 +69,12 @@ const styles = StyleSheet.create({
         borderColor: colors.white,
         borderWidth: wp('0.15'),
 
-        elevation: 10,
+        elevation: wp('0.15'),
         shadowColor: '#000',
-        shadowOffset: { width: -2, height: 1 },
+        shadowOffset: { width: wp('1'), height: hp('2') },
+
         // shadowOpacity: 0.25,
-        
+
     },
     modalCentralUpper: {
         flex: 0.85
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     },
     centralLowerText: {
         color: colors.appColor,
-        fontSize: hp('1.65'),
+        fontSize: hp('1.75'),
         fontFamily: fontFamily.regular
     }
 });

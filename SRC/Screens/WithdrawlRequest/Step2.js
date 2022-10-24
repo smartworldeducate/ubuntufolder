@@ -222,7 +222,9 @@ const styles = StyleSheet.create({
     },
     selectRelationText: {
         textAlign: "center",
-        color: colors.appColor
+        color: colors.appColor,
+        fontSize:hp('1.6'),
+        fontFamily:fontFamily.regularAlatsi
     },
     modalView: {
         flex: 0.2,
