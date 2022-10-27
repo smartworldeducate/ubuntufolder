@@ -33,7 +33,7 @@ const ParentProfile = () => {
             <MainHeader
                 onPressRightImg={() => navigation.goBack()}
                 topLeftImg={"menu"}
-                text={"Contact Us"}
+                text={"Parents Profile"}
                 stuName={"Azaan Ali"}
                 stuNumber={"170838"}
                 campName={"Canal side Campus"}
