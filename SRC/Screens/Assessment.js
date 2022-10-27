@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, View, Text, Image, TouchableOpacity, Platform, RefreshControl } from 'react-native';
+import { SafeAreaView, ScrollView, RefreshControl, StatusBar, StyleSheet, View, Text, Image, TouchableOpacity, Platform } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 import FlatListItem from '../Components/FlatList/FlatList';
@@ -238,8 +238,8 @@ const Assessment = () => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.lightBlack }}>
-            <StatusBar barStyle={'light-content'} backgroundColor={"#606060"} />
+        <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.white }}>
+            <StatusBar barStyle={'default'} backgroundColor={"#606060"} />
 
             <MainHeader
                 onPressRightImg={() => navigation.goBack()}
@@ -262,7 +262,7 @@ const Assessment = () => {
                         colors={[colors.fbColor, colors.paratGreen, colors.red]}
                         // background color of the refresh indicator
                         progressBackgroundColor={colors.silverGrey}
-                        tintColor={colors.white}
+                        tintColor={colors.appColor}
 
                     // title={"loading"}
                     // titleColor={colors.white}

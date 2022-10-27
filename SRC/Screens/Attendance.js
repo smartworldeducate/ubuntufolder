@@ -23,7 +23,7 @@ const Attendance = () => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#606060" }}>
             <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white }}>
-                <StatusBar barStyle={'light-content'} backgroundColor={"#606060"} />
+                <StatusBar barStyle={'default'} backgroundColor={"#606060"} />
 
                 <MainHeader
                     onPressRightImg={() => navigation.goBack()}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useNavigation } from '@react-navigation/native';
 import Button from '../../Components/Button/Button';
 import LeftRightImgText from '../../Components/LeftRightImgText/LeftRightImgText';
 import LineSeprator from '../../Components/LineSeprator/LineSeprator';
@@ -10,10 +11,19 @@ import fontFamily from '../../Styles/fontFamily';
 
 const Step1 = ({ step1Text, onPressStep1Btn }) => {
 
+    const navigation = useNavigation();
+    const handleNavigate = (routeName, clearStack, params) => {
+        navigation.navigate(routeName, params);
+        if (clearStack) {
+            console.log("Clear")
+        }
+    }
+
     return (
         <View style={{}}>
             <LeftRightImgText
                 leftText={"Parent Profile"}
+                onPressRight={() => handleNavigate("ParentProfile")}
                 rightText={"Edit"}
                 img={"rightarrow"}
                 marginHorizontal={wp('5')}

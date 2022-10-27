@@ -133,9 +133,9 @@ const ContactUs = () => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.lightBlack }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.white }}>
 
-            <StatusBar barStyle={'light-content'} backgroundColor={colors.lightBlack} />
+            <StatusBar barStyle={'default'} backgroundColor={colors.lightBlack} />
 
             <MainHeader
                 onPressRightImg={() => navigation.goBack()}

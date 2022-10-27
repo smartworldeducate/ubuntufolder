@@ -134,9 +134,9 @@ const HomeScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.lightBlack }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.white }}>
 
-            <StatusBar barStyle={'light-content'} backgroundColor={colors.lightBlack} />
+            <StatusBar barStyle={'default'} backgroundColor={colors.lightBlack} />
 
             <MainHeader
                 topLeftImg={"menu"}
@@ -157,7 +157,7 @@ const HomeScreen = () => {
                         colors={[colors.fbColor, colors.paratGreen, colors.red]}
                         // background color of the refresh indicator
                         progressBackgroundColor={colors.silverGrey}
-                        tintColor={colors.white}
+                        tintColor={colors.appColor}
 
                     // title={"loading"}
                     // titleColor={colors.white}

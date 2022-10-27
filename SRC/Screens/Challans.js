@@ -117,9 +117,9 @@ const Challans = () => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.lightBlack }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.white }}>
 
-            <StatusBar barStyle={'light-content'} backgroundColor={"#606060"} />
+            <StatusBar barStyle={'default'} backgroundColor={"#606060"} />
 
             <MainHeader
                 onPressRightImg={() => navigation.goBack()}
@@ -142,7 +142,7 @@ const Challans = () => {
                         colors={[colors.fbColor, colors.paratGreen, colors.red]}
                         // background color of the refresh indicator
                         progressBackgroundColor={colors.silverGrey}
-                        tintColor={colors.white}
+                        tintColor={colors.appColor}
 
                     // title={"loading"}
                     // titleColor={colors.white}

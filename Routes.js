@@ -20,6 +20,7 @@ import AllPolicies from './SRC/Screens/Policies/AllPolicies';
 import ContactUs from './SRC/Screens/ContactUs';
 
 import WithdrawlRequest from './SRC/Screens/WithdrawlRequest/WithdrawlRequest';
+import ParentProfile from './SRC/Screens/ParentProfile';
 
 const Stack = createNativeStackNavigator();
 // const Drawer = createDrawerNavigator();
@@ -46,6 +47,7 @@ const Routes = () => {
                 <Stack.Screen name="AllPolicies" component={AllPolicies} />
                 <Stack.Screen name="ContactUs" component={ContactUs} />
                 <Stack.Screen name="WithdrawlRequest" component={WithdrawlRequest} />
+                <Stack.Screen name="ParentProfile" component={ParentProfile} />
             </Stack.Navigator>
         </NavigationContainer>
     );

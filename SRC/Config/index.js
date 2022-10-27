@@ -1,6 +1,6 @@
 const Constents = {
 
-  appName: "SOT",
+  appName: "Beacon House",
   
   dateFormate: "MM/DD/YYYY",
   TimeZone: ["AM", "PM"],
