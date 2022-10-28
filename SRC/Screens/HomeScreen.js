@@ -139,6 +139,7 @@ const HomeScreen = () => {
             <StatusBar barStyle={'default'} backgroundColor={colors.lightBlack} />
 
             <MainHeader
+                onPressRightImg={() => navigation.openDrawer()}
                 topLeftImg={"menu"}
                 text={"Student Profile"}
                 stuName={"Azaan Ali"}
@@ -173,7 +174,7 @@ const HomeScreen = () => {
                 <View style={styles.mainCentral}>
                     <View style={styles.centralView}>
                         <HomeCentralView
-                            onPress={() => handleNavigate("WithdrawlRequest")}
+                            onPress={() => handleNavigate("Attendance")}
                             img={"attendence"}
                             text={"Attendance"}
                         />

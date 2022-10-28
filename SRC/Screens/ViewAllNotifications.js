@@ -89,7 +89,7 @@ const ViewAllNotifications = ({ route }) => {
 
             <MainHeader
                 onPressRightImg={() => navigation.goBack()}
-                topLeftImg={"menu"}
+                topLeftImg={"backarrow"}
                 text={"Notifications"}
                 stuName={"Azaan Ali"}
                 stuNumber={"170838"}

@@ -126,8 +126,7 @@ const ContactUs = () => {
                         />
                     </View>
                 </TouchableOpacity>
-
-                <LineSeprator style={styles.lineSeprator} />
+                <View style={{ height: hp('0.1'), backgroundColor: colors.grey }}></View>
             </View >
         );
     }
@@ -139,7 +138,7 @@ const ContactUs = () => {
 
             <MainHeader
                 onPressRightImg={() => navigation.goBack()}
-                topLeftImg={"menu"}
+                topLeftImg={"backarrow"}
                 text={"Contact Us"}
                 stuName={"Azaan Ali"}
                 stuNumber={"170838"}

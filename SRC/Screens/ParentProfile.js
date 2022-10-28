@@ -32,7 +32,7 @@ const ParentProfile = () => {
 
             <MainHeader
                 onPressRightImg={() => navigation.goBack()}
-                topLeftImg={"menu"}
+                topLeftImg={"backarrow"}
                 text={"Parents Profile"}
                 stuName={"Azaan Ali"}
                 stuNumber={"170838"}
