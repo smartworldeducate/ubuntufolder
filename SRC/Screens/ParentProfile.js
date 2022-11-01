@@ -176,7 +176,7 @@ const ParentProfile = () => {
 
                 </View>
 
-                <View style={{ marginBottom: hp('2') }}></View>
+                <View style={{ marginBottom: hp('3') }}></View>
 
 
 

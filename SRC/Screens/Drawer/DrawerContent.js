@@ -27,37 +27,37 @@ const DrawerContent = ({ }) => {
                     <DrawerList
                         leftImg={"home"}
                         rightText={"Home"}
-                        onPress={() => navigation.navigate("Home")}
+                        onPress={() => navigation.navigate("HomeDrawer")}
                     />
 
                     <DrawerList
                         leftImg={"attendancegrey"}
                         rightText={"Attendance"}
-                        onPress={() => navigation.navigate("Attendance")}
+                        onPress={() => navigation.navigate("AttendanceDrawer")}
                     />
 
                     <DrawerList
                         leftImg={"attendancegrey"}
                         rightText={"Assessments"}
-                        onPress={() => navigation.navigate("Assessment")}
+                        onPress={() => navigation.navigate("AssessmentDrawer")}
                     />
 
                     <DrawerList
                         leftImg={"challangrey"}
                         rightText={"Challans"}
-                        onPress={() => navigation.navigate("Challans")}
+                        onPress={() => navigation.navigate("ChallansDrawer")}
                     />
 
                     <DrawerList
                         leftImg={"parentsprofile"}
                         rightText={"Parents Profile"}
-                        onPress={() => navigation.navigate("ParentProfile")}
+                        onPress={() => navigation.navigate("ParentProfileDrawer")}
                     />
 
                     <DrawerList
                         leftImg={"parentsprofile"}
                         rightText={"Withdrawal Request"}
-                        onPress={() => navigation.navigate("WithdrawlRequest")}
+                        onPress={() => navigation.navigate("WithdrawlRequestDrawer")}
                     />
 
                     {/* <DrawerList
@@ -69,13 +69,13 @@ const DrawerContent = ({ }) => {
                     <DrawerList
                         leftImg={"challangrey"}
                         rightText={"Contact Us"}
-                        onPress={() => navigation.navigate("ContactUs")}
+                        onPress={() => navigation.navigate("ContactUsDrawer")}
                     />
 
                     <DrawerList
                         leftImg={"parentsprofile"}
                         rightText={"Policies"}
-                        onPress={() => navigation.navigate("AllPolicies")}
+                        onPress={() => navigation.navigate("AllPoliciesDrawer")}
                     />
 
                     <DrawerList

@@ -191,9 +191,7 @@ const ContactUs = () => {
                 </TouchableOpacity>
 
 
-
                 {/* below */}
-
 
                 {
                     Complaint ?
@@ -244,16 +242,7 @@ const ContactUs = () => {
                 }
 
 
-
-
-
                 {/* below */}
-
-
-
-
-
-
 
 
 
@@ -273,6 +262,7 @@ const ContactUs = () => {
 
                 <View style={{ alignItems: "center", marginVertical: hp('3') }}>
                     <Button
+                        onPress={()=>navigation.navigate("Home")}
                         height={hp('4.5')}
                         width={wp('25')}
                         borderRadius={wp('1.5')}

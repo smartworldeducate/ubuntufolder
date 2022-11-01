@@ -5,6 +5,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import DrawerContent from "./SRC/Screens/Drawer/DrawerContent";
 
 import Splash from './SRC/Screens/Splash';
@@ -23,9 +24,11 @@ import ContactUs from './SRC/Screens/ContactUs';
 import WithdrawlRequest from './SRC/Screens/WithdrawlRequest/WithdrawlRequest';
 import ParentProfile from './SRC/Screens/ParentProfile';
 import Testing from './SRC/Screens/Testing';
+import BottomTab from './SRC/Components/CustomTab/BottomTab';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 
 
@@ -33,36 +36,61 @@ const Drawer = createDrawerNavigator();
 function DrawerStack() {
     return (
 
-        // <Drawer.Navigator initialRouteName="HomeScreen" screenOptions={{ headerShown: false }} DrawerContent={(props) => <DrawerContent {...props} />}>
-
         <Drawer.Navigator
-
             initialRouteName="HomeScreen"
             screenOptions={{ headerShown: false, drawerPosition: "right" }}
-
-
             drawerContent={(props) => (
                 <DrawerContent  {...props} />
-
             )}>
 
-
-
-            <Drawer.Screen name="Home" component={HomeScreen} />
-            <Drawer.Screen name="Attendance" component={Attendance} />
-            <Drawer.Screen name="Assessment" component={Assessment} />
-            <Drawer.Screen name="Challans" component={Challans} />
-            <Drawer.Screen name="ParentProfile" component={ParentProfile} />
-            <Drawer.Screen name="WithdrawlRequest" component={WithdrawlRequest} />
-            <Drawer.Screen name="ViewAllNotifications" component={ViewAllNotifications} />
-            <Drawer.Screen name="ContactUs" component={ContactUs} />
-            <Drawer.Screen name="AllPolicies" component={AllPolicies} />
-
-
+            <Drawer.Screen name="HomeDrawer" component={TabNavigator} />
+            <Drawer.Screen name="AttendanceDrawer" component={Attendance} />
+            <Drawer.Screen name="AssessmentDrawer" component={Assessment} />
+            <Drawer.Screen name="ChallansDrawer" component={Challans} />
+            <Drawer.Screen name="ParentProfileDrawer" component={ParentProfile} />
+            <Drawer.Screen name="WithdrawlRequestDrawer" component={WithdrawlRequest} />
+            <Drawer.Screen name="ViewAllNotificationsDrawer" component={ViewAllNotifications} />
+            <Drawer.Screen name="ContactUsDrawer" component={ContactUs} />
+            <Drawer.Screen name="AllPoliciesDrawer" component={AllPolicies} />
 
             <Drawer.Screen name="Testing" component={Testing} />
         </Drawer.Navigator>
+    );
+}
 
+
+function TabNavigator() {
+
+    return (
+        <Tab.Navigator
+            // headerMode={"none"}
+            initialRouteName={"HomeScreenTab"}
+            tabBar={props => <BottomTab {...props} />}
+
+            screenOptions={{
+                headerShown: false
+            }}
+        >
+
+            <Tab.Screen
+                name="ViewAllNotificationsTab"
+                component={HomeScreen}
+
+            />
+
+            <Tab.Screen
+                name="HomeScreenTab"
+                component={HomeScreen}
+
+            />
+
+            <Tab.Screen
+                name="ContactUsTab"
+                component={ContactUs}
+
+            />
+
+        </Tab.Navigator >
     );
 }
 
@@ -83,18 +111,19 @@ const Routes = () => {
                 <Stack.Screen name="MobileNumperEnter" component={MobileNumperEnter} />
                 <Stack.Screen name="OTPEnter" component={OTPEnter} />
 
-
                 <Stack.Screen name="HomeScreen" component={DrawerStack} />
+              
+                {/* <Stack.Screen initialParams={{ signIn: "signIn" }} name="HomeTab" component={TabNavigator} /> */}
 
                 {/* <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}></Drawer.Navigator> */}
 
 
-                {/* <Stack.Screen name="HomeScreen" component={HomeScreen} />
+                {/* <Stack.Screen name="HomeScreen" component={HomeScreen} /> */}
                 <Stack.Screen name="Attendance" component={Attendance} />
                 <Stack.Screen name="Assessment" component={Assessment} />
                 <Stack.Screen name="Challans" component={Challans} />
                 <Stack.Screen name="ViewAllNotifications" component={ViewAllNotifications} />
-                <Stack.Screen name="AllPolicies" component={AllPolicies} />
+                {/* <Stack.Screen name="AllPolicies" component={AllPolicies} />
                 <Stack.Screen name="ContactUs" component={ContactUs} />
                 <Stack.Screen name="WithdrawlRequest" component={WithdrawlRequest} />
                 <Stack.Screen name="ParentProfile" component={ParentProfile} />

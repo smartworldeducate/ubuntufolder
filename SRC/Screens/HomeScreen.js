@@ -133,6 +133,7 @@ const HomeScreen = () => {
         // console.log("calling again", initialCall());
     }
 
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.white }}>
 
@@ -167,9 +168,7 @@ const HomeScreen = () => {
                     // size={"large"}
                     />
                 }
-
             >
-
 
                 <View style={styles.mainCentral}>
                     <View style={styles.centralView}>
