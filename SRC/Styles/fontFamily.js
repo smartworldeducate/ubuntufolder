@@ -8,7 +8,7 @@ const fontFamily = {
     regular:Platform.OS === "android" ? "OpenSans_Regular" : "OpenSans",
     boldItalic: Platform.OS === "android" ? "OpenSans_BoldItalic" : "OpenSans-BoldItalic",
 
-    regularAlatsi: Platform.OS === "android" ? "Alatsi_Regularc" : "Alatsi-Regular"
+    regularAlatsi: Platform.OS === "android" ? "Alatsi_Regular" : "Alatsi-Regular"
   };
   
   export default fontFamily;

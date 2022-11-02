@@ -1,132 +1,61 @@
-// Example of Image Picker in React Native
-// https://aboutreact.com/example-of-image-picker-in-react-native/
- 
-// Import React
-import React, {useState} from 'react';
-// Import required components
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
- 
-// Import Image Picker
-import ImagePicker from 'react-native-image-picker'
+
+import React, { useState } from 'react';
+import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import ImagePicker from 'react-native-image-crop-picker';
+import colors from '../Styles/colors';
+
+const Testing = () => {
+
+  const [defaultImg, setDefaultImg] = useState("signupuser");
+
+  const onPressCamera = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+      setDefaultImg(image.path);
+    })
+  }
 
 
- 
-const App = () => {
-  const [filePath, setFilePath] = useState({});
- 
-  const chooseFile = () => {
-    let options = {
-      title: 'Select Image',
-      customButtons: [
-        {
-          name: 'customOptionKey',
-          title: 'Choose Photo from Custom Option'
-        },
-      ],
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
- 
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log(
-          'User tapped custom button: ',
-          response.customButton
-        );
-        alert(response.customButton);
-      } else {
-        let source = response;
-        // You can also display the image using data:
-        // let source = {
-        //   uri: 'data:image/jpeg;base64,' + response.data
-        // };
-        setFilePath(source);
-      }
-    });
-  };
- 
+  const onPressPhotoLibrary = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      console.log(image);
+      setDefaultImg(image.path);
+    })
+  }
+
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Text style={styles.titleText}>
-        Example of Image Picker in React Native
-      </Text>
-      <View style={styles.container}>
-        {/*<Image 
-          source={{ uri: filePath.path}} 
-          style={{width: 100, height: 100}} />*/}
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+
+      <View style={{ justifyContent: "center", alignItems: "center", height: hp('25'), width: wp('50') }}>
         <Image
-          source={{
-            uri: 'data:image/jpeg;base64,' + filePath.data,
-          }}
-          style={styles.imageStyle}
+          source={{ uri: defaultImg }}
+          style={{ height: hp('23'), width: wp('47'), borderRadius: wp('25') }}
+          resizeMode={"contain"}
         />
-        <Image
-          source={{uri: filePath.uri}}
-          style={styles.imageStyle}
-        />
-        <Text style={styles.textStyle}>
-          {filePath.uri}
-        </Text>
-        {/*
-          <Button
-            title="Choose File"
-            onPress={chooseFile} />
-        */}
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.buttonStyle}
-          onPress={chooseFile}>
-          <Text style={styles.textStyle}>
-            Choose Image
-          </Text>
-        </TouchableOpacity>
       </View>
-    </SafeAreaView>
+
+      <TouchableOpacity onPress={onPressCamera} style={{ marginVertical: hp('1'), backgroundColor: colors.appColor, height: hp('6'), width: wp('70'), justifyContent: "center", alignItems: "center" }}>
+        <Text style={{ color: colors.white }}>Take from Camera</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={onPressPhotoLibrary} style={{ marginVertical: hp('1'), backgroundColor: colors.grey, height: hp('6'), width: wp('70'), justifyContent: "center", alignItems: "center" }}>
+        <Text style={{ color: colors.white }}>Choose from Library</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
- 
-export default App;
- 
+
+export default Testing;
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-  },
-  titleText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    paddingVertical: 20,
-  },
-  textStyle: {
-    padding: 10,
-    color: 'black',
-  },
-  buttonStyle: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: '#DDDDDD',
-    padding: 5,
-  },
-  imageStyle: {
-    width: 200,
-    height: 200,
-    margin: 5,
-  },
+
 });

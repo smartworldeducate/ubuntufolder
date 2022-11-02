@@ -33,7 +33,7 @@ const BottomTab = ({ state, descriptors, navigation }) => {
                     }
                 };
 
-                console.log("route", route, index);
+                // console.log("route", route, index);
 
                 return (
 
@@ -88,7 +88,7 @@ const BottomTab = ({ state, descriptors, navigation }) => {
 }
 const styles = StyleSheet.create({
     container: {
-        height: Platform.OS === "android" ? hp("9") : hp("9"),
+        height: Platform.OS === "android" ? hp("9") : hp("11"),
         justifyContent: "center",
         // elevation: 2,
         flexDirection: "row",

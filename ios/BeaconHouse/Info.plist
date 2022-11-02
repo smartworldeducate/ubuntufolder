@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>BeaconHouse</string>
+	<string>Beacon House</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -33,17 +33,15 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSCameraUsageDescription</key>
-	<string>App needs Camera Access Permission for testing</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>App needs photo library Access</string>
-	<key>Privacy – Microphone Usage Description</key>
-	<string>App needs Microphone Access Permission for testing</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Beaconhouse app requires photo library access.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Beaconhouse app requires camera access to take photo.</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>fonts/Alatsi-Regular.ttf</string>
+		<string>fonts/Alatsi_Regular.ttf</string>
 		<string>fonts/OpenSans_Bold.ttf</string>
 		<string>fonts/OpenSans_BoldItalic.ttf</string>
 		<string>fonts/OpenSans_ExtraBold.ttf</string>

@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
+import ImagePicker from 'react-native-image-crop-picker';
 import LinearGradient from 'react-native-linear-gradient';
 
 import colors from '../../Styles/colors';
 import fontFamily from "../../Styles/fontFamily";
 
 import Swiper from 'react-native-swiper'
+import ImagePickerCrop from '../ImagePicker/ImagePickerCrop';
 
 const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, campName, className, stuImage, stuStatus }) => {
+
+    const [defaultImg, setDefaultImg] = useState("student");
+    const [modalValue, setModalValue] = useState(false);
 
     const navigation = useNavigation();
 
@@ -18,6 +23,34 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
         if (clearStack) {
             console.log("Clear")
         }
+    }
+
+    const onPressPhotoLibrary = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.log(image);
+            setDefaultImg(image.path);
+            setModalValue(!modalValue)
+        })
+    }
+
+    const onPressCamera = () => {
+        ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true,
+        }).then(image => {
+            console.log(image);
+            setDefaultImg(image.path);
+            setModalValue(!modalValue)
+        })
+    }
+
+    const onPressCameraImg = () => {
+        setModalValue(!modalValue);
     }
 
     return (
@@ -49,11 +82,9 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
                 // dot={<View style={{ backgroundColor: 'rgba(0,0,0,.2)', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: hp('15'), }} />}
                 >
 
-
                     <View style={styles.slide1}>
 
-
-                        <View style={{ flex: 0.65, justifyContent: "center", margin: hp('1'), paddingLeft: wp('2') }}>
+                        <View style={{ flex: 0.6, justifyContent: "center", marginVertical: hp('1'), paddingLeft: wp('3') }}>
                             <View>
                                 {/* <Text style={styles.titleMain}>{stuName}</Text> */}
 
@@ -75,20 +106,40 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
                         </View>
 
 
-                        <View style={{ flex: 0.35, justifyContent: "center", alignItems: "center" }}>
-                            <View style={styles.imageView}>
+                        <View style={{ flex: 0.35, justifyContent: "center", alignItems: "center", flexDirection: "row" }}>
+                            {/* <View style={{ top: hp('3'), left: wp('5'), zIndex: 1 }}>
                                 <Image
-                                    source={{ uri: stuImage }}
-                                    style={styles.mainImageStyle}
+                                    source={{ uri: "camera" }}
+                                    style={{ height: hp('3'), width: wp('6') }}
                                     resizeMode={"contain"}
                                 />
-                            </View>
+                            </View> */}
+                            <View style={{ flexDirection: "column" }}>
+                                <View style={styles.imageView}>
+                                    <Image
+                                        source={{ uri: defaultImg }}
+                                        style={styles.mainImageStyle}
+                                        resizeMode={"contain"}
+                                    />
+                                </View>
 
-                            <View style={styles.textView}>
-                                <Text style={styles.textStatus}>
-                                    <Text style={styles.statusSymbol}>{`🟢 ${stuStatus}  `}</Text>
-                                </Text>
+                                <View style={styles.textView}>
+                                    <Text style={styles.textStatus}>
+                                        {`🟢 ${stuStatus}`}
+                                    </Text>
+                                </View>
                             </View>
+                        </View>
+
+
+                        <View style={{ flex: 0.05 }}>
+                            <TouchableOpacity onPress={onPressCameraImg}>
+                                <Image
+                                    source={{ uri: "camera" }}
+                                    style={{ height: hp('4'), width: wp('8'), zIndex: 1, left: wp('-10'), top: hp('1') }}
+                                    resizeMode={"contain"}
+                                />
+                            </TouchableOpacity>
                         </View>
 
 
@@ -97,7 +148,7 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
 
 
                     <View style={styles.slide1}>
-                        <View style={{ flex: 0.65, justifyContent: "center", margin: hp('1'), paddingLeft: wp('2') }}>
+                        <View style={{ flex: 0.6, justifyContent: "center", margin: hp('1'), paddingLeft: wp('2') }}>
                             <View>
                                 {/* <Text style={styles.titleMain}>{stuName}</Text> */}
 
@@ -119,7 +170,7 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
                         </View>
 
 
-                        <View style={{ flex: 0.35, justifyContent: "center", alignItems: "center" }}>
+                        <View style={{ flex: 0.4, justifyContent: "center", alignItems: "center" }}>
                             <View style={styles.imageView}>
                                 <Image
                                     source={{ uri: stuImage }}
@@ -130,7 +181,7 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
 
                             <View style={styles.textView}>
                                 <Text style={styles.textStatus}>
-                                    <Text style={styles.statusSymbol}>{`🟢 ${stuStatus}  `}</Text>
+                                    {`🟢 ${stuStatus}`}
                                 </Text>
                             </View>
                         </View>
@@ -140,7 +191,7 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
 
 
                     <View style={styles.slide1}>
-                        <View style={{ flex: 0.65, justifyContent: "center", margin: hp('1'), paddingLeft: wp('2') }}>
+                        <View style={{ flex: 0.6, justifyContent: "center", margin: hp('1'), paddingLeft: wp('2') }}>
                             <View>
                                 {/* <Text style={styles.titleMain}>{stuName}</Text> */}
                                 <Text style={styles.titleMain}>{"Faisal Ali"}</Text>
@@ -161,7 +212,7 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
                         </View>
 
 
-                        <View style={{ flex: 0.35, justifyContent: "center", alignItems: "center" }}>
+                        <View style={{ flex: 0.4, justifyContent: "center", alignItems: "center" }}>
                             <View style={styles.imageView}>
                                 <Image
                                     source={{ uri: stuImage }}
@@ -172,7 +223,7 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
 
                             <View style={styles.textView}>
                                 <Text style={styles.textStatus}>
-                                    <Text style={styles.statusSymbol}>{`🟢 ${stuStatus}  `}</Text>
+                                    {`🟢 ${stuStatus}`}
                                 </Text>
                             </View>
                         </View>
@@ -215,6 +266,18 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
 
                 </View> */}
             </View>
+
+            {
+                modalValue &&
+
+                <ImagePickerCrop
+                    modalVisible={modalValue}
+                    onPressModal={onPressCameraImg}
+                    onPressPhotos={onPressPhotoLibrary}
+                    onPressCamera={onPressCamera}
+                />
+            }
+
         </View>
 
     );
@@ -296,26 +359,30 @@ const styles = StyleSheet.create({
         height: hp('10'),
         width: hp('10'),
         marginVertical: hp('1'),
-        borderRadius: wp('3'),
-        borderColor: colors.lightOrange,
-        borderWidth: wp('0.5'),
-        justifyContent: 'center',
-        alignItems: 'center'
+        // borderRadius: wp('3'),
+        // borderColor: colors.lightOrange,
+        // borderWidth: wp('0.5'),
+        // justifyContent: 'center',
+        // alignItems: 'center'
     },
     mainImageStyle: {
-        height: hp('9'),
-        width: hp('18')
+        height: hp('10'),
+        width: hp('10'),
+        borderRadius: wp('3'),
+
+        borderColor: colors.lightOrange,
+        borderWidth: wp('0.75'),
     },
     statusSymbol: {
         fontSize: hp('1')
     },
     textView: {
         justifyContent: 'center',
-        alignItems: "center"
+        alignItems: "center",
     },
     textStatus: {
-        color: colors.fbColor,
-        fontSize: hp('1.25'),
+        color: colors.grey,
+        fontSize: hp('1.3'),
         fontFamily: fontFamily.regular
     },
 

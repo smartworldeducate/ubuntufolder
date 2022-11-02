@@ -147,7 +147,7 @@ const HomeScreen = () => {
                 stuNumber={"170838"}
                 campName={"Canal side Campus"}
                 className={"Class 3 - Red"}
-                stuImage={"student"}
+                stuImage={"assesment"}
                 stuStatus={"On-Roll"}
             />
             <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: colors.white, marginVertical: hp(2) }}
