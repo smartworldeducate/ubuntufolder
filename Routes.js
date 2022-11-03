@@ -1,4 +1,4 @@
-
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import * as React from 'react';
@@ -38,7 +38,8 @@ function DrawerStack() {
 
         <Drawer.Navigator
             initialRouteName="HomeScreen"
-            screenOptions={{ headerShown: false, drawerPosition: "right" }}
+            screenOptions={{ headerShown: false, drawerPosition: "right", drawerStyle:{ width:wp('75')} }}
+            
             drawerContent={(props) => (
                 <DrawerContent  {...props} />
             )}>

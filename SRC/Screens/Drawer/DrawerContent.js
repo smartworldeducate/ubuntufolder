@@ -13,7 +13,7 @@ const DrawerContent = ({ }) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.white }}>
-            <View style={{ paddingLeft: wp('3') }}>
+            <View style={{ paddingLeft: wp('3')}}>
 
                 <View style={{ marginTop: hp('2') }}>
                     <DrawerHeader

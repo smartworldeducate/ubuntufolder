@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
         marginHorizontal: hp('1'),
         marginTop: hp('3'),
         marginBottom: hp('2'),
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
     },
     centralView: {
         flex: 0.33,

@@ -242,10 +242,6 @@ const ContactUs = () => {
                 }
 
 
-                {/* below */}
-
-
-
                 <View style={{ height: hp('20'), marginHorizontal: wp('6'), borderColor: colors.grey, borderWidth: wp('0.15'), borderRadius: wp('3'), marginTop: hp('3') }}>
                     <TextInputCustom
                         value={inputContactState}
@@ -262,7 +258,7 @@ const ContactUs = () => {
 
                 <View style={{ alignItems: "center", marginVertical: hp('3') }}>
                     <Button
-                        onPress={()=>navigation.navigate("Home")}
+                        onPress={()=>navigation.navigate("HomeDrawer")}
                         height={hp('4.5')}
                         width={wp('25')}
                         borderRadius={wp('1.5')}

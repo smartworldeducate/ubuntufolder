@@ -10,11 +10,13 @@ import fontFamily from "../../Styles/fontFamily";
 
 import Swiper from 'react-native-swiper'
 import ImagePickerCrop from '../ImagePicker/ImagePickerCrop';
+import StudentInstructionModal from '../ImagePicker/StudentInstructionModal';
 
 const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, campName, className, stuImage, stuStatus }) => {
 
     const [defaultImg, setDefaultImg] = useState("student");
     const [modalValue, setModalValue] = useState(false);
+    const [instructionModal, setInstructionModal] = useState(false);
 
     const navigation = useNavigation();
 
@@ -49,9 +51,28 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
         })
     }
 
+    // const onPressProceed = () => {
+    //     setModalValue(!modalValue);
+    // }
+
     const onPressCameraImg = () => {
-        setModalValue(!modalValue);
+        setInstructionModal(!instructionModal);
     }
+
+    const onPressClose = () => {
+        setInstructionModal(false);
+    }
+
+    const onPressProceed = () => {
+        setInstructionModal(false);
+        setModalValue(true);
+    }
+
+    const onPressModal = () => {
+        setModalValue(false);
+    }
+
+
 
     return (
         <View>
@@ -77,7 +98,7 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
 
             <View style={styles.infoMainView}>
 
-                <Swiper style={styles.wrapper} showsButtons={false}
+                <Swiper style={styles.wrapper} showsButtons={false} showsPagination={false}
 
                 // dot={<View style={{ backgroundColor: 'rgba(0,0,0,.2)', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: hp('15'), }} />}
                 >
@@ -119,7 +140,7 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
                                     <Image
                                         source={{ uri: defaultImg }}
                                         style={styles.mainImageStyle}
-                                        resizeMode={"contain"}
+                                        resizeMode={"cover"}
                                     />
                                 </View>
 
@@ -267,16 +288,21 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
                 </View> */}
             </View>
 
-            {
-                modalValue &&
 
-                <ImagePickerCrop
-                    modalVisible={modalValue}
-                    onPressModal={onPressCameraImg}
-                    onPressPhotos={onPressPhotoLibrary}
-                    onPressCamera={onPressCamera}
-                />
-            }
+
+            <StudentInstructionModal
+                modalVisible={instructionModal}
+                onPressModal={onPressCameraImg}
+                onPressClose={onPressClose}
+                onPressProceed={onPressProceed}
+            />
+
+            <ImagePickerCrop
+                modalVisible={modalValue}
+                onPressModal={onPressModal}
+                onPressPhotos={onPressPhotoLibrary}
+                onPressCamera={onPressCamera}
+            />
 
         </View>
 
