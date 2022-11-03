@@ -72,23 +72,21 @@ const styles = StyleSheet.create({
         borderRadius: wp('3')
     },
     centralHeaderView: {
-        flex: 0.2,
-        marginVertical: hp('0.25')
+        flex: 0.25,
+        justifyContent: "center"
     },
     headerText: {
         color: colors.grey,
         fontFamily: fontFamily.semiBold,
-        fontSize: hp('2'),
-        paddingVertical: hp('3')
+        fontSize: hp('2.15'),
     },
     instructionsTextsView: {
-        flex: 0.65,
-        marginVertical: hp('2.5')
+        flex: 0.6,
     },
     textStyle: {
         color: colors.grey,
         fontFamily: fontFamily.regular,
-        fontSize: hp('1.75'),
+        fontSize: hp('1.85'),
         lineHeight: hp('3')
     },
     lowerButtonsView: {

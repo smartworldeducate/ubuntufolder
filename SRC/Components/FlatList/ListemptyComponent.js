@@ -6,7 +6,7 @@ const ListEmptyComponent = ({ img, styleImg, style, text }) => {
 
     return (
         <View>
-            <View style={{ justifyContent: 'center', alignItems: 'center'}}>
+            <View style={styles.viewStyle}>
                 <Image
                     source={{ uri: img }}
                     style={styleImg}
@@ -19,6 +19,9 @@ const ListEmptyComponent = ({ img, styleImg, style, text }) => {
 }
 
 const styles = StyleSheet.create({
-
+    viewStyle: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 export default ListEmptyComponent;

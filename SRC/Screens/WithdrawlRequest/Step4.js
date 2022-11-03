@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Modal, TouchableOpacity, Image } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import ImagePicker from 'react-native-image-crop-picker';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../../Components/Button/Button';
 import colors from '../../Styles/colors';
 import fontFamily from '../../Styles/fontFamily';
 import FlatListItem from '../../Components/FlatList/FlatList';
 import LineSeprator from '../../Components/LineSeprator/LineSeprator';
+import ImagePickerCrop from '../../Components/ImagePicker/ImagePickerCrop';
 
 
 const Step4 = ({ onPressBack, onPressNext }) => {
 
     const navigation = useNavigation();
+
+    const [idCardFront, setIdCardFront] = useState("idcard");
+    const [idCardBack, setIdCardBack] = useState("idcard");
+    const [frontModalValue, setFrontModalValue] = useState(false);
+    const [backModalValue, setBackModalValue] = useState(false);
+
 
     const [modalVisible, setModalVisible] = useState(false);
     const [selectRelation, setSelectRelation] = useState('');
@@ -74,6 +82,63 @@ const Step4 = ({ onPressBack, onPressNext }) => {
 
     const onPressCheckbox = () => {
         setCheckbox(!checkbox);
+    }
+
+    const onPressFrontIdCardModal = () => {
+        setFrontModalValue(!frontModalValue);
+    }
+
+    const onPressFrontPhotoLibrary = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.log(image);
+            setIdCardFront(image.path);
+            setFrontModalValue(false);
+        })
+    }
+
+    const onPressFrontCamera = () => {
+        ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true,
+        }).then(image => {
+            console.log(image);
+            setIdCardFront(image.path);
+            setFrontModalValue(false);
+        })
+    }
+
+
+    const onPressBackIdCardModal = () => {
+        setBackModalValue(!backModalValue);
+    }
+
+    const onPressBackPhotoLibrary = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            console.log(image);
+            setIdCardBack(image.path);
+            setBackModalValue(false);
+        })
+    }
+
+    const onPressBackCamera = () => {
+        ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true,
+        }).then(image => {
+            console.log(image);
+            setIdCardBack(image.path);
+            setBackModalValue(false);
+        })
     }
 
     return (
@@ -150,22 +215,26 @@ const Step4 = ({ onPressBack, onPressNext }) => {
                 </View>
             }
 
-            <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginVertical: hp('2') }}>
-                <TouchableOpacity style={{ justifyContent: "center" }}>
+            <View style={{ flexDirection: "row", marginVertical: hp('2') }}>
+                <View style={{ flex: 0.1, justifyContent: "center" }}></View>
+                <TouchableOpacity onPress={onPressFrontIdCardModal} style={{ flex: 0.35, justifyContent: "center", alignItems: "center" }}>
                     <Image
-                        source={{ uri: "idcard" }}
+                        source={{ uri: idCardFront }}
                         style={styles.imageStyle}
-                        resizeMode={"contain"}
+                        resizeMode={"stretch"}
                     />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{ justifyContent: "center" }}>
+                <View style={{ flex: 0.1, justifyContent: "center" }}></View>
+
+                <TouchableOpacity onPress={onPressBackIdCardModal} style={{ flex: 0.35, justifyContent: "center", alignItems: "center" }}>
                     <Image
-                        source={{ uri: "idcard" }}
+                        source={{ uri: idCardBack }}
                         style={styles.imageStyle}
-                        resizeMode={"contain"}
+                        resizeMode={"stretch"}
                     />
                 </TouchableOpacity>
+                <View style={{ flex: 0.1, justifyContent: "center" }}></View>
             </View>
 
 
@@ -191,15 +260,15 @@ const Step4 = ({ onPressBack, onPressNext }) => {
             </TouchableOpacity>
 
 
-            <View style={{ flexDirection: "row", marginHorizontal: wp('4'), marginTop:hp('2') }}>
-                <TouchableOpacity onPress={onPressCheckbox} style={{ flex: 0.2, justifyContent: "center", alignItems: "center"}}>
+            <View style={{ flexDirection: "row", marginHorizontal: wp('4'), marginTop: hp('2') }}>
+                <TouchableOpacity onPress={onPressCheckbox} style={{ flex: 0.2, justifyContent: "center", alignItems: "center" }}>
                     <Image
                         source={{ uri: checkbox ? "checked" : "uncheck" }}
                         style={{ height: hp('3'), width: wp('6') }}
                         resizeMode={"contain"}
                     />
                 </TouchableOpacity>
-                <View style={{ flex: 0.8, justifyContent: "center"}}>
+                <View style={{ flex: 0.8, justifyContent: "center" }}>
                     <Text style={{ marginHorizontal: wp('3'), fontFamily: fontFamily.regular, fontSize: hp('1.95'), color: colors.lightBlack, textAlign: "justify", lineHeight: hp('2.5') }}>{"After development, you should add test for your modification and make all tests passed to prevent other contributors break the feature in the future accidentally. We use detox + jest for e2e test now, you can read Detox for more detail."}</Text>
                 </View>
             </View>
@@ -235,6 +304,21 @@ const Step4 = ({ onPressBack, onPressNext }) => {
             </View>
 
             <View style={{ marginBottom: hp('1.5') }}></View>
+
+
+            <ImagePickerCrop
+                modalVisible={frontModalValue}
+                onPressModal={onPressFrontIdCardModal}
+                onPressPhotos={onPressFrontPhotoLibrary}
+                onPressCamera={onPressFrontCamera}
+            />
+
+            <ImagePickerCrop
+                modalVisible={backModalValue}
+                onPressModal={onPressBackIdCardModal}
+                onPressPhotos={onPressBackPhotoLibrary}
+                onPressCamera={onPressBackCamera}
+            />
         </>
 
 
@@ -269,8 +353,8 @@ const styles = StyleSheet.create({
     selectRelationText: {
         textAlign: "center",
         color: colors.appColor,
-        fontSize:hp('1.6'),
-        fontFamily:fontFamily.regularAlatsi
+        fontSize: hp('1.6'),
+        fontFamily: fontFamily.regularAlatsi
     },
 
     selectValueRightView: {
@@ -349,8 +433,8 @@ const styles = StyleSheet.create({
     },
 
     imageStyle: {
-        height: hp('9'),
-        width: wp("18")
+        height: hp('8'),
+        width: wp("20")
     },
 });
 export default Step4;

@@ -73,7 +73,6 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
     }
 
 
-
     return (
         <View>
             <View style={styles.mainView}>
@@ -162,8 +161,6 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
                                 />
                             </TouchableOpacity>
                         </View>
-
-
 
                     </View>
 

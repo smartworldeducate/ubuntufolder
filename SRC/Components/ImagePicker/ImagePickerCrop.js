@@ -18,20 +18,20 @@ const ImagePickerCrop = ({ modalVisible, onPressModal, onPressPhotos, onPressCam
 
                 <TouchableOpacity
                     onPress={onPressModal}
-                    style={{ flex: 0.8, backgroundColor: colors.transparentBlack }}>
+                    style={styles.upperView}>
 
                 </TouchableOpacity>
 
-                <View style={{ flex: 0.2, backgroundColor: colors.white, paddingHorizontal: wp('5'), paddingVertical: hp('1'), justifyContent: "center" }}>
-                    <View style={{ height: hp('5'), justifyContent: "center", marginVertical: hp('0.25') }}>
-                        <Text style={{ color: colors.grey }}>Photo</Text>
+                <View style={styles.lowerView}>
+                    <View style={styles.textView}>
+                        <Text style={styles.upperTextColor}>Photo</Text>
                     </View>
-                    <TouchableOpacity onPress={onPressPhotos} style={{ height: hp('5'), justifyContent: "center", marginVertical: hp('0.25') }}>
-                        <Text style={{ color: colors.lightBlack }}>From Photos</Text>
+                    <TouchableOpacity onPress={onPressPhotos} style={styles.textView}>
+                        <Text style={styles.lowerTextColor}>From Photos</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={onPressCamera} style={{ height: hp('5'), justifyContent: "center", marginVertical: hp('0.25') }}>
-                        <Text style={{ color: colors.lightBlack }}>Take Picture</Text>
+                    <TouchableOpacity onPress={onPressCamera} style={styles.textView}>
+                        <Text style={styles.lowerTextColor}>Take Picture</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -45,6 +45,31 @@ const styles = StyleSheet.create({
     modalView: {
         flex: 1,
         flexDirection: 'column'
+    },
+    upperView: {
+        flex: 0.75,
+        backgroundColor: colors.transparentBlack
+    },
+    lowerView: {
+        flex: 0.25,
+        backgroundColor: colors.white,
+        paddingHorizontal: wp('5'),
+        justifyContent: "center"
+    },
+    textView: {
+        height: hp('6.5'),
+        justifyContent: "center"
+    },
+    upperTextColor: {
+        color: colors.grey,
+        fontSize: hp('2'),
+        fontFamily: fontFamily.regularAlatsi
+    },
+    lowerTextColor: {
+        color: colors.lightBlack,
+        fontSize: hp('2'),
+        fontFamily: fontFamily.regularAlatsi
     }
+
 });
 export default ImagePickerCrop;
