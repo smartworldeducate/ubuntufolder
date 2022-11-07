@@ -10,6 +10,10 @@ import Button from '../Components/Button/Button';
 import LineSeprator from '../Components/LineSeprator/LineSeprator';
 import ParentProfileHeader from '../Components/Header/ParentProfileHeader';
 import LeftTextsRightImg from '../Components/ParentProfile/LeftTextsRightImg';
+import UpdateAddressModal from '../Components/ParentProfile/UpdateAddressModal';
+import UpdateCNICModal from '../Components/ParentProfile/UpdateCNICModal';
+import UpdateContactNoModal from '../Components/ParentProfile/UpdateContactNoModal';
+import UpdateEmail from '../Components/ParentProfile/UpdateEmail';
 
 
 const ParentProfile = () => {
@@ -17,12 +21,82 @@ const ParentProfile = () => {
     const navigation = useNavigation();
     const [refreshing, setRefreshing] = useState(false);
 
+
+    const [CNICModal, setCNICModal] = useState(false);
+    const [contactNoModal, setContactNoModal] = useState(false);
+    const [emailAddressModal, setEmailAddressModal] = useState(false);
+
+    const [CNICModalMother, setCNICModalMother] = useState(false);
+    const [contactNoModalMother, setContactNoModalMother] = useState(false);
+    const [emailAddressModalMother, setEmailAddressModalMother] = useState(false);
+
+    const [addressModal, setAddressModal] = useState(false);
+
+
+    const [inputName, setInputName] = useState('');
+    const [inputCNIC, setInputCNIC] = useState();
+
+
+    const onChangeName = (val) => {
+        setInputName(val);
+    }
+
+    const onChangeCNIC = (val) => {
+        setInputCNIC(val);
+    }
+
+    const [inputContact, setInputContact] = useState('');
+
+    const onChangeContact = (val) => {
+        setInputContact(val);
+    }
+
+    const [inputEmail, setInputEmail] = useState('');
+    const onChangeEmail = (val) => {
+        setInputEmail(val);
+    }
+
+    const [inputAddress, setInputAddress] = useState('');
+
+    const onChangeAddress = (val) => {
+        setInputAddress(val);
+    }
+
+
+
     const onRefresh = () => {
         setRefreshing(true);
         // initialCall();
         console.log("add", 2 + 2);
         setRefreshing(false);
         // console.log("calling again", initialCall());
+    }
+
+    const onPressCNICModal = () => {
+        setCNICModal(!CNICModal);
+    }
+    const onPressContactNoModal = () => {
+        setContactNoModal(!contactNoModal);
+    }
+    const onPressEmailAddressModal = () => {
+        setEmailAddressModal(!emailAddressModal);
+    }
+
+    const onPressCNICModalMother = () => {
+        setCNICModalMother(!CNICModalMother);
+    }
+    const onPressContactNoModalMother = () => {
+        setContactNoModalMother(!contactNoModalMother);
+    }
+    const onPressEmailAddressModalMother = () => {
+        setEmailAddressModalMother(!emailAddressModalMother);
+    }
+
+
+
+
+    const onPressAddressModal = () => {
+        setAddressModal(!addressModal);
     }
 
     return (
@@ -81,6 +155,7 @@ const ParentProfile = () => {
                         text1={"35401-1234567-8"}
                         text2={"CNIC"}
                         img={"edit"}
+                        onPressImg={onPressCNICModal}
                         paddingHorizontal={wp('2')}
                     />
 
@@ -92,6 +167,7 @@ const ParentProfile = () => {
                         text1={"0300-1234567"}
                         text2={"Phone Number"}
                         img={"edit"}
+                        onPressImg={onPressContactNoModal}
                         paddingHorizontal={wp('2')}
                     />
 
@@ -103,6 +179,7 @@ const ParentProfile = () => {
                         text1={"qasim.ali@bh.edu.pk"}
                         text2={"Email"}
                         img={"edit"}
+                        onPressImg={onPressEmailAddressModal}
                         paddingHorizontal={wp('2')}
                     />
 
@@ -126,6 +203,7 @@ const ParentProfile = () => {
                         text1={"35401-1234567-8"}
                         text2={"CNIC"}
                         img={"edit"}
+                        onPressImg={onPressCNICModalMother}
                         paddingHorizontal={wp('2')}
                     />
 
@@ -137,6 +215,7 @@ const ParentProfile = () => {
                         text1={"0300-1234567"}
                         text2={"Phone Number"}
                         img={"edit"}
+                        onPressImg={onPressContactNoModalMother}
                         paddingHorizontal={wp('2')}
                     />
 
@@ -148,6 +227,7 @@ const ParentProfile = () => {
                         text1={"ayeshan.khan@gmail.com"}
                         text2={"Email"}
                         img={"edit"}
+                        onPressImg={onPressEmailAddressModalMother}
                         paddingHorizontal={wp('2')}
                     />
                 </View>
@@ -161,6 +241,7 @@ const ParentProfile = () => {
                         text1={"Gulberg 3 gurumangat road lahore"}
                         text2={"Home Address"}
                         img={"edit"}
+                        onPressImg={onPressAddressModal}
                         paddingHorizontal={wp('2')}
                     />
 
@@ -177,6 +258,125 @@ const ParentProfile = () => {
                 </View>
 
                 <View style={{ marginBottom: hp('3') }}></View>
+
+
+                {
+                    CNICModal &&
+                    <UpdateCNICModal
+                        modalUpperFlex={0.3}
+                        modalLowerFlex={0.7}
+                        inputName={inputName}
+                        onChangeName={onChangeName}
+                        inputCNIC={inputCNIC}
+                        onChangeCNIC={onChangeCNIC}
+                        text1={"Father Name"}
+                        text2={"Father CNIC"}
+                        modalVisible={CNICModal}
+                        headerTitle={"Update Father's Name and CNIC"}
+                        onPressRightImg={onPressCNICModal}
+                        onPressModal={onPressCNICModal}
+                    />
+                }
+
+                {
+                    contactNoModal &&
+                    <UpdateContactNoModal
+                        modalUpperFlex={0.3}
+                        modalLowerFlex={0.7}
+                        inputContact={inputContact}
+                        onChangeContact={onChangeContact}
+                        text1={"Father Mobile Number"}
+                        modalVisible={contactNoModal}
+                        headerTitle={"Update Father's Mobile Number"}
+                        onPressRightImg={onPressContactNoModal}
+                        onPressModal={onPressContactNoModal}
+                    />
+                }
+
+                {
+                    emailAddressModal &&
+                    <UpdateEmail
+                        modalUpperFlex={0.3}
+                        modalLowerFlex={0.7}
+                        inputEmail={inputEmail}
+                        onChangeEmail={onChangeEmail}
+                        text1={"Father Email Address"}
+                        text2={"Qasim.ali@bh.edu.pk"}
+                        modalVisible={emailAddressModal}
+                        headerTitle={"Update Father's Email Address"}
+                        onPressRightImg={onPressEmailAddressModal}
+                        onPressModal={onPressEmailAddressModal}
+                    />
+                }
+
+
+
+                {/* mother info */}
+
+
+                {
+                    CNICModalMother &&
+                    <UpdateCNICModal
+                        modalUpperFlex={0.3}
+                        modalLowerFlex={0.7}
+                        inputName={inputName}
+                        onChangeName={onChangeName}
+                        inputCNIC={inputCNIC}
+                        onChangeCNIC={onChangeCNIC}
+                        text1={"Mother Name"}
+                        text2={"Mother CNIC"}
+                        modalVisible={CNICModalMother}
+                        headerTitle={"Update Mother's Name and CNIC"}
+                        onPressRightImg={onPressCNICModalMother}
+                        onPressModal={onPressCNICModalMother}
+                    />
+                }
+
+                {
+                    contactNoModalMother &&
+                    <UpdateContactNoModal
+                        modalUpperFlex={0.3}
+                        modalLowerFlex={0.7}
+                        inputContact={inputContact}
+                        onChangeContact={onChangeContact}
+                        text1={"Mother Mobile Number"}
+                        modalVisible={contactNoModalMother}
+                        headerTitle={"Update Mother's Mobile Number"}
+                        onPressRightImg={onPressContactNoModalMother}
+                        onPressModal={onPressContactNoModalMother}
+                    />
+                }
+
+                {
+                    emailAddressModalMother &&
+                    <UpdateEmail
+                        modalUpperFlex={0.3}
+                        modalLowerFlex={0.7}
+                        inputEmail={inputEmail}
+                        onChangeEmail={onChangeEmail}
+                        text1={"Mother Email Address"}
+                        text2={"Ayeshakhan@bh.edu.pk"}
+                        modalVisible={emailAddressModalMother}
+                        headerTitle={"Update Mother's Email Address"}
+                        onPressRightImg={onPressEmailAddressModalMother}
+                        onPressModal={onPressEmailAddressModalMother}
+                    />
+                }
+
+
+                {
+                    addressModal &&
+                    <UpdateAddressModal
+                        modalUpperFlex={0.3}
+                        modalLowerFlex={0.7}
+                        inputAddress={inputAddress}
+                        onChangeAddress={onChangeAddress}
+                        headerTitle={"Update Correspondence Address"}
+                        modalVisible={addressModal}
+                        onPressRightImg={onPressAddressModal}
+                        onPressModal={onPressAddressModal}
+                    />
+                }
 
 
 

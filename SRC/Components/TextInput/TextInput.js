@@ -5,7 +5,7 @@ const TextInputCustom = ({
     style, onChange, onChangeText, placeholder,
     Value, placeholderColor, maxLength,
     keyboardType, multiline, onPressIn, autoFocus,
-    onFocus, editable, secureTextEntry, returnKeyType
+    onFocus, editable, secureTextEntry, returnKeyType, numberOfLines
 }) => {
     return (
         <TextInput
@@ -24,6 +24,7 @@ const TextInputCustom = ({
             editable={editable}
             secureTextEntry={secureTextEntry}
             returnKeyType={returnKeyType}
+            numberOfLines={numberOfLines}
         />
     );
 }

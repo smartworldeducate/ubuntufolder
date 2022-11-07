@@ -33,7 +33,7 @@ const NotificationHeader = ({ onPressRightImg, text, rightImg }) => {
 
 const styles = StyleSheet.create({
     mainView: {
-        height: hp("6"),
+        height: hp("7"),
         justifyContent: 'center',
     },
     linearGradient: {

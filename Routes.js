@@ -31,8 +31,6 @@ const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
 
-
-
 function DrawerStack() {
     return (
 
@@ -72,25 +70,18 @@ function TabNavigator() {
                 headerShown: false
             }}
         >
-
             <Tab.Screen
                 name="ViewAllNotificationsTab"
                 component={HomeScreen}
-
             />
-
             <Tab.Screen
                 name="HomeScreenTab"
                 component={HomeScreen}
-
             />
-
             <Tab.Screen
                 name="ContactUsTab"
                 component={ContactUs}
-
             />
-
         </Tab.Navigator >
     );
 }

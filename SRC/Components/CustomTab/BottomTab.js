@@ -5,7 +5,6 @@ import colors from '../../Styles/colors';
 import fontFamily from '../../Styles/fontFamily';
 
 
-
 const BottomTab = ({ state, descriptors, navigation }) => {
 
     return (
@@ -45,33 +44,33 @@ const BottomTab = ({ state, descriptors, navigation }) => {
                                         source={{
                                             uri: isFocused ? "notificationblue" : "notificationblue",
                                         }}
-                                        style={{ height: hp('6'), width: wp('11') }}
+                                        style={styles.imgStyle}
                                         resizeMode={"contain"}
                                     />
                                     <Text style={styles.textStyle}>Notifications</Text>
                                 </TouchableOpacity>
                                 :
                                 index === 1 ?
-                                    <TouchableOpacity onPress={onPress} style={styles.touchableIcon}>
-                                        <Image
-                                            source={{
-                                                uri: isFocused ? "studentblue" : "studentblue",
-                                            }}
-                                            style={{ height: hp('6'), width: wp('11') }}
-                                            resizeMode={"contain"}
-                                        />
-                                        <Text style={styles.textStyle}>Student Profile</Text>
-                                    </TouchableOpacity>
+                                    <View style={{ justifyContent: "center", alignItems: "center" }}>
+                                        <TouchableOpacity onPress={onPress} style={styles.centralIcon}>
+                                            <Image
+                                                source={{ uri: isFocused ? "studentblue" : "studentblue" }}
+                                                style={styles.centralImgStyle}
+                                                resizeMode={"contain"}
+                                            />
+
+                                        </TouchableOpacity>
+                                        <View style={{}}>
+                                            <Text style={styles.textStyle}>Student Profile</Text>
+                                        </View>
+                                    </View>
 
                                     :
                                     index === 2 ?
                                         <TouchableOpacity onPress={onPress} style={styles.touchableIcon}>
                                             <Image
-                                                source={{
-                                                    uri: isFocused ? "contactblue" : "contactblue",
-
-                                                }}
-                                                style={{ height: hp('6'), width: wp('11') }}
+                                                source={{ uri: isFocused ? "contactblue" : "contactblue" }}
+                                                style={styles.imgStyle}
                                                 resizeMode={"contain"}
                                             />
                                             <Text style={styles.textStyle}>Contact Us</Text>
@@ -88,14 +87,14 @@ const BottomTab = ({ state, descriptors, navigation }) => {
 }
 const styles = StyleSheet.create({
     container: {
-        height: Platform.OS === "android" ? hp("9") : hp("11"),
+        height: Platform.OS === "android" ? hp("9") : hp("10"),
         justifyContent: "center",
         // elevation: 2,
         flexDirection: "row",
         backgroundColor: colors.white,
         borderTopColor: colors.appColor,
-        borderTopWidth: wp('0.1')
-
+        borderTopWidth: wp('0.15'),
+        paddingBottom: hp('2'),
     },
     innerMainView: {
         flex: 1,
@@ -104,14 +103,26 @@ const styles = StyleSheet.create({
     },
     touchableIcon: {
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+    },
+    imgStyle: {
+        height: hp('4'), width: wp('8')
+    },
+    centralIcon: {
+        alignItems: "center",
+        marginTop: hp('-4')
+    },
+    centralImgStyle: {
+        height: hp('8'),
+        width: wp('16')
     },
     textStyle: {
         alignItems: "center",
-        fontSize: hp('1.75'),
+        fontSize: hp('1.65'),
         fontFamily: fontFamily.bold,
         color: colors.grey,
-        fontWeight:"bold"
+        fontWeight: "bold",
+        paddingHorizontal: wp('2')
     }
 });
 

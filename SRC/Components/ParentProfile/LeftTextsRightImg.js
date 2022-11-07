@@ -5,7 +5,7 @@ import colors from '../../Styles/colors';
 import fontFamily from '../../Styles/fontFamily';
 
 
-const LeftTextsRightImg = ({ text1, text2, img, paddingHorizontal }) => {
+const LeftTextsRightImg = ({ text1, text2, img, paddingHorizontal, onPressImg }) => {
 
     return (
         <View style={{ flexDirection: "row" }}>
@@ -13,7 +13,7 @@ const LeftTextsRightImg = ({ text1, text2, img, paddingHorizontal }) => {
                 <Text style={{ fontSize: hp('1.75'), fontFamily: fontFamily.semiBold, color: colors.lightBlack }}>{text1}</Text>
                 <Text style={{ fontSize: hp('1.75'), fontFamily: fontFamily.regular, color: colors.grey }}>{text2}</Text>
             </View>
-            <TouchableOpacity style={{ flex: 0.15, justifyContent: "center", alignItems: "flex-end" }}>
+            <TouchableOpacity onPress={onPressImg} style={{ flex: 0.15, justifyContent: "center", alignItems: "flex-end" }}>
                 <Image
                     source={{ uri: img }}
                     style={styles.imageStyle}
