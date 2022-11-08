@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 import fontFamily from '../Styles/fontFamily';
 import colors from '../Styles/colors';
 import MainHeader from '../Components/Header/MainHeader';
-import Button from '../Components/Button/Button';
 
 import LineSeprator from '../Components/LineSeprator/LineSeprator';
 import ParentProfileHeader from '../Components/Header/ParentProfileHeader';
@@ -138,9 +137,9 @@ const ParentProfile = () => {
 
             >
 
-                <Text style={{ fontSize: hp('2'), fontFamily: fontFamily.semiBold, color: colors.lightBlack, textAlign: "center", marginTop: hp('2') }}>Parent/Guardian Information</Text>
+                <Text style={styles.mainText}>Parent/Guardian Information</Text>
 
-                <View style={{ marginHorizontal: wp('6'), marginTop: hp('2'), borderRadius: wp('3'), borderColor: colors.grey, borderWidth: wp('0.15'), paddingVertical: hp('1'), paddingHorizontal: wp('2') }}>
+                <View style={styles.parentView}>
                     <ParentProfileHeader
                         leftImg={"father"}
                         text1={"Qasim Ali Khan"}
@@ -233,9 +232,9 @@ const ParentProfile = () => {
                 </View>
 
 
-                <Text style={{ fontSize: hp('2'), fontFamily: fontFamily.semiBold, color: colors.lightBlack, textAlign: "center", marginTop: hp('2') }}>Correspondence Information</Text>
+                <Text style={styles.addressText}>Correspondence Information</Text>
 
-                <View style={{ marginHorizontal: wp('6'), marginTop: hp('2'), borderRadius: wp('3'), borderColor: colors.grey, borderWidth: wp('0.15'), paddingVertical: hp('1'), paddingHorizontal: wp('2') }}>
+                <View style={styles.addressView}>
 
                     <LeftTextsRightImg
                         text1={"Gulberg 3 gurumangat road lahore"}
@@ -386,10 +385,42 @@ const ParentProfile = () => {
 }
 
 const styles = StyleSheet.create({
+    mainText: {
+        fontSize: hp('2'),
+        fontFamily: fontFamily.semiBold,
+        color: colors.lightBlack,
+        textAlign: "center",
+        marginTop: hp('2')
+    },
+    parentView: {
+        marginHorizontal: wp('6'),
+        marginTop: hp('2'),
+        borderRadius: wp('3'),
+        borderColor: colors.grey,
+        borderWidth: wp('0.15'),
+        paddingVertical: hp('1'),
+        paddingHorizontal: wp('2')
+    },
     lineSeprator: {
         height: hp('0.2'),
         backgroundColor: colors.appColor,
         marginVertical: hp('1'),
+    },
+    addressText: {
+        fontSize: hp('2'),
+        fontFamily: fontFamily.semiBold,
+        color: colors.lightBlack,
+        textAlign: "center",
+        marginTop: hp('2')
+    },
+    addressView: {
+        marginHorizontal: wp('6'),
+        marginTop: hp('2'),
+        borderRadius: wp('3'),
+        borderColor: colors.grey,
+        borderWidth: wp('0.15'),
+        paddingVertical: hp('1'),
+        paddingHorizontal: wp('2')
     },
     lineSepratorBelow: {
         height: hp('0.1'),

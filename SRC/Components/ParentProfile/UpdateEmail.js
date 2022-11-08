@@ -41,7 +41,7 @@ const UpdateEmail = ({ modalVisible, onPressModal, modalUpperFlex, modalLowerFle
                     <View style={{ marginHorizontal: wp('6') }}>
 
                         <View style={{ marginTop: hp('2') }}>
-                            <Text style={{ fontSize: hp('1.85'), fontFamily: fontFamily.semiBold, color: colors.lightBlack }}>{text1}</Text>
+                            <Text style={styles.textStyle}>{text1}</Text>
 
                             <TextInputCustom
                                 value={inputEmail}
@@ -55,11 +55,11 @@ const UpdateEmail = ({ modalVisible, onPressModal, modalUpperFlex, modalLowerFle
                                 style={styles.textInputCustomStyle}
                             />
 
-                            <Text style={{ fontSize: hp('1.25'), fontFamily: fontFamily.regular, color: colors.grey }}>Tap to edit</Text>
+                            <Text style={styles.tapEditText}>Tap to edit</Text>
                         </View>
 
-                        <View style={{ flexDirection: "row", marginVertical: hp('2') }}>
-                            <TouchableOpacity onPress={onPressChecked} style={{ flex: 0.1, justifyContent: "center", alignItems: "center" }}>
+                        <View style={styles.checkBoxView}>
+                            <TouchableOpacity onPress={onPressChecked} style={styles.checkBoxLeftView}>
                                 <Image
                                     source={{ uri: isChecked ? "checked" : "uncheck" }}
                                     style={styles.imageStyle}
@@ -67,18 +67,17 @@ const UpdateEmail = ({ modalVisible, onPressModal, modalUpperFlex, modalLowerFle
                                 />
                             </TouchableOpacity>
                             <View style={{ flex: 0.9, justifyContent: "center" }}>
-                                <Text style={{ fontSize: hp('1.85'), fontFamily: fontFamily.regular, color: colors.lightBlack, paddingLeft: wp('0') }}>Mark as primary</Text>
+                                <Text style={styles.checkBoxRightView}>Mark as primary</Text>
                             </View>
                         </View>
 
                         <View style={{ marginVertical: hp('1') }}>
-                            <Text style={{ fontSize: hp('1.85'), fontFamily: fontFamily.regular, color: colors.grey, textAlign: "auto" }}>Please note that the current primary email address for communication is {text2}</Text>
+                            <Text style={styles.instructionsText}>Please note that the current primary email address for communication is {text2}</Text>
                         </View>
 
                         <View style={styles.textView}>
                             <Button
                                 height={hp('4.5')}
-                                // width={wp('20')}
                                 borderRadius={wp('1.5')}
                                 text="Update"
                                 bgColor={colors.appColor}
@@ -98,6 +97,11 @@ const UpdateEmail = ({ modalVisible, onPressModal, modalUpperFlex, modalLowerFle
 }
 
 const styles = StyleSheet.create({
+    textStyle: {
+        fontSize: hp('1.85'),
+        fontFamily: fontFamily.semiBold,
+        color: colors.lightBlack
+    },
     textInputCustomStyle: {
         marginTop: wp('2'),
         fontSize: hp('1.75'),
@@ -108,9 +112,35 @@ const styles = StyleSheet.create({
         borderWidth: wp('0.15'),
         paddingHorizontal: wp('3')
     },
+    tapEditText: {
+        fontSize: hp('1.25'),
+        fontFamily: fontFamily.regular,
+        color: colors.grey
+    },
+    checkBoxView: {
+        flexDirection: "row",
+        marginVertical: hp('2')
+    },
+    checkBoxLeftView: {
+        flex: 0.1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
     imageStyle: {
         height: hp('2'),
         width: wp("4")
+    },
+    checkBoxRightView: {
+        fontSize: hp('1.85'),
+        fontFamily: fontFamily.regular,
+        color: colors.lightBlack,
+        paddingLeft: wp('0')
+    },
+    instructionsText: {
+        fontSize: hp('1.85'),
+        fontFamily: fontFamily.regular,
+        color: colors.grey,
+        textAlign: "auto"
     },
     textView: {
         justifyContent: 'center',

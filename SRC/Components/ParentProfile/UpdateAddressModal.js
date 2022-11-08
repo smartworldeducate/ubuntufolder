@@ -18,7 +18,6 @@ const UpdateAddressModal = ({ modalVisible, onPressModal, modalUpperFlex, modalL
             onRequestClose={null}
         >
 
-
             <TouchableOpacity
                 onPress={onPressModal}
                 style={{ flex: modalUpperFlex }}>
@@ -36,7 +35,7 @@ const UpdateAddressModal = ({ modalVisible, onPressModal, modalUpperFlex, modalL
                     <View style={{ marginHorizontal: wp('6') }}>
 
                         <View style={{ marginTop: hp('2') }}>
-                            <Text style={{ fontSize: hp('1.85'), fontFamily: fontFamily.regular, color: colors.grey, textAlign: "auto" }}>Our Record indicates that your correspondence addresss registerd with us is as follows.</Text>
+                            <Text style={styles.textStyle}>Our Record indicates that your correspondence addresss registerd with us is as follows.</Text>
                         </View>
 
                         <View style={{ marginTop: hp('1.5') }}>
@@ -55,7 +54,7 @@ const UpdateAddressModal = ({ modalVisible, onPressModal, modalUpperFlex, modalL
                                 style={styles.textInputCustomStyle}
                             />
 
-                            <Text style={{ fontSize: hp('1.25'), fontFamily: fontFamily.regular, color: colors.grey }}>Tap to edit</Text>
+                            <Text style={styles.tapEditText}>Tap to edit</Text>
                         </View>
 
                         <View style={styles.textView}>
@@ -80,6 +79,12 @@ const UpdateAddressModal = ({ modalVisible, onPressModal, modalUpperFlex, modalL
 }
 
 const styles = StyleSheet.create({
+    textStyle: {
+        fontSize: hp('1.85'),
+        fontFamily: fontFamily.regular,
+        color: colors.grey,
+        textAlign: "auto"
+    },
     textInputCustomStyle: {
         marginTop: wp('1.5'),
         fontSize: hp('1.75'),
@@ -90,7 +95,11 @@ const styles = StyleSheet.create({
         borderWidth: wp('0.15'),
         paddingHorizontal: wp('3')
     },
-
+    tapEditText: {
+        fontSize: hp('1.25'),
+        fontFamily: fontFamily.regular,
+        color: colors.grey
+    },
     textView: {
         justifyContent: 'center',
         marginHorizontal: wp('20'),

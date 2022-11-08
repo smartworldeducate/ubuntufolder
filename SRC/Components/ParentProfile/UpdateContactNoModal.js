@@ -37,7 +37,7 @@ const UpdateContactNoModal = ({ modalVisible, onPressModal, modalUpperFlex, moda
                     <View style={{ marginHorizontal: wp('6') }}>
 
                         <View style={{ marginTop: hp('2') }}>
-                            <Text style={{ fontSize: hp('1.85'), fontFamily: fontFamily.semiBold, color: colors.lightBlack }}>{text1}</Text>
+                            <Text style={styles.textStyle}>{text1}</Text>
 
                             <TextInputCustom
                                 value={inputContact}
@@ -52,11 +52,11 @@ const UpdateContactNoModal = ({ modalVisible, onPressModal, modalUpperFlex, moda
                                 style={styles.textInputCustomStyle}
                             />
 
-                            <Text style={{ fontSize: hp('1.25'), fontFamily: fontFamily.regular, color: colors.grey }}>Tap to edit</Text>
+                            <Text style={styles.tapEditText}>Tap to edit</Text>
                         </View>
 
                         <View style={{ marginVertical: hp('2') }}>
-                            <Text style={{ fontSize: hp('1.85'), fontFamily: fontFamily.regular, color: colors.grey, textAlign: "auto" }}>We will send you a code to verify your number</Text>
+                            <Text style={styles.confirmationText}>We will send you a code to verify your number</Text>
                         </View>
 
                         <View style={styles.textView}>
@@ -81,6 +81,11 @@ const UpdateContactNoModal = ({ modalVisible, onPressModal, modalUpperFlex, moda
 }
 
 const styles = StyleSheet.create({
+    textStyle: {
+        fontSize: hp('1.85'),
+        fontFamily: fontFamily.semiBold,
+        color: colors.lightBlack
+    },
     textInputCustomStyle: {
         marginTop: wp('2'),
         fontSize: hp('1.75'),
@@ -90,6 +95,17 @@ const styles = StyleSheet.create({
         borderColor: colors.grey,
         borderWidth: wp('0.15'),
         paddingHorizontal: wp('3')
+    },
+    tapEditText: {
+        fontSize: hp('1.25'),
+        fontFamily: fontFamily.regular,
+        color: colors.grey
+    },
+    confirmationText: {
+        fontSize: hp('1.85'),
+        fontFamily: fontFamily.regular,
+        color: colors.grey,
+        textAlign: "auto"
     },
     textView: {
         justifyContent: 'center',

@@ -100,11 +100,11 @@ const UpdateCNICModal = ({ modalVisible, onPressModal, modalUpperFlex, modalLowe
                 <ScrollView>
                     <View style={{ marginHorizontal: wp('6') }}>
                         <View style={{ marginTop: hp('2') }}>
-                            <Text style={{ fontSize: hp('1.85'), fontFamily: fontFamily.regular, color: colors.grey, textAlign: "auto" }}>Our Record indicates that your information registered with us is as follows.</Text>
+                            <Text style={styles.mainText}>Our Record indicates that your information registered with us is as follows.</Text>
                         </View>
 
                         <View style={{ marginTop: hp('1.5') }}>
-                            <Text style={{ fontSize: hp('1.85'), fontFamily: fontFamily.semiBold, color: colors.lightBlack }}>{text1}</Text>
+                            <Text style={styles.textStyle}>{text1}</Text>
 
                             <TextInputCustom
                                 value={inputName}
@@ -118,11 +118,11 @@ const UpdateCNICModal = ({ modalVisible, onPressModal, modalUpperFlex, modalLowe
                                 style={styles.textInputCustomStyle}
                             />
 
-                            <Text style={{ fontSize: hp('1.25'), fontFamily: fontFamily.regular, color: colors.grey }}>Tap to edit</Text>
+                            <Text style={styles.tapEditText}>Tap to edit</Text>
                         </View>
 
                         <View style={{ marginTop: hp('1.5') }}>
-                            <Text style={{ fontSize: hp('1.85'), fontFamily: fontFamily.semiBold, color: colors.lightBlack }}>{text2}</Text>
+                            <Text style={styles.textStyle}>{text2}</Text>
 
                             <TextInputCustom
                                 value={inputCNIC}
@@ -137,7 +137,7 @@ const UpdateCNICModal = ({ modalVisible, onPressModal, modalUpperFlex, modalLowe
                                 style={styles.textInputCustomStyle}
                             />
 
-                            <Text style={{ fontSize: hp('1.25'), fontFamily: fontFamily.regular, color: colors.grey }}>Tap to edit</Text>
+                            <Text style={styles.tapEditText}>Tap to edit</Text>
                         </View>
 
 
@@ -145,7 +145,7 @@ const UpdateCNICModal = ({ modalVisible, onPressModal, modalUpperFlex, modalLowe
                         <View style={{ flexDirection: "row", marginVertical: hp('2') }}>
 
                             <View style={{ flex: 0.1, justifyContent: "center" }}></View>
-                            <TouchableOpacity onPress={onPressFrontIdCardModal} style={{ flex: 0.35, justifyContent: "center", alignItems: "center" }}>
+                            <TouchableOpacity onPress={onPressFrontIdCardModal} style={styles.idCardView}>
                                 <Image
                                     source={{ uri: idCardFront }}
                                     style={styles.imageStyle}
@@ -155,7 +155,7 @@ const UpdateCNICModal = ({ modalVisible, onPressModal, modalUpperFlex, modalLowe
 
                             <View style={{ flex: 0.1, justifyContent: "center" }}></View>
 
-                            <TouchableOpacity onPress={onPressBackIdCardModal} style={{ flex: 0.35, justifyContent: "center", alignItems: "center" }}>
+                            <TouchableOpacity onPress={onPressBackIdCardModal} style={styles.idCardView}>
                                 <Image
                                     source={{ uri: idCardBack }}
                                     style={styles.imageStyle}
@@ -167,13 +167,12 @@ const UpdateCNICModal = ({ modalVisible, onPressModal, modalUpperFlex, modalLowe
 
 
                         <View style={{ marginVertical: hp('2') }}>
-                            <Text style={{ fontSize: hp('1.85'), fontFamily: fontFamily.regular, color: colors.grey, textAlign: "auto" }}>Please upload your valid CNIC (Front and Back) in PNG / JPEG format. File size should not exceed 3MB.</Text>
+                            <Text style={styles.instructionsText}>Please upload your valid CNIC (Front and Back) in PNG / JPEG format. File size should not exceed 3MB.</Text>
                         </View>
 
                         <View style={styles.textView}>
                             <Button
                                 height={hp('4.5')}
-                                // width={wp('20')}
                                 borderRadius={wp('1.5')}
                                 text="Update"
                                 bgColor={colors.appColor}
@@ -207,6 +206,27 @@ const UpdateCNICModal = ({ modalVisible, onPressModal, modalUpperFlex, modalLowe
 }
 
 const styles = StyleSheet.create({
+    mainText: {
+        fontSize: hp('1.85'),
+        fontFamily: fontFamily.regular,
+        color: colors.grey,
+        textAlign: "auto"
+    },
+    tapEditText: {
+        fontSize: hp('1.25'),
+        fontFamily: fontFamily.regular,
+        color: colors.grey
+    },
+    textStyle: {
+        fontSize: hp('1.85'),
+        fontFamily: fontFamily.semiBold,
+        color: colors.lightBlack
+    },
+    idCardView: {
+        flex: 0.35,
+        justifyContent: "center",
+        alignItems: "center"
+    },
     textInputCustomStyle: {
         marginTop: wp('1.5'),
         fontSize: hp('1.75'),
@@ -220,6 +240,12 @@ const styles = StyleSheet.create({
     imageStyle: {
         height: hp('8'),
         width: wp("20")
+    },
+    instructionsText: {
+        fontSize: hp('1.85'),
+        fontFamily: fontFamily.regular,
+        color: colors.grey,
+        textAlign: "auto"
     },
     textView: {
         justifyContent: 'center',
