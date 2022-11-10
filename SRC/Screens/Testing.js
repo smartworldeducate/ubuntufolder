@@ -1,61 +1,93 @@
 
-import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, StyleSheet, Text, View, StatusBar, TouchableOpacity, Image } from 'react-native';
+import { State } from 'react-native-gesture-handler';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import ImagePicker from 'react-native-image-crop-picker';
+import { useDispatch, useSelector } from 'react-redux';
+import MainHeader from '../Components/Header/MainHeader';
+import FlatListItem from '../Components/FlatList/FlatList';
+import LineSeprator from '../Components/LineSeprator/LineSeprator';
+
 import colors from '../Styles/colors';
+import { useNavigation } from '@react-navigation/native';
+
+
+import { getPosts } from "../Redux/Features/AllPost";
+import fontFamily from '../Styles/fontFamily';
 
 const Testing = () => {
 
-  const [defaultImg, setDefaultImg] = useState("signupuser");
+  const navigation = useNavigation();
 
-  const onPressCamera = () => {
-    ImagePicker.openCamera({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      console.log(image);
-      setDefaultImg(image.path);
-    })
+  // const posts = useSelector((state) => ({ ...state.post }));
+  const posts = useSelector((state) => state.post);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, []);
+
+  // console.log("allPosts", posts.posts.map((post) => {
+  //   return post.title
+  // }));
+
+  // console.log("postsLoading", posts.isLoading);
+
+  // console.log("adder", 5 + 5);
+
+
+  const renderItem = ({ item, index }) => {
+    console.log("item", item);
+
+    return (
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <Text style={{ fontSize: hp('1.75'), fontFamily: fontFamily.boldItalic, color: colors.lightBlack, textAlign: "center" }}>{item.title}</Text>
+      </View>
+    );
   }
 
-
-  const onPressPhotoLibrary = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true
-    }).then(image => {
-      console.log(image);
-      setDefaultImg(image.path);
-    })
-  }
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
 
-      <View style={{ justifyContent: "center", alignItems: "center", height: hp('25'), width: wp('50') }}>
-        <Image
-          source={{ uri: defaultImg }}
-          style={{ height: hp('23'), width: wp('47'), borderRadius: wp('25') }}
-          resizeMode={"contain"}
-        />
+    <SafeAreaView style={{ flex: 1, backgroundColor: Platform.OS === "android" ? colors.white : colors.white }}>
+      <StatusBar barStyle={'default'} backgroundColor={colors.lightBlack} />
+
+      <MainHeader
+        onPressRightImg={() => navigation.openDrawer()}
+        topLeftImg={"menu"}
+        text={"Student Profile"}
+        stuName={"Azaan Ali"}
+        stuNumber={"170838"}
+        campName={"Canal side Campus"}
+        className={"Class 3 - Red"}
+        stuImage={"assesment"}
+        stuStatus={"On-Roll"}
+      />
+
+
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+
+        <View style={{ margin: hp('5') }}>
+          <FlatListItem
+            data={posts.posts}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+            ItemSeparatorComponent={<LineSeprator style={styles.listSeprator} />}
+          />
+        </View>
       </View>
 
-      <TouchableOpacity onPress={onPressCamera} style={{ marginVertical: hp('1'), backgroundColor: colors.appColor, height: hp('6'), width: wp('70'), justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ color: colors.white }}>Take from Camera</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={onPressPhotoLibrary} style={{ marginVertical: hp('1'), backgroundColor: colors.grey, height: hp('6'), width: wp('70'), justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ color: colors.white }}>Choose from Library</Text>
-      </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default Testing;
 
 const styles = StyleSheet.create({
-
+  listSeprator: {
+    height: hp('0.08'),
+    backgroundColor: colors.grey,
+    marginHorizontal: wp('8'),
+    marginVertical: hp('0.85')
+  },
 });

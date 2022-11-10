@@ -36,8 +36,8 @@ function DrawerStack() {
 
         <Drawer.Navigator
             initialRouteName="HomeScreen"
-            screenOptions={{ headerShown: false, drawerPosition: "right", drawerStyle:{ width:wp('75')} }}
-            
+            screenOptions={{ headerShown: false, drawerPosition: "right", drawerStyle: { width: wp('75') } }}
+
             drawerContent={(props) => (
                 <DrawerContent  {...props} />
             )}>
@@ -91,6 +91,7 @@ const Routes = () => {
 
     return (
 
+
         <NavigationContainer>
             <Stack.Navigator
                 // initialRouteName={"HomeScreen"}
@@ -104,7 +105,7 @@ const Routes = () => {
                 <Stack.Screen name="OTPEnter" component={OTPEnter} />
 
                 <Stack.Screen name="HomeScreen" component={DrawerStack} />
-              
+
                 {/* <Stack.Screen initialParams={{ signIn: "signIn" }} name="HomeTab" component={TabNavigator} /> */}
 
                 {/* <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}></Drawer.Navigator> */}
@@ -115,6 +116,10 @@ const Routes = () => {
                 <Stack.Screen name="Assessment" component={Assessment} />
                 <Stack.Screen name="Challans" component={Challans} />
                 <Stack.Screen name="ViewAllNotifications" component={ViewAllNotifications} />
+
+                <Stack.Screen name="Testing" component={Testing} />
+
+
                 {/* <Stack.Screen name="AllPolicies" component={AllPolicies} />
                 <Stack.Screen name="ContactUs" component={ContactUs} />
                 <Stack.Screen name="WithdrawlRequest" component={WithdrawlRequest} />

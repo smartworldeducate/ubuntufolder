@@ -173,7 +173,7 @@ const HomeScreen = () => {
                 <View style={styles.mainCentral}>
                     <View style={styles.centralView}>
                         <HomeCentralView
-                            onPress={() => handleNavigate("Attendance")}
+                            onPress={() => handleNavigate("Testing")}
                             img={"attendence"}
                             text={"Attendance"}
                         />
