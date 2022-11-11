@@ -1,7 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, StatusBar, TouchableOpacity, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, StatusBar, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { State } from 'react-native-gesture-handler';
+import {
+  BallIndicator,
+  BarIndicator,
+  DotIndicator,
+  MaterialIndicator,
+  PacmanIndicator,
+  PulseIndicator,
+  SkypeIndicator,
+  UIActivityIndicator,
+  WaveIndicator,
+} from 'react-native-indicators';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useDispatch, useSelector } from 'react-redux';
 import MainHeader from '../Components/Header/MainHeader';
@@ -21,6 +32,8 @@ const Testing = () => {
 
   // const posts = useSelector((state) => ({ ...state.post }));
   const posts = useSelector((state) => state.post);
+  const isLoading = useSelector((state) => state.post.isLoading);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,9 +48,15 @@ const Testing = () => {
 
   // console.log("adder", 5 + 5);
 
+  console.log("postsHere", posts);
+
+  console.log("isLoading", isLoading);
+
+  console.log("isLoadingHere", posts.isLoading);
+
 
   const renderItem = ({ item, index }) => {
-    console.log("item", item);
+    // console.log("item", item);
 
     return (
       <View style={{ justifyContent: "center", alignItems: "center" }}>
@@ -67,14 +86,25 @@ const Testing = () => {
 
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
 
-        <View style={{ margin: hp('5') }}>
-          <FlatListItem
-            data={posts.posts}
-            renderItem={renderItem}
-            keyExtractor={(item, index) => index.toString()}
-            ItemSeparatorComponent={<LineSeprator style={styles.listSeprator} />}
-          />
-        </View>
+        {
+          isLoading ?
+
+            <>
+              {/* <ActivityIndicator size="large" color={colors.appColor} /> */}
+              <DotIndicator color={colors.appColor} size={10} />
+            </>
+            :
+            <View style={{ margin: hp('5') }}>
+              <FlatListItem
+                data={posts.posts}
+                renderItem={renderItem}
+                keyExtractor={(item, index) => index.toString()}
+                ItemSeparatorComponent={<LineSeprator style={styles.listSeprator} />}
+              />
+            </View>
+        }
+
+
       </View>
 
     </SafeAreaView>
