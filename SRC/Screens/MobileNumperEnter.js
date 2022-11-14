@@ -3,21 +3,25 @@ import { StyleSheet, View, Text, ImageBackground } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useLinkProps, useNavigation, CommonActions } from '@react-navigation/native';
 
-
 import colors from '../Styles/colors';
 import fontFamily from "../Styles/fontFamily";
 import Button from '../Components/Button/Button';
 import TextInputCustom from '../Components/TextInput/TextInput';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { createPost } from "../Redux/Features/PhoneNumberSignUp/PhoneNumberSignUp";
+
 
 const MobileNumperEnter = () => {
+    const dispatch = useDispatch();
+
+    const phoneNumberHere = useSelector((state) => state.phoneNumber);
+
+    const [inputContactState, setInputContactState] = useState('');
+    const [values, setValues] = useState({ sms_number: "" });
 
 
     const navigation = useNavigation();
-
-    const [inputContactState, setInputContactState] = useState('');
-
-
     const handleNavigate = (routeName, clearStack, params) => {
         navigation.navigate(routeName, params);
         if (clearStack) {
@@ -27,10 +31,14 @@ const MobileNumperEnter = () => {
 
     const onChangeContact = (val) => {
         setInputContactState(val);
+        setValues({...values, sms_number: val });
     }
 
+
     const onPressSendCode = () => {
-        handleNavigate("OTPEnter");
+      
+        dispatch(createPost(values.sms_number.toString()));
+        handleNavigate("OTPEnter", false, { contactNumberParam: inputContactState });
     }
 
     return (
@@ -46,7 +54,7 @@ const MobileNumperEnter = () => {
                 <View style={styles.contactTextInputView}>
 
                     <TextInputCustom
-                        value={inputContactState}
+                        value={values.sms_number}
                         onChangeText={onChangeContact}
                         keyboardType={"numeric"}
                         maxLength={11}
@@ -69,7 +77,7 @@ const MobileNumperEnter = () => {
                 <View style={styles.textView}>
 
                     <Button
-                        onPress={() => handleNavigate("OTPEnter", false, { contactNumberParam: inputContactState })}
+                        onPress={onPressSendCode}
                         height={hp('4.5')}
                         borderRadius={wp('1.5')}
                         text="Send Code"

@@ -9,9 +9,11 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import postReducer from './Features/AllPost';
+import phoneNumberReducer from "./Features/PhoneNumberSignUp/PhoneNumberSignUp";
 
 export const store = configureStore({
     reducer: {
-        post: postReducer
+        post: postReducer,
+        phoneNumber: phoneNumberReducer
     }
 })
