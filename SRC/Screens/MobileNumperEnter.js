@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, ImageBackground } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useLinkProps, useNavigation, CommonActions } from '@react-navigation/native';
+import DeviceInfo from 'react-native-device-info';
+
+// or ES6+ destructured imports
+
+import { getUniqueId, getManufacturer } from 'react-native-device-info';
 
 import colors from '../Styles/colors';
 import fontFamily from "../Styles/fontFamily";
@@ -14,11 +19,13 @@ import { createPost } from "../Redux/Features/PhoneNumberSignUp/PhoneNumberSignU
 
 const MobileNumperEnter = () => {
     const dispatch = useDispatch();
-
     const phoneNumberHere = useSelector((state) => state.phoneNumber);
 
     const [inputContactState, setInputContactState] = useState('');
     const [values, setValues] = useState({ sms_number: "" });
+    const [deviceType, setDeviceType] = useState("android");
+    const [deviceIdentifier, setDeviceIdentifier] = useState("asdf");
+    const [deviceToken, setDeviceToken] = useState("asdf");
 
 
     const navigation = useNavigation();
@@ -31,15 +38,37 @@ const MobileNumperEnter = () => {
 
     const onChangeContact = (val) => {
         setInputContactState(val);
-        setValues({...values, sms_number: val });
+        setValues({ ...values, sms_number: val });
     }
-
 
     const onPressSendCode = () => {
-      
-        dispatch(createPost(values.sms_number.toString()));
-        handleNavigate("OTPEnter", false, { contactNumberParam: inputContactState });
+        
+        dispatch(createPost(inputContactState.toString()));
+        // dispatch(createPost(values.sms_number.toString()));
+        handleNavigate("OTPEnter", false, { deviceTypeParam: deviceType, contactNumberParam: inputContactState, deviceIdentifierParam: deviceIdentifier, deviceTokenParam: deviceToken });
     }
+
+    useEffect(() => {
+        // device info
+        const appName = DeviceInfo.getApplicationName();
+        // console.log("appName", appName);
+
+        const type = DeviceInfo.getDeviceType();
+        // console.log("type", type);
+        // setDeviceType(type);
+
+        DeviceInfo.getDeviceToken().then((deviceToken) => {
+            // console.log("deviceToken", deviceToken);
+            // setDeviceToken(deviceToken);
+        });
+
+        const deviceId = DeviceInfo.getDeviceId();
+        // console.log("deviceId", deviceId);
+        // setDeviceIdentifier(deviceId);
+        
+        console.log("adder", 2+2);
+
+    }, [inputContactState, deviceType, deviceIdentifier, deviceToken])
 
     return (
         <ImageBackground

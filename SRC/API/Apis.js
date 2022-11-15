@@ -15,6 +15,7 @@ export const config = {
 export const APIS = {
 
     PhoneNumberSignUp: BASE_URL + 'signup',
+    OTPCodeSignUpAPI: BASE_URL + 'verify',
 
     // RegisterSignUp: BASE_URL + 'Authenticate/RegisterClient',
 

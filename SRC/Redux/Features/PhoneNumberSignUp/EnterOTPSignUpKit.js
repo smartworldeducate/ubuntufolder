@@ -8,10 +8,10 @@ const initialState = {
     error: ''
 }
 // sms_number: "03164025665"
-export const createPost = createAsyncThunk("enterPhoneNumber", async (values) => {
-    console.log("values123", values);
+export const OTPCodeAction = createAsyncThunk("enterOTP", async (values) => {
+    console.log("valuesApi", values);
     return axios
-        .post(`${APIS.PhoneNumberSignUp}`, { sms_number: values }, {
+        .post(`${APIS.OTPCodeSignUpAPI}`, values, {
             headers: {
                 'api_key': 'X5Ne0km7852Q1ykny9FfcIK5y9kVV5v6',
                 'api_secret': 'Q1X5NeknkyV5v6Vkm78y9FfcI0K5y952',
@@ -21,25 +21,25 @@ export const createPost = createAsyncThunk("enterPhoneNumber", async (values) =>
 })
 
 
-const postSlice = createSlice({
+const OTPSlice = createSlice({
     name: 'posts',
     initialState,
     extraReducers: {
-        [createPost.pending]: (state, action) => {
+        [OTPCodeAction.pending]: (state, action) => {
             state.isLoading = true;
         },
-        [createPost.fulfilled]: (state, action) => {
+        [OTPCodeAction.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.posts = action.payload;
             state.error = '';
 
-            console.log("values321", action.payload);
+            console.log("OTPKitPayload", action.payload);
         },
-        [createPost.rejected]: (state, action) => {
+        [OTPCodeAction.rejected]: (state, action) => {
             state.isLoading = false;
             state.error = action.error.message;
         }
     }
 })
 
-export default postSlice.reducer;
+export default OTPSlice.reducer;

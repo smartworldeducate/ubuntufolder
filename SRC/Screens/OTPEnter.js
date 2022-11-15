@@ -1,35 +1,80 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar, TouchableOpacity, ImageBackground, TextInput } from 'react-native';
+import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar, TouchableOpacity, ImageBackground, TextInput, Platform } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useLinkProps, useNavigation, CommonActions } from '@react-navigation/native';
 
 import { CodeField, Cursor, useBlurOnFulfill, isLastFilledCell, MaskSymbol, useClearByFocusCell } from 'react-native-confirmation-code-field';
 
-import OTPInputView from '@twotalltotems/react-native-otp-input'
+import OTPInputView from '@twotalltotems/react-native-otp-input';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { OTPCodeAction } from "../Redux/Features/PhoneNumberSignUp/EnterOTPSignUpKit";
 
 
 import colors from '../Styles/colors';
 import fontFamily from "../Styles/fontFamily";
 import Button from '../Components/Button/Button';
+import { concat } from 'react-native-reanimated';
 
 
 const CELL_COUNT = 4;
 
 const OTPEnter = ({ route }) => {
 
-    console.log("routeParamsMobile", route.params.contactNumberParam);
+    const [firstOTP, setFirstOTP] = useState("");
+    const [secondOTP, setSecondOTP] = useState("");
+    const [thirdOTP, setThirdOTP] = useState("");
+    const [fourthOTP, setFourthOTP] = useState("");
+    const [totalOTP, setTotalOTP] = useState('');
+    const [value, setValue] = useState('');
 
+    // console.log("routeParamsDeviceType", route.params.deviceTypeParam);
+    // console.log("routeParamsMobile", route.params.contactNumberParam);
+    // console.log("routeParamsDeviceIdentifier", route.params.deviceIdentifierParam);
+    // console.log("routeParamsDeviceToken", route.params.deviceTokenParam);
 
-    const [firstOTP, setFirstOTP] = useState();
-    const [secondOTP, setSecondOTP] = useState();
-    const [thirdOTP, setThirdOTP] = useState();
-    const [fourthOTP, setFourthOTP] = useState();
-
-    const [mobileNumber, setMobileNumber] = useState(route.params.notificationDataParam);
 
     const onChangeFirstOTP = (val) => {
         setFirstOTP(val);
+        setValuesObj({ ...valuesObj, pin_code_sms: val })
     }
+
+    console.log("firstOTPFinal", firstOTP);
+
+    const [valuesObj, setValuesObj] = useState({
+        // device_type: "android",
+        // sms_number: "03164025665",
+        // device_identifier: "asdf",
+        // device_token: "asdf",
+        // pin_code_sms: 8015
+
+
+        device_type: route.params.deviceTypeParam,
+        sms_number: route.params.contactNumberParam,
+        device_identifier: route.params.deviceIdentifierParam,
+        device_token: route.params.deviceTokenParam,
+        pin_code_sms: firstOTP
+    });
+
+
+
+
+
+    // console.log("typeof1", typeof (valuesObj.device_type));
+    // console.log("typeof2", typeof (valuesObj.sms_number));
+    // console.log("typeof3", typeof (valuesObj.device_identifier));
+    // console.log("typeof4", typeof (valuesObj.pin_code_sms));
+
+
+
+    const dispatch = useDispatch();
+    const OTPCodeHere = useSelector((state) => state.OTPCodeStore);
+
+
+
+    const [mobileNumber, setMobileNumber] = useState(route.params.notificationDataParam);
+
+
 
     const onChangeSecondOTP = (val) => {
         setSecondOTP(val);
@@ -39,9 +84,10 @@ const OTPEnter = ({ route }) => {
         setThirdOTP(val);
     }
 
-
     const onChangeFourthOTP = (val) => {
         setFourthOTP(val);
+        // setTotalOTP(concat(firstOTP, secondOTP, thirdOTP, fourthOTP));
+        // console.log("totalOTPInner", totalOTP);
     }
 
     const navigation = useNavigation();
@@ -60,17 +106,29 @@ const OTPEnter = ({ route }) => {
         }
     }
 
+    // useEffect(() => {
+    //     setTotalOTP(firstOTP.concat(secondOTP).concat(thirdOTP).concat(fourthOTP));
+    // }, [firstOTP, secondOTP, thirdOTP, fourthOTP])
+
+    const totalOTPFunction = () => {
+        // setTotalOTP(firstOTP + "" + secondOTP + "" + "" + thirdOTP + "" + fourthOTP);
+        // setTotalOTP(concat(firstOTP, secondOTP, thirdOTP, fourthOTP));
+        console.log("totalOTP", totalOTP);
+    }
+
     const [inputContactState, setInputContactState] = useState('');
     const onChangeContact = (val) => {
         setInputContactState(val);
     }
 
-    const [value, setValue] = useState('');
+
     const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({
         value,
         setValue,
     });
+
+
 
 
     const [isAllFilled, setIsAllFiilled] = useState(false);
@@ -105,6 +163,22 @@ const OTPEnter = ({ route }) => {
         );
     };
 
+    const onPressSubmitCode = async () => {
+        // totalOTPFunction();
+        // setTotalOTP(firstOTP.concat(secondOTP).concat(thirdOTP).concat(fourthOTP));
+        // setTotalOTP("".concat(firstOTP, secondOTP, thirdOTP, fourthOTP));
+        // dispatch(OTPCodeAction(route.params.deviceTypeParam, route.params.contactNumberParam, route.params.deviceIdentifierParam, route.params.deviceTokenParam, totalOTP));
+
+        // "android", "03164025665", "asdf", "qwer", "7123"
+
+        dispatch(OTPCodeAction(valuesObj));
+        handleNavigate("HomeScreen");
+        // () => handleNavigate("HomeScreen")
+        // console.log("totalOTP", totalOTP);
+    }
+
+    // console.log("totalOTPOuter", totalOTP);
+
 
     return (
         <ImageBackground
@@ -130,11 +204,26 @@ const OTPEnter = ({ route }) => {
 
             <View style={{ height: hp('20'), flexDirection: 'column', backgroundColor: 'white', marginHorizontal: wp('5'), borderRadius: wp('5') }}>
 
-                <View style={{ paddingTop: wp('2'), height: hp('7'), justifyContent: 'flex-end', paddingTop: hp('2'), paddingHorizontal: wp('5')}}>
+                <View style={{ paddingTop: wp('2'), height: hp('7'), justifyContent: 'flex-end', paddingTop: hp('2'), paddingHorizontal: wp('5') }}>
 
-                    {/* <View style={{ flexDirection: "row", justifyContent: "space-evenly", justifyContent: 'center', marginHorizontal: wp('5') }}>
-                        <View style={{ flex: 0.2, borderBottomColor: colors.grey, borderBottomWidth: wp('0.5'), }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-evenly", justifyContent: 'center', marginHorizontal: wp('5') }}>
+                        <View style={{ borderBottomColor: colors.grey, borderBottomWidth: wp('0.5'), }}>
+                            <TextInput keyboardType={"numeric"} maxLength={4}
+                                onChangeText={onChangeFirstOTP}
+                                returnKeyType="next"
+                                style={{
+                                    marginHorizontal: wp('5'), fontSize: hp('1.75'), fontFamily: fontFamily.regular, height: hp('5')
+                                }}
+                            />
+                        </View>
+
+                        {/* <View style={{ flex: 0.05 }}>
+
+                        </View>
+
+                        <View style={{ flex: 0.2, borderBottomColor: colors.grey, borderBottomWidth: wp('0.5') }}>
                             <TextInput keyboardType={"numeric"} maxLength={1}
+                                onChangeText={onChangeSecondOTP}
                                 returnKeyType="next"
                                 style={{
                                     marginHorizontal: wp('5'), fontSize: hp('1.75'), fontFamily: fontFamily.regular, height: hp('5')
@@ -148,6 +237,7 @@ const OTPEnter = ({ route }) => {
 
                         <View style={{ flex: 0.2, borderBottomColor: colors.grey, borderBottomWidth: wp('0.5') }}>
                             <TextInput keyboardType={"numeric"} maxLength={1}
+                                onChangeText={onChangeThirdOTP}
                                 returnKeyType="next"
                                 style={{
                                     marginHorizontal: wp('5'), fontSize: hp('1.75'), fontFamily: fontFamily.regular, height: hp('5')
@@ -161,30 +251,18 @@ const OTPEnter = ({ route }) => {
 
                         <View style={{ flex: 0.2, borderBottomColor: colors.grey, borderBottomWidth: wp('0.5') }}>
                             <TextInput keyboardType={"numeric"} maxLength={1}
+                                onChangeText={onChangeFourthOTP}
                                 returnKeyType="next"
                                 style={{
                                     marginHorizontal: wp('5'), fontSize: hp('1.75'), fontFamily: fontFamily.regular, height: hp('5')
                                 }}
                             />
-                        </View>
-
-                        <View style={{ flex: 0.05 }}>
-
-                        </View>
-
-                        <View style={{ flex: 0.2, borderBottomColor: colors.grey, borderBottomWidth: wp('0.5') }}>
-                            <TextInput keyboardType={"numeric"} maxLength={1}
-                                returnKeyType="next"
-                                style={{
-                                    marginHorizontal: wp('5'), fontSize: hp('1.75'), fontFamily: fontFamily.regular, height: hp('5')
-                                }}
-                            />
-                        </View>
-                    </View> */}
+                        </View> */}
+                    </View>
 
 
                     {/* <View style={{ paddingHorizontal: wp('5') }}> */}
-                    <CodeField
+                    {/* <CodeField
                         ref={ref}
                         {...props}
                         // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
@@ -195,7 +273,7 @@ const OTPEnter = ({ route }) => {
                         keyboardType="number-pad"
                         textContentType="oneTimeCode"
                         renderCell={renderCell}
-                    />
+                    /> */}
                     {/* </View> */}
 
 
@@ -213,10 +291,10 @@ const OTPEnter = ({ route }) => {
                     /> */}
                 </View>
 
-                <View style={{ height: hp('8'), justifyContent: "flex-end", marginHorizontal: wp('5')}}>
+                <View style={{ height: hp('8'), justifyContent: "flex-end", marginHorizontal: wp('5') }}>
 
                     <Button
-                        onPress={() => handleNavigate("HomeScreen")}
+                        onPress={onPressSubmitCode}
                         height={hp('4.5')} borderRadius={wp('1.5')}
                         text="Submit Code"
                         bgColor={colors.appColor}
