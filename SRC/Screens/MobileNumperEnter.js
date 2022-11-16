@@ -27,6 +27,8 @@ const MobileNumperEnter = () => {
     const [deviceIdentifier, setDeviceIdentifier] = useState("asdf");
     const [deviceToken, setDeviceToken] = useState("asdf");
 
+    const [buttonState, setButtonState] = useState(true);
+
 
     const navigation = useNavigation();
     const handleNavigate = (routeName, clearStack, params) => {
@@ -39,13 +41,26 @@ const MobileNumperEnter = () => {
     const onChangeContact = (val) => {
         setInputContactState(val);
         setValues({ ...values, sms_number: val });
+        // setButtonState(inputContactState.length >= 11 ? true : false);
+    }
+
+    const validateField = () => {
+        if (inputContactState.length != 11) {
+            alert('Please enter 11 digits number');
+            return false
+        }
+        else{
+            handleNavigate("OTPEnter", false, { deviceTypeParam: deviceType, contactNumberParam: inputContactState, deviceIdentifierParam: deviceIdentifier, deviceTokenParam: deviceToken });
+            return true
+        }
+        
     }
 
     const onPressSendCode = () => {
-        
+        validateField();
         dispatch(createPost(inputContactState.toString()));
         // dispatch(createPost(values.sms_number.toString()));
-        handleNavigate("OTPEnter", false, { deviceTypeParam: deviceType, contactNumberParam: inputContactState, deviceIdentifierParam: deviceIdentifier, deviceTokenParam: deviceToken });
+        // handleNavigate("OTPEnter", false, { deviceTypeParam: deviceType, contactNumberParam: inputContactState, deviceIdentifierParam: deviceIdentifier, deviceTokenParam: deviceToken });
     }
 
     useEffect(() => {
@@ -65,8 +80,8 @@ const MobileNumperEnter = () => {
         const deviceId = DeviceInfo.getDeviceId();
         // console.log("deviceId", deviceId);
         // setDeviceIdentifier(deviceId);
-        
-        console.log("adder", 2+2);
+
+        console.log("adder", 2 + 2);
 
     }, [inputContactState, deviceType, deviceIdentifier, deviceToken])
 
@@ -78,6 +93,16 @@ const MobileNumperEnter = () => {
 
             <View style={styles.mainTopView}>
             </View>
+
+            {/* {
+                buttonState ?
+                    <View style={{ marginHorizontal: wp("8") }}>
+                        <Text style={{ color: colors.white }}>Please type your number below</Text>
+                    </View>
+                    :
+                    null
+            } */}
+
 
             <View style={styles.contactNumberMainView}>
                 <View style={styles.contactTextInputView}>
@@ -106,6 +131,7 @@ const MobileNumperEnter = () => {
                 <View style={styles.textView}>
 
                     <Button
+                        // disabled={buttonState}
                         onPress={onPressSendCode}
                         height={hp('4.5')}
                         borderRadius={wp('1.5')}

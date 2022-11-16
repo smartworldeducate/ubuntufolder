@@ -57,19 +57,14 @@ const OTPEnter = ({ route }) => {
     });
 
 
-
-
-
     // console.log("typeof1", typeof (valuesObj.device_type));
     // console.log("typeof2", typeof (valuesObj.sms_number));
     // console.log("typeof3", typeof (valuesObj.device_identifier));
     // console.log("typeof4", typeof (valuesObj.pin_code_sms));
 
 
-
     const dispatch = useDispatch();
     const OTPCodeHere = useSelector((state) => state.OTPCodeStore);
-
 
 
     const [mobileNumber, setMobileNumber] = useState(route.params.notificationDataParam);
@@ -163,7 +158,23 @@ const OTPEnter = ({ route }) => {
         );
     };
 
+
+    const validateField = () => {
+        if (firstOTP.length != 4) {
+            alert('Please enter valid 4 digits OTP');
+            return false
+        }
+        else {
+            handleNavigate("HomeScreen");
+            return true
+        }
+
+    }
+
+
+
     const onPressSubmitCode = async () => {
+        validateField();
         // totalOTPFunction();
         // setTotalOTP(firstOTP.concat(secondOTP).concat(thirdOTP).concat(fourthOTP));
         // setTotalOTP("".concat(firstOTP, secondOTP, thirdOTP, fourthOTP));
@@ -172,9 +183,7 @@ const OTPEnter = ({ route }) => {
         // "android", "03164025665", "asdf", "qwer", "7123"
 
         dispatch(OTPCodeAction(valuesObj));
-        handleNavigate("HomeScreen");
-        // () => handleNavigate("HomeScreen")
-        // console.log("totalOTP", totalOTP);
+        // handleNavigate("HomeScreen");
     }
 
     // console.log("totalOTPOuter", totalOTP);
