@@ -135,13 +135,13 @@ const MainHeader = ({ onPressRightImg, topLeftImg, text, stuName, stuNumber, cam
                                 />
                             </View> */}
                             <View style={{ flexDirection: "column" }}>
-                                <View style={styles.imageView}>
+                                <TouchableOpacity onPress={onPressCameraImg} style={styles.imageView}>
                                     <Image
                                         source={{ uri: defaultImg }}
                                         style={styles.mainImageStyle}
                                         resizeMode={"cover"}
                                     />
-                                </View>
+                                </TouchableOpacity>
 
                                 <View style={styles.textView}>
                                     <Text style={styles.textStatus}>
