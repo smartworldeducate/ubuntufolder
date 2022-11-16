@@ -16,6 +16,7 @@ export const APIS = {
 
     PhoneNumberSignUp: BASE_URL + 'signup',
     OTPCodeSignUpAPI: BASE_URL + 'verify',
+    CalanderAPI: BASE_URL + 'attendance',
 
     // RegisterSignUp: BASE_URL + 'Authenticate/RegisterClient',
 

@@ -16,7 +16,13 @@ const colors = {
   silverGrey: "#F8F8F8",
   lightOrange: "#fbdd4b",
   appColor: "#2969ae",
-  appDarkColor: "#265ca3"
+  appDarkColor: "#265ca3",
+  lightGreen: "#99c354",
+  lightGreenType: "#2f727e",
+  lightRedType: "#8f211d'",
+  lightOrangeType: "#e27538",
+  lightBlueType: "#2c71b3",
+  lightGreyType: "#8996a3"
 };
 
 export default colors;

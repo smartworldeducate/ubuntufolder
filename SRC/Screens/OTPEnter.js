@@ -53,7 +53,8 @@ const OTPEnter = ({ route }) => {
         sms_number: route.params.contactNumberParam,
         device_identifier: route.params.deviceIdentifierParam,
         device_token: route.params.deviceTokenParam,
-        pin_code_sms: firstOTP
+        pin_code_sms: firstOTP,
+        // is_debug: "",
     });
 
 
