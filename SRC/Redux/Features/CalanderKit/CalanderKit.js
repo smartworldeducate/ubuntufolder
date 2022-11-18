@@ -3,14 +3,14 @@ import axios from "axios";
 import { APIS, config } from "../../../API/Apis";
 
 const initialState = {
-    posts: '',
+    posts: [],
     isLoading: false,
     error: ''
 }
 // sms_number: "03164025665"
 export const calanderAction = createAsyncThunk("calander", async (values) => {
     console.log("valuesApi", values);
-    return axios
+    return await axios
         .post(`${APIS.CalanderAPI}`, { system_id: values }, {
             headers: {
                 'api_key': 'X5Ne0km7852Q1ykny9FfcIK5y9kVV5v6',
