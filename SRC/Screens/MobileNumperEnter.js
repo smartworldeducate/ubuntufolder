@@ -15,6 +15,7 @@ import TextInputCustom from '../Components/TextInput/TextInput';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost } from "../Redux/Features/PhoneNumberSignUp/PhoneNumberSignUp";
+import Loader from '../Components/Loader/Loader';
 
 
 const MobileNumperEnter = () => {
@@ -28,6 +29,11 @@ const MobileNumperEnter = () => {
     const [deviceToken, setDeviceToken] = useState("asdf");
 
     const [buttonState, setButtonState] = useState(true);
+
+    const [alertValue, setAlertValue] = useState(false);
+    const [loader, setLoader] = useState(false);
+
+    const [successValue, setSuccessValue] = useState(null);
 
 
     const navigation = useNavigation();
@@ -44,29 +50,7 @@ const MobileNumperEnter = () => {
         // setButtonState(inputContactState.length >= 11 ? true : false);
     }
 
-    const validateField = () => {
-        if (inputContactState.length != 11) {
-            alert('Please enter 11 digits number');
-            return false
-        }
-        else{
-            handleNavigate("OTPEnter", false, { deviceTypeParam: deviceType, contactNumberParam: inputContactState, deviceIdentifierParam: deviceIdentifier, deviceTokenParam: deviceToken });
-            return true
-        }
-        
-    }
-
-    const onPressSendCode = () => {
-        validateField();
-        dispatch(createPost(inputContactState.toString()));
-        // dispatch(createPost(values.sms_number.toString()));
-        // handleNavigate("OTPEnter", false, { deviceTypeParam: deviceType, contactNumberParam: inputContactState, deviceIdentifierParam: deviceIdentifier, deviceTokenParam: deviceToken });
-    }
-
     useEffect(() => {
-        // device info
-        const appName = DeviceInfo.getApplicationName();
-        // console.log("appName", appName);
 
         const type = DeviceInfo.getDeviceType();
         // console.log("type", type);
@@ -81,68 +65,85 @@ const MobileNumperEnter = () => {
         // console.log("deviceId", deviceId);
         // setDeviceIdentifier(deviceId);
 
-        console.log("adder", 2 + 2);
+    }, [inputContactState, deviceType, deviceIdentifier, deviceToken, values])
 
-    }, [inputContactState, deviceType, deviceIdentifier, deviceToken])
+    console.log("phoneNumberHere", phoneNumberHere);
+
+    const onPressSendCode = () => {
+
+        dispatch(createPost(inputContactState.toString()));
+
+        console.log("phoneNumberHere", phoneNumberHere);
+        console.log("successValueHere", phoneNumberHere.posts.success);
+
+        setSuccessValue(phoneNumberHere.posts.success);
+
+        if (phoneNumberHere.posts.success == 1) {
+            handleNavigate("OTPEnter", false, { deviceTypeParam: deviceType, contactNumberParam: inputContactState, deviceIdentifierParam: deviceIdentifier, deviceTokenParam: deviceToken });
+            setAlertValue(false);
+        }
+        else {
+            setAlertValue(true);
+        }
+    }
 
     return (
         <ImageBackground
             source={{ uri: "mainsplash" }}
             style={{ flex: 1 }}
             resizeMode={"stretch"}>
-
-            <View style={styles.mainTopView}>
-            </View>
-
-            {/* {
-                buttonState ?
-                    <View style={{ marginHorizontal: wp("8") }}>
-                        <Text style={{ color: colors.white }}>Please type your number below</Text>
+            {
+                alertValue ?
+                    <View style={{ marginTop: hp('2'), height: hp('9'), backgroundColor: "#404040", marginHorizontal: hp('2'), justifyContent: "center", alignItems: 'center', borderRadius: wp('2'), }}>
+                        <Text style={{ color: colors.white, fontSize: hp('2'), fontFamily: fontFamily.regular, paddingHorizontal: wp('2'), paddingVertical: hp('0.5'), textAlign: "center" }}>{"Please enter a valid mobile number or contact the respective school PRO."}</Text>
                     </View>
                     :
                     null
-            } */}
+            }
+            {
+                loader ?
+                    <Loader /> :
+                    <>
+                        <View style={styles.mainTopView}>
+                        </View>
+                        <View style={styles.contactNumberMainView}>
+                            <View style={styles.contactTextInputView}>
 
+                                <TextInputCustom
+                                    value={values.sms_number}
+                                    onChangeText={onChangeContact}
+                                    keyboardType={"numeric"}
+                                    maxLength={11}
+                                    placeholder={"Phone Number"}
+                                    placeholderColor={colors.grey}
+                                    textColor={colors.fbColor}
+                                    returnKeyType={"go"}
 
-            <View style={styles.contactNumberMainView}>
-                <View style={styles.contactTextInputView}>
+                                    style={styles.textInputCustomStyle}
+                                />
+                            </View>
 
-                    <TextInputCustom
-                        value={values.sms_number}
-                        onChangeText={onChangeContact}
-                        keyboardType={"numeric"}
-                        maxLength={11}
-                        placeholder={"Phone Number"}
-                        placeholderColor={colors.grey}
-                        textColor={colors.fbColor}
-                        returnKeyType={"go"}
+                            <View style={styles.textView}>
+                                <Text style={styles.textStyle}>
+                                    Enter your registered mobile number
+                                </Text>
+                            </View>
 
-                        style={styles.textInputCustomStyle}
-                    />
-
-                </View>
-
-                <View style={styles.textView}>
-                    <Text style={styles.textStyle}>
-                        Enter your registered mobile number
-                    </Text>
-                </View>
-
-                <View style={styles.textView}>
-
-                    <Button
-                        // disabled={buttonState}
-                        onPress={onPressSendCode}
-                        height={hp('4.5')}
-                        borderRadius={wp('1.5')}
-                        text="Send Code"
-                        bgColor={colors.appColor}
-                        textColor={colors.white}
-                        textSize={hp('1.75')}
-                    />
-
-                </View>
-            </View>
+                            <View style={styles.textView}>
+                                <Button
+                                    // disabled={buttonState}
+                                    onPress={onPressSendCode}
+                                    height={hp('4.5')}
+                                    borderRadius={wp('1.5')}
+                                    text="Send Code"
+                                    bgColor={colors.appColor}
+                                    textColor={colors.white}
+                                    textSize={hp('1.75')}
+                                />
+                            </View>
+                        </View>
+                    </>
+            }
 
         </ImageBackground>
     );

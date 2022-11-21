@@ -9,7 +9,7 @@ const initialState = {
 }
 // sms_number: "03164025665"
 export const createPost = createAsyncThunk("enterPhoneNumber", async (values) => {
-    console.log("values123", values);
+    // console.log("values123", values);
     return axios
         .post(`${APIS.PhoneNumberSignUp}`, { sms_number: values }, {
             headers: {
