@@ -3,13 +3,15 @@ import axios from "axios";
 import { APIS, config } from "../../../API/Apis";
 
 const initialState = {
-    posts: '',
+    posts: null,
     isLoading: false,
-    error: ''
+    error: '',
+    message: '',
+    success: 0,
 }
 // sms_number: "03164025665"
 export const OTPCodeAction = createAsyncThunk("enterOTP", async (values) => {
-    console.log("valuesApi", values);
+    // console.log("valuesApi", values);
     return axios
         .post(`${APIS.OTPCodeSignUpAPI}`, values, {
             headers: {
@@ -19,27 +21,36 @@ export const OTPCodeAction = createAsyncThunk("enterOTP", async (values) => {
         })
         .then((response) => response.data)
 })
-
-
 const OTPSlice = createSlice({
     name: 'posts',
     initialState,
-    extraReducers: {
-        [OTPCodeAction.pending]: (state, action) => {
-            state.isLoading = true;
-        },
-        [OTPCodeAction.fulfilled]: (state, action) => {
-            state.isLoading = false;
-            state.posts = action.payload;
-            state.error = '';
-
-            console.log("OTPKitPayload", action.payload);
-        },
-        [OTPCodeAction.rejected]: (state, action) => {
-            state.isLoading = false;
-            state.error = action.error.message;
-        }
-    }
-})
+    reducers: {
+      clearState: (state, action) => {
+        state.posts = null;
+        state.message = '';
+      },
+    },
+    extraReducers: builder => {
+      builder.addCase(OTPCodeAction.pending, state => {
+        state.isLoading = true;
+      });
+      builder.addCase(OTPCodeAction.rejected, state => {
+        return {isLoading: false, error: 'error'};
+      });
+      builder.addCase(OTPCodeAction.fulfilled, (state, action) => {
+        return {
+          isLoading: false,
+          posts: action.payload.result,
+          error: '',
+          message: action.payload.message,
+          success: action.payload.success,
+        };
+      });
+    //   console.log("messageOTP", message);
+    //   console.log("successOTP", success);
+    },
+  });
+  
+  export const {clearState} = OTPSlice.actions;
 
 export default OTPSlice.reducer;

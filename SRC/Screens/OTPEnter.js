@@ -8,13 +8,15 @@ import { CodeField, Cursor, useBlurOnFulfill, isLastFilledCell, MaskSymbol, useC
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { OTPCodeAction } from "../Redux/Features/PhoneNumberSignUp/EnterOTPSignUpKit";
 
+import { clearState, OTPCodeAction } from "../Redux/Features/PhoneNumberSignUp/EnterOTPSignUpKit";
 
 import colors from '../Styles/colors';
 import fontFamily from "../Styles/fontFamily";
 import Button from '../Components/Button/Button';
 import { concat } from 'react-native-reanimated';
+import Toast from 'react-native-toast-message';
+import Loader from '../Components/Loader/Loader';
 
 
 const CELL_COUNT = 4;
@@ -28,6 +30,10 @@ const OTPEnter = ({ route }) => {
     const [totalOTP, setTotalOTP] = useState('');
     const [value, setValue] = useState('');
 
+    const [deviceType, setDeviceType] = useState("android");
+    const [deviceIdentifier, setDeviceIdentifier] = useState("asdf");
+    const [deviceToken, setDeviceToken] = useState("asdf");
+
     // console.log("routeParamsDeviceType", route.params.deviceTypeParam);
     // console.log("routeParamsMobile", route.params.contactNumberParam);
     // console.log("routeParamsDeviceIdentifier", route.params.deviceIdentifierParam);
@@ -39,15 +45,9 @@ const OTPEnter = ({ route }) => {
         setValuesObj({ ...valuesObj, pin_code_sms: val })
     }
 
-    console.log("firstOTPFinal", firstOTP);
+    console.log("firstOTP", firstOTP);
 
     const [valuesObj, setValuesObj] = useState({
-        // device_type: "android",
-        // sms_number: "03164025665",
-        // device_identifier: "asdf",
-        // device_token: "asdf",
-        // pin_code_sms: 8015
-
 
         device_type: route.params.deviceTypeParam,
         sms_number: route.params.contactNumberParam,
@@ -65,26 +65,14 @@ const OTPEnter = ({ route }) => {
 
 
     const dispatch = useDispatch();
-    const OTPCodeHere = useSelector((state) => state.OTPCodeStore);
+    // const OTPCodeHere = useSelector((state) => state.OTPCodeStore);
+    const OTPCodeHere = useSelector((state) => state.OTP);
+
+
+    console.log("OTPCodeHere", OTPCodeHere);
 
 
     const [mobileNumber, setMobileNumber] = useState(route.params.notificationDataParam);
-
-
-
-    const onChangeSecondOTP = (val) => {
-        setSecondOTP(val);
-    }
-
-    const onChangeThirdOTP = (val) => {
-        setThirdOTP(val);
-    }
-
-    const onChangeFourthOTP = (val) => {
-        setFourthOTP(val);
-        // setTotalOTP(concat(firstOTP, secondOTP, thirdOTP, fourthOTP));
-        // console.log("totalOTPInner", totalOTP);
-    }
 
     const navigation = useNavigation();
     const handleNavigate = (routeName, clearStack, params) => {
@@ -102,92 +90,43 @@ const OTPEnter = ({ route }) => {
         }
     }
 
-    // useEffect(() => {
-    //     setTotalOTP(firstOTP.concat(secondOTP).concat(thirdOTP).concat(fourthOTP));
-    // }, [firstOTP, secondOTP, thirdOTP, fourthOTP])
-
-    const totalOTPFunction = () => {
-        // setTotalOTP(firstOTP + "" + secondOTP + "" + "" + thirdOTP + "" + fourthOTP);
-        // setTotalOTP(concat(firstOTP, secondOTP, thirdOTP, fourthOTP));
-        console.log("totalOTP", totalOTP);
-    }
-
     const [inputContactState, setInputContactState] = useState('');
     const onChangeContact = (val) => {
         setInputContactState(val);
     }
 
-
-    const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
-    const [props, getCellOnLayoutHandler] = useClearByFocusCell({
-        value,
-        setValue,
-    });
-
-
-
-
-    const [isAllFilled, setIsAllFiilled] = useState(false);
-
-    const renderCell = ({ index, symbol, isFocused }) => {
-        let textChild = null;
-
-        if (symbol) {
-            textChild = (
-                <MaskSymbol
-                    maskSymbol="●"
-                    isLastFilledCell={
-                        isLastFilledCell({ index, value }),
-                        setIsAllFiilled(index === 3 ? true : false),
-                        console.log("123", index === 3 ? true : false)
-                    }
-                >
-                    {symbol}
-                </MaskSymbol>
-            );
-        } else if (isFocused) {
-            textChild = <Cursor />;
-        }
-
-        return (
-            <Text
-                key={index}
-                style={[styles.cell, isFocused && styles.focusCell]}
-                onLayout={getCellOnLayoutHandler(index)}>
-                {textChild}
-            </Text>
-        );
-    };
-
-
-    const validateField = () => {
-        if (firstOTP.length != 4) {
-            alert('Please enter valid 4 digits OTP');
-            return false
-        }
-        else {
-            handleNavigate("HomeScreen");
-            return true
-        }
-
-    }
-
-
+    // const validateField = () => {
+    //     if (firstOTP.length != 4) {
+    //         alert('Please enter valid 4 digits OTP');
+    //         return false
+    //     }
+    //     else {
+    //         handleNavigate("HomeScreen");
+    //         return true
+    //     }
+    // }
 
     const onPressSubmitCode = async () => {
-        validateField();
-        // totalOTPFunction();
-        // setTotalOTP(firstOTP.concat(secondOTP).concat(thirdOTP).concat(fourthOTP));
-        // setTotalOTP("".concat(firstOTP, secondOTP, thirdOTP, fourthOTP));
-        // dispatch(OTPCodeAction(route.params.deviceTypeParam, route.params.contactNumberParam, route.params.deviceIdentifierParam, route.params.deviceTokenParam, totalOTP));
-
-        // "android", "03164025665", "asdf", "qwer", "7123"
-
+        // validateField();
         dispatch(OTPCodeAction(valuesObj));
+        dispatch(clearState());
         // handleNavigate("HomeScreen");
     }
 
-    // console.log("totalOTPOuter", totalOTP);
+    useEffect(() => {
+        if (OTPCodeHere.success) {
+            handleNavigate("HomeScreen");
+            dispatch(clearState());
+        }
+        if (OTPCodeHere.message) {
+            Toast.show({
+                type: 'success',
+                text1: `${OTPCodeHere.message}`,
+                visibilityTime: 3000,
+                position: 'top',
+            });
+        }
+    }, [OTPCodeHere]);
 
 
     return (
@@ -196,12 +135,9 @@ const OTPEnter = ({ route }) => {
             style={{ flex: 1 }}
             resizeMode={"stretch"}>
 
+            <Toast />
+            {OTPCodeHere?.isLoading && <Loader></Loader>}
             <View style={{ flex: 3.5 }}>
-                {/* <View style={{ backgroundColor: 'pink', alignItems: 'flex-end' }}>
-                    <Text style={{}}>
-                        Enter your registered mobile number
-                    </Text>
-                </View> */}
             </View>
 
             <View style={{ marginBottom: hp('1.5'), marginHorizontal: wp('5') }}>
@@ -227,78 +163,8 @@ const OTPEnter = ({ route }) => {
                             />
                         </View>
 
-                        {/* <View style={{ flex: 0.05 }}>
-
-                        </View>
-
-                        <View style={{ flex: 0.2, borderBottomColor: colors.grey, borderBottomWidth: wp('0.5') }}>
-                            <TextInput keyboardType={"numeric"} maxLength={1}
-                                onChangeText={onChangeSecondOTP}
-                                returnKeyType="next"
-                                style={{
-                                    marginHorizontal: wp('5'), fontSize: hp('1.75'), fontFamily: fontFamily.regular, height: hp('5')
-                                }}
-                            />
-                        </View>
-
-                        <View style={{ flex: 0.05 }}>
-
-                        </View>
-
-                        <View style={{ flex: 0.2, borderBottomColor: colors.grey, borderBottomWidth: wp('0.5') }}>
-                            <TextInput keyboardType={"numeric"} maxLength={1}
-                                onChangeText={onChangeThirdOTP}
-                                returnKeyType="next"
-                                style={{
-                                    marginHorizontal: wp('5'), fontSize: hp('1.75'), fontFamily: fontFamily.regular, height: hp('5')
-                                }}
-                            />
-                        </View>
-
-                        <View style={{ flex: 0.05 }}>
-
-                        </View>
-
-                        <View style={{ flex: 0.2, borderBottomColor: colors.grey, borderBottomWidth: wp('0.5') }}>
-                            <TextInput keyboardType={"numeric"} maxLength={1}
-                                onChangeText={onChangeFourthOTP}
-                                returnKeyType="next"
-                                style={{
-                                    marginHorizontal: wp('5'), fontSize: hp('1.75'), fontFamily: fontFamily.regular, height: hp('5')
-                                }}
-                            />
-                        </View> */}
                     </View>
 
-
-                    {/* <View style={{ paddingHorizontal: wp('5') }}> */}
-                    {/* <CodeField
-                        ref={ref}
-                        {...props}
-                        // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
-                        value={value}
-                        onChangeText={setValue}
-                        cellCount={CELL_COUNT}
-                        rootStyle={styles.codeFieldRoot}
-                        keyboardType="number-pad"
-                        textContentType="oneTimeCode"
-                        renderCell={renderCell}
-                    /> */}
-                    {/* </View> */}
-
-
-                    {/* <OTPInputView
-                        style={{ width: '80%', height: 200 }}
-                        pinCount={4}
-                        // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
-                        // onCodeChanged = {code => { this.setState({code})}}
-                        autoFocusOnLoad
-                        codeInputFieldStyle={styles.underlineStyleBase}
-                        codeInputHighlightStyle={styles.underlineStyleHighLighted}
-                        onCodeFilled={(code) => {
-                            console.log(`Code is ${code}, you are good to go!`)
-                        }}
-                    /> */}
                 </View>
 
                 <View style={{ height: hp('8'), justifyContent: "flex-end", marginHorizontal: wp('5') }}>
@@ -329,30 +195,6 @@ const OTPEnter = ({ route }) => {
 }
 
 const styles = StyleSheet.create({
-    // borderStyleBase: {
-    //     width: 30,
-    //     height: 45
-    // },
-
-    // borderStyleHighLighted: {
-    //     borderColor: "#03DAC6",
-    // },
-
-    // underlineStyleBase: {
-    //     width: 30,
-    //     height: 45,
-    //     borderWidth: 0,
-    //     borderBottomWidth: 1,
-    // },
-
-    // underlineStyleHighLighted: {
-    //     borderColor: "#03DAC6",
-    // },
-
-
-
-
-
     root: { flex: 1, padding: 10, },
     title: { textAlign: 'center', fontSize: 20 },
     codeFieldRoot: { marginTop: 10 },

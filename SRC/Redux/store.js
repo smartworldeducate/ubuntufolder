@@ -9,15 +9,26 @@
 
 import { configureStore } from '@reduxjs/toolkit';
 import postReducer from './Features/AllPost';
+
 import phoneNumberReducer from "./Features/PhoneNumberSignUp/PhoneNumberSignUp";
+import postSlice from "./Features/PhoneNumberSignUp/PhoneNumberSignUp";
+
 import OTPCodeReducer from "./Features/PhoneNumberSignUp/EnterOTPSignUpKit";
+import OTPSlice from "./Features/PhoneNumberSignUp/EnterOTPSignUpKit";
+
 import CalanderReducer from "./Features/CalanderKit/CalanderKit";
+
 
 export const store = configureStore({
     reducer: {
-        post: postReducer,
+        // post: postReducer,
+        post: postSlice,
         phoneNumber: phoneNumberReducer,
-        OTPCodeStore: OTPCodeReducer,
+
+        // OTPCodeStore: OTPCodeReducer,
+
+        OTP: OTPSlice,
+
         calander: CalanderReducer
     }
 })
