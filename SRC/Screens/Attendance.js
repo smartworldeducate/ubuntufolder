@@ -13,6 +13,7 @@ import FlatListItem from '../Components/FlatList/FlatList';
 
 import fontFamily from '../Styles/fontFamily';
 import moment from "moment";
+import Loader from '../Components/Loader/Loader';
 
 
 const Attendance = () => {
@@ -140,6 +141,8 @@ const Attendance = () => {
 
                 {/* calander work */}
 
+                {calanderHere?.isLoading && <Loader></Loader>}
+
                 <View style={{ width: '100%', padding: 20 }}>
 
                     <Calendar
@@ -152,7 +155,7 @@ const Attendance = () => {
                             // textSectionTitleDisabledColor: '#d9e1e8',
                             // selectedDayBackgroundColor: colors.appColor,
                             selectedDayBackgroundColor: "white",
-                            selectedDayTextColor: 'grey',
+                            selectedDayTextColor: colors.black,
                             // todayTextColor: '#00adf5',
                             dayTextColor: '#2d4150',
                             textDisabledColor: '#d9e1e8',

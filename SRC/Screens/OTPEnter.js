@@ -4,75 +4,37 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { useLinkProps, useNavigation, CommonActions } from '@react-navigation/native';
 
 import { CodeField, Cursor, useBlurOnFulfill, isLastFilledCell, MaskSymbol, useClearByFocusCell } from 'react-native-confirmation-code-field';
-
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 
 import { useDispatch, useSelector } from 'react-redux';
-
 import { clearState, OTPCodeAction } from "../Redux/Features/PhoneNumberSignUp/EnterOTPSignUpKit";
-
 import colors from '../Styles/colors';
 import fontFamily from "../Styles/fontFamily";
 import Button from '../Components/Button/Button';
-import { concat } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 import Loader from '../Components/Loader/Loader';
-
-
-const CELL_COUNT = 4;
 
 const OTPEnter = ({ route }) => {
 
     const [firstOTP, setFirstOTP] = useState("");
-    const [secondOTP, setSecondOTP] = useState("");
-    const [thirdOTP, setThirdOTP] = useState("");
-    const [fourthOTP, setFourthOTP] = useState("");
-    const [totalOTP, setTotalOTP] = useState('');
-    const [value, setValue] = useState('');
-
-    const [deviceType, setDeviceType] = useState("android");
-    const [deviceIdentifier, setDeviceIdentifier] = useState("asdf");
-    const [deviceToken, setDeviceToken] = useState("asdf");
-
-    // console.log("routeParamsDeviceType", route.params.deviceTypeParam);
-    // console.log("routeParamsMobile", route.params.contactNumberParam);
-    // console.log("routeParamsDeviceIdentifier", route.params.deviceIdentifierParam);
-    // console.log("routeParamsDeviceToken", route.params.deviceTokenParam);
-
 
     const onChangeFirstOTP = (val) => {
         setFirstOTP(val);
         setValuesObj({ ...valuesObj, pin_code_sms: val })
     }
-
-    console.log("firstOTP", firstOTP);
-
     const [valuesObj, setValuesObj] = useState({
-
         device_type: route.params.deviceTypeParam,
         sms_number: route.params.contactNumberParam,
         device_identifier: route.params.deviceIdentifierParam,
         device_token: route.params.deviceTokenParam,
         pin_code_sms: firstOTP,
-        // is_debug: "",
     });
 
-
-    // console.log("typeof1", typeof (valuesObj.device_type));
-    // console.log("typeof2", typeof (valuesObj.sms_number));
-    // console.log("typeof3", typeof (valuesObj.device_identifier));
-    // console.log("typeof4", typeof (valuesObj.pin_code_sms));
-
-
     const dispatch = useDispatch();
-    // const OTPCodeHere = useSelector((state) => state.OTPCodeStore);
     const OTPCodeHere = useSelector((state) => state.OTP);
 
-
+    console.log("firstOTP", firstOTP);
     console.log("OTPCodeHere", OTPCodeHere);
-
-
-    const [mobileNumber, setMobileNumber] = useState(route.params.notificationDataParam);
 
     const navigation = useNavigation();
     const handleNavigate = (routeName, clearStack, params) => {
@@ -95,22 +57,9 @@ const OTPEnter = ({ route }) => {
         setInputContactState(val);
     }
 
-    // const validateField = () => {
-    //     if (firstOTP.length != 4) {
-    //         alert('Please enter valid 4 digits OTP');
-    //         return false
-    //     }
-    //     else {
-    //         handleNavigate("HomeScreen");
-    //         return true
-    //     }
-    // }
-
     const onPressSubmitCode = async () => {
-        // validateField();
         dispatch(OTPCodeAction(valuesObj));
         dispatch(clearState());
-        // handleNavigate("HomeScreen");
     }
 
     useEffect(() => {
@@ -127,7 +76,6 @@ const OTPEnter = ({ route }) => {
             });
         }
     }, [OTPCodeHere]);
-
 
     return (
         <ImageBackground
@@ -195,23 +143,5 @@ const OTPEnter = ({ route }) => {
 }
 
 const styles = StyleSheet.create({
-    root: { flex: 1, padding: 10, },
-    title: { textAlign: 'center', fontSize: 20 },
-    codeFieldRoot: { marginTop: 10 },
-    cell: {
-        width: 40,
-        height: 40,
-        lineHeight: 38,
-        fontSize: 14,
-        borderWidth: 2,
-        borderColor: colors.borderColor,
-        textAlign: 'center',
-        // paddingTop: hp('0.35'),
-    },
-    focusCell: {
-        borderColor: colors.fbColor,
-    },
-
-
 });
 export default OTPEnter;
